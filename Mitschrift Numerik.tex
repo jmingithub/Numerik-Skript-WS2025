@@ -1,0 +1,267 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Jan Minor}
+\title{Analysis und Numerik von Differentialgleichungen}
+\newcommand{\DGL}{Differentialgleichung }
+\newcommand{\DGLs}{Differentialgleichungen }
+\newcommand{\Lsg}{Lösung }
+\newcommand{\LSG}{Lösungen }
+\begin{document}
+\section{Einleitung}
+16.10.25: \\
+Differentialgleichungen sind Gleichungen, deren Unbekannte eine Funktion ist, statt einer Zahl. Dabei wird Gleichheit zwischen Ausdrücken, die die Funktion und ihre Ableitungen betreffen, beschrieben. \\
+Relevanz von Differentialgleichungen in Biologie, Chemie, Computer/Datenwissenschaften, Ingenieurswesen, Medizin, Ökonomie,... \\
+$<$diverse Beispiele$>$ \\
+Die meisten Differentialgleichungen sind \underline{nicht} explizit lösbar. Wir könne sie diskretisieren und numerische Lösungen simulieren. \\
+Wofür brauchen wir Analysis? \\
+Der output einer numerischen Simulation ist eine Approximation. Diese muss bewertet werden. \\
+Bsp.: 1950er Bei \underline{sehr} hohen Geschwindigkeiten gerieten Hochgeschwindigkeitsflugzeuge in tödliches Trudeln. Ingenieure hatten das nicht erwartet. \underline{Grund}: Nichtlinearitäten, die (noch) besser approximiert werden mussten, spielten bei \underline{sehr} hoher Geschwindigkeit plötzlich eine größere Rolle bei "kleineren hohen" Geschwindigkeiten. \\
+"Dirac" - Man \underline{versteht} eine Gleichung ungefähr, wenn man die Eigenschaften ihrer Lösungen vorhersagen kann, ohne die Gleichung selbst zu lösen. \\
+\section{Einige konkrete Beispiele}
+\subsection{}
+$x'(t) = 3x(t)$, Lösung $x(t) = ce^{3t}$ - sind das alle Lösungen? \\
+Differentialgleichungen vom Typ $x'(t)=\mu x(t), \mu \in \mathbb{R}-\{0\}$ tauchen auf bei der Modellierung von Bakterienwachstum in der Petrischale, $<$diverse Beispiele$>$.
+\subsection{}
+$tan'(t) = sec^2(t) = tan^2(t) + 1, sec(t) = \frac{1}{cos(t)} \\
+x'(t) = x^2(t) + 1$ \\
+Ist $tan(t)$ die einzige Lösung? //
+Multiplikation mit Konstanten, um mehr Lösungen zu erzeugen, funktioniert hier \underline{nicht}. \\
+\underline{Versuch: Ausnutzung der Periodizität} \\
+$x(t) = tan(t + a)$ im Intervall $(-a-\frac{\pi}{2}, -a+\frac{\pi}{2})$ \\
+Weiter ist $(-cot)' = -cot'(t) = csc^2(t) = (\frac{1}{sin(t)})^2 = (-cot(t))^2 + 1$ eine Lsg und $tan(t+\frac{\pi}{2}) = -cot(t)$ \\
+\subsection{}
+$x'(t) = \mu \sqrt{x(t)}, \mu > 0.$ Hier $x(t) \geq 0$, damit die Wurzel gezogen werden kann. \\ \underline{Anwendung}: x(t) beschreibt die Höhe einer Flüssigkeit in einem zylindrischen Tank mit Radius R, welche durch ein kleines Loch im Boden ausläuft. ("Torncelli's Gesetz") \\
+\subsection{\underline{Wie können wir autonome Differentialgleichungen lösen?}}
+$x'(t) = f(x(t))$ oder $x' = f(x)$ (das ist eine autonome DGL) \\
+Bsp.: $x' = 3x$ bzw. $\frac{dx}{dt} = 3x$. Annahme $x \neq 0$, dann gilt: \\
+$\frac{1}{x} \frac{dx}{dt} = 3$. Schreiben \underline{symbolisch}: $\frac{dx}{x} = 3 dt$. Integriere und behandle dabei x und t als unabhängige Variablen. \\ \\
+\begin{align*}
+\int \frac{dx}{x}  &=  \int 3 \, dt \\
+\Leftrightarrow ln|x| + c_1 &= 3t+c_2 \\
+\Rightarrow ln|x| &= 3t + c, c = c_2 - c_1 \\
+\Rightarrow |x(t)| &= e^{3t+c} = e^{3t}e^c = e^{3t}k, k > 0 \Rightarrow x(t) = k e^{3t}, k \neq 0
+\end{align*}
+Da $k \neq 0$, haben wir \underline{nicht} durch 0 geteilt. Aber $x(t) = 0$ ist auch eine Lösung.
+\subsubsection{Theorem}
+Sei $r \in \mathbb{R}$. Die Lösung von $x'(t) = r \cdot x(t)$ sind genau $x(t) = x_0e^{rt}$, wobei $x_o = x(0)$ ist.
+Beweis: Betrachte $y(t) = \frac{x(t)}{e^{rt}} = x(t) e^{-rt}$. \\
+Dann gilt $y'(t) = -re^{-rt}x(t) + e^{-rt}x'(t) = e^{-rt}(-rx(t)+rx(t)) = 0$ \\
+$\Rightarrow y(t) = const. \Rightarrow$ Behauptung
+\subsection{Beispiel}
+\begin{align*}
+x'(t) &= x(t)^2 \Leftrightarrow \frac{1}{x^2} \frac{dx}{dt} = 1 \textbf{ } falls \textbf{ } x \neq 0 \\
+\Rightarrow \int \frac{dx}{x^2} &= \int dt \\
+\Rightarrow -\frac{1}{x} + c_1 &= t + c_2 \\
+\Leftrightarrow -\frac{1}{x} &= t+c \textbf{ mit } c = c_2-c_1 \\
+\Rightarrow x(t) &= -\frac{1}{t+c} \textbf{ für } t \neq -c
+\end{align*}
+und $x \equiv 0$ ist ebenfalls eine Lösung.
+
+\subsection{Beispiel}
+$x' = x^2 + 1 \Leftrightarrow \frac{1}{x^2+1} \frac{dx}{dt} = 1$ Hier wird \underline{nie} durch 0 dividiert. \\
+\begin{align*}
+\int \frac{1}{x^2+1} dx &= \int dt \\
+\Leftrightarrow arctan(x) + c_1 &= t+c_2 \\
+\Leftrightarrow arctan(x) &= t+a \text{ für eine Konstante a}\\
+\Rightarrow x &= tan(t+a)
+\end{align*}
+Dieser Ausdruck ist im Intervall $(-a-\frac{\pi}{2}, -a+\frac{\pi}{2})$ definiert. \\
+\\
+20.10.25: \\
+Learning Center Termin: 14-16 Uhr im ComputerPool \\
+\subsection{Beispiel: "Blow-Up" in endlicher Zeit, (2.5) bei ihr}
+\begin{align*}
+x(t) &= - \frac{1}{t-1} = \frac{1}{1-t} \{^{\rightarrow \text{ } \inf \text{ für } t \rightarrow 1^-}_{\rightarrow -\inf \text{ für } t \rightarrow 1^+}
+\end{align*}
+\underline{Bemerkung: Was bedeutet ein "blow-up"?}
+\begin{itemize}
+\item Für die spezifische Anwendung spielt der Zeitpunkt des "blow-ups" keine Rolle, ist also irrelevant
+\item Die Anwendung beruht auf Modellhypothesen, die Nahe dem blow-up Zeitpunkt "zusammenbrechen"/ungültig werden
+\item Das untersuchte Phänomen durchläuft eine "katastrophale" Dynamik, z.B. thermisches Durchgehen von Batterien
+\end{itemize}
+Der \DGL selbst sieht man dieses Verhalten nicht ohne weiteres an. Hier spielt also die Definition, was eine Lösung ist, eine Rolle und die Existenz von solchen Lösungen.
+\subsection{Beispiel, (2.6) bei ihr}
+Betrachte $x''(t) + Ax'(t) = B$ für Konstanten $A,B; A \neq 0$. Da x selbst nicht vorkommt, betrachte $y=x' \Rightarrow y'(t) + Ay(t) = B$.
+\begin{align*}
+\int \frac{dy}{-Ay+B} = \int dt = t+c \textbf{, für } y \neq \frac{B}{A}.
+\end{align*}
+Setze $u=-Ay+B, du=-Ady$.
+$\Rightarrow \int \frac{dy}{-Ay+B} = \int \frac{-\frac{1}{A}du}{u} = -\frac{1}{A} ln|u| = -\frac{1}{A} ln|-Ay+B| \Rightarrow ln|-Ay+B| = -At-Ac \Rightarrow -Ay+B=\overline{c}e^{-At}$, wobei $\overline{c} = ^+_- e^{-Ac} \neq 0$. \\
+Wir erhalten die Lösungsformel $y_k(t) = ke^{-At} + \frac{B}{A}$ für $k=-\overline{c}/A \neq 0$. Hier korrespondiert $k=0$ zur Lösung $y=\frac{B}{A}$, die wir beim Dividieren ausschließen mussten. \\
+
+Sei $y_k(t_0) = y_0$, dann ist $y_0 = ke^{-At_0} + \frac{B}{A}$, also $k=e^{At_0}(y_0-\frac{B}{A})$ \\
+$\Rightarrow y(t) = (y_0 - \frac{B}{A}e^{-A(t-t_0)} + \frac{B}{A}) \star$ \\
+Da $y=x' \Rightarrow x(t) = -\frac{k}{A} e^{-At} + \frac{B}{A} t + c_2 \Rightarrow x(t) = c_1 e^{-At} + \frac{B}{A} t + c_2$ ist eine Lösung von $x''+Ax'=B$ für beliebige konstanten $c_1, c_2$ \\
+\underline{Bemerkung:} \\
+Die allgemeine Formel $\star$ für eine \DGL $y'+Ay=B$ mit Anfangsbedingung $y(t_0) = y_0$ taucht in Verbindung mit zwei Nobelpreisen auf: 1923 Mellikan - Physik; 1987 Solow - Ökonomie \\
+Für $A=0$ lautet die \DGL $x''= B$, also $x(t) = \frac{B}{2}t^2 + c_1 t + c_2$. \\
+Wie vergleicht sich die Lösung für $A \neq 0$ im limes $A \rightarrow 0$ mit dieser Lösung. \\
+\underline{$lim A \rightarrow 0$}: Vergleiche (für y) die Lösung $ke^{-At} + \frac{B}{A}, k = -\frac{c}{A}, a \neq 0$ geht für $A \rightarrow 0$ nicht gegen $Bt+k$ für \underline{festes} B,k \\
+\underline{Fehler:} k fest für $A \rightarrow 0$. \\
+Der Anfangswert für $t_0 = 0$ $y_0 = k + \frac{B}{A}$ sollte fest sein, auch für $A \rightarrow 0$. \\
+Für $A \neq 0, y_0 = ke^{-At_0} + \frac{B}{A}$, also $k = (y_0 - \frac{B}{A}) e^{At_0}$. Dann ist die Lösung des AWP $y'+Ay=b, y(t_0)=y_0$ für $A \neq 0$ $(y_0-\frac{B}{A})e^{At_0}e^{-At} + \frac{B}{A} = y_0 e^{-A(t-t_0)} + B \frac{1-e^{-A(t-t_0)}}{A} \star$. Das AWP $y'=B, y(t_0) = y_0$ für $A = 0$ hat die (eindeutige) Lösung $y_0 + B(t-t_0)$. Nun betrachte für festes B und $y_0$ (\underline{nicht} festes k) für $A \rightarrow 0$ die rechte Seite von $\star$; $y_0e^{-A(t-t_0)} \rightarrow y_0e^{-0(t-t_0) \rightarrow y_0}$ und $\underset{A \rightarrow 0}{lim} \frac{1-e^{-A(t-t_0)}}{A} \underset{l'Hopital}{=} \frac{(t-t_0)e^{-A(t-t_0)}}{1} = t-t_0 \Rightarrow$ der limes $A \rightarrow 0$ ist $y_0+B(t-t_0).$
+\subsection{Separable \DGL; bei ihr (2.7)}
+Definition: Sei $t\geq0$. Eine separable \DGL erster Ordnung ist eine \DGL der Form $x'(t) = a(t)f(x(t))$ bzw. $x(t)=a(t)f(x)$. Hier sind a und f bekannte Funktionen. Der Fall a = konst ist der Fall einer autonomen \DGL. Wir können auch schreiben $\frac{dx}{f(x)} = a(t)dt$, falls $f(x) \neq 0$ und $\int \frac{dx}{f(x)} = \int a(t)dt$.
+\section{\DGL erster Ordnung - eine dynamische Perspektive}
+"Poincare'sches Prinzip" \\
+sehr verschiedene Phänomene können durch sehr ähnliche \DGLs beschrieben werden. Erkenntnisse über die \DGL in einer spezifischen Situation geben Hinweise über das Verhalten ihrer Lösungen und diese können dann auf \underline{jede} konkrete Interpretation der \DGL angewendet werden.
+\subsection{Newton'sches Gesetz eines Abkühlvorgangs}
+(1701) anonym publiziert \\
+Falls ein Objekt eine andere Temperatur als seine Umgebung hat, dann ist die rate des Wärmetransfers proportional zur Temperaturdifferenz von Objekt und Umgebung. $\rightarrow$ inspirierte Fourier zu den Fourierreihen. \\
+Sei $x(t)$ die Temperatur des Objektes zum Zweitpunkt t (befindet sich z.B. in einem sehr großen Raum oder dem Boden eines Sees). Das umgebende Medium habe die Temperatur $T(t)$ (Luft, Wasser) \\
+Dies wird nicht von Objekten beeinflusst. $x'(t) = -k (x(t) - T(t)), k > 0$. k wird durch die spezifischen physikalischen Eigenschaften der jeweiligen Situation bestimmt. \\
+Falls $T(t) = T_0 = const., x'=-k(x-T_0)$. Sei $x_0 := x(t_0)$. $x'=(x-T_0)' = -k(x-T_0) \Rightarrow y'=-ky \Rightarrow y(t) = c_0e^{-kt} \Rightarrow x(t_0) = T_0 + (x_0 - T_0)e^{-k(t-t_0)}$, da $x_0-T_0 = x(t_0) - T_0 = c_0e^{-kt_0}$, also $c_0 = (x_0-T_0)e^{kt_0}$. \\
+Wir hätten auch $\frac{1}{x-T_0} \frac{dx}{dt} = -k \Leftrightarrow \frac{dx}{x-T_0} = -kdt$ ausnutzen können. \\
+\underline{Experimentelle Überprüfung}
+\begin{itemize}
+\item[(i)] Entweder lassen wir die Anfangstemperatur des Objektes fest und plotten die Lösung für verschiedene k,
+\item[(ii)] oder wir lassen k fest und plotten die Lösung für verschiedene $x_0$.
+\end{itemize}
+(i) bezieht sich auf viele Umgebungen, die alle von derselben Anfangstemperatur aus abkühlen. (ii) bezieht sich auf eine gegebene Umgebung, die von verschiedenen Ausgangstemperaturen abkühlt. \\
+Der exponentielle Abfall erklärt z.B. auch, warum kalte Getränke im Sommer so schnell warm werden. \\ \newpage
+23.10.25: 
+$x = -k(x-T_0)$ \\
+Wie können wir durch zwei Messungen k bestimmen, unter der Voraussetzung, dass unsere \DGL das passende Modell ist und dass die Außentemperatur konstant $T_0$ ist? \\
+Mit Anfangstemperatur $x(0)$ und Temperatur zum Zeitpunkt 20, $x(20)$. Sei $T_0=80\text{°}F, x(0) = 160\text{°}F, x(20) = 145\text{°}F$. \\
+\begin{align*}
+x(20) - T_0 &= (x(0)-T_0)e^{-20k} \\
+\Rightarrow 145-80&=(160-80)e^{-20k} \\
+\Leftrightarrow 65 &= 80e^{-20k} \\
+\Rightarrow k&=\frac{1}{20} ln(\frac{65}{80}) \approx 0,01038
+\end{align*}
+Nun können wir Vorhersagen treffen: \\
+Wie lange dauert es, bis das Objekt von seinen 145°F zum Zeitpunkt t auf 85°F abgekühlt ist? \\
+Sei nun $x(0) = 145, x(t) = 80+65e^{-kt}, x(t) \overset{!}{=} 85$, d.h. für $5=65e^{-kt} \Leftrightarrow 1=13e^{-kt} \Rightarrow t = \frac{ln(13)}{k} \approx 246,6.$ \\
+Das Newton'sche Gesetz funktioniert nicht mehr, wenn die Objekt-Umgebungstemperaturdifferenz sehr groß ist.
+\section{Stationäre Zustände, Stabilität, Phasendiagramme}
+$x'=f(x)$ ist eine autonome \DGL erster Ordnung.
+\subsection{Definition: stationäre Lösung}
+Eine stationäre Lösung einer autonomen \DGL $x'(t) = f(x(t))$ ist eine konstante Funktion $x(t) = c$, die diese \DGL löst, d.h. $f(c) = 0$.
+\subsection{Beispiele}
+Stationäre Lösungen von $x'=3x$ und $x'=x^2$ sind $c=0$
+\begin{itemize}
+\item[(a)] $x'=3x$ und $x'=x^2$ sind $c=0$
+\item[(b)] $x'=x^2-s$ sind $c=1$ und $c=-1$
+\item[(c)] $x'=x^2+1$ existieren nicht für reelle $c$
+\item[(d)] $x'=rx(1-\frac{x}{K}), r,K > 0$ (logistische Gleichung) sind $c=0$ und $c=K$, unabhängig von r.
+\end{itemize}
+\subsection{Theorem}
+Betrachte $x'(t) = f(x(t))$ (autonome \DGL). Falls zwei voneinander verschiedene Lösungen $x_1(t), x_2(t)$ existieren, dann berühren sich ihre Graphen \underline{nie}. Falls $x(t)$ nicht konstant ist, dann liegt der zugehörige Graph \underline{ganz} auf einer Seite der stationären Lösungen.
+\subsection{Definition: Stabilität von \LSG von autonomen \DGLs}
+Eine stationäre \Lsg c für die \DGL $x'(t) = f(x(t))$ heißt \underline{stabil}, falls für $x_0 \approx c$ die \Lsg des Anfangswertproblems (AWP) $x'(t) = f(x(t)), x(0) = x_0$ für $t \rightarrow \inf$ gegen c konvergiert (attraktiv) \\
+c heißt \underline{instabil}, falls ein r > 0 existiert, sodass für \underline{alle} $x_0 \approx c$ die \Lsg des AWP ab einem gewissen Zeitpunkt einen Abstand $>r$ von $c$ hat und für alle größeren Zeiten dort verbleibt (abstoßend) \\
+c heißt \underline{semi-stabil}, falls es auf einer Seite stabil und auf der anderen Seite instabil ist. \\
+\underline{Bemerkung:} Diese Klassifikation ist \underline{nicht} vollständig. \underline{Beispiel:} $x'=e^{-\frac{1}{x^2}}sin(\frac{1}{x}), c=0$. \\
+Stabilität bedeutet z.B., dass kleine Messfehler die Vorhersagen des Verhaltens in der Nähe stationärer \LSG nicht beeinflussen. Instabile \LSG sieht man im Experiment mit großer Wahrscheinlichkeit \underline{nicht}.
+\subsection{Theorem}
+Betrachte die autonome \DGL $x'(t) = f(x(t))$ für $t \geq 0$ und "genügend glattes" f. \\
+Sei $x(t) = c$ eine stationäre \Lsg, d.h. $f(c)=0$.
+\begin{itemize}
+\item[(i)] c ist stabil, falls der Graph von f nah bei c die horizontale Achse von positiv nach negativ durchkreuzt, d.h. $f'(c) < 0$.
+\item[(ii)] c ist instabil, falls $f'(c) > 0$
+\item[(iii)] c ist semi-stabil, falls $f'(c) = 0$ und $f''(c) \neq 0$.
+\end{itemize}
+Falls $f'(c) = f''(c) = 0$, dann muss der Graph von f näher studiert werden.
+\subsection{Beispiel}
+Betrachet die allgemeine logistische \DGL $x'(t) = rx(t)(1-\frac{x}{K}) = rx-\frac{rx^2}{K}$ für $r,K > 0$ und $t \geq 0$. \\
+Sei $x(0) \geq 0$. Dieses AWP besitzt die \Lsg $x(t) = \frac{Kx(0)}{x(0)+(K-x(0))e^{-rt}}$ (prüfe durch Einsetzen). \\
+Die Lösungskurven $x(t)$ für $t \geq 0$ und $x(0) \geq 0$ wechseln Konkarität an der Horizontalen $\frac{K}{2}$ (Wendestellen). K zieht Lösungen an, 0 stößt Lösungen ab. \\
+\underline{Phasenlinien/Phasendiagramme} \\
+$x'=rx(1-\frac{x}{K})$, hier mit Parameter $r=2, K=7$. Falls $x(0) = 0$ oder $x(0) = 7$ passiert nichts mehr. \\
+Falls $x(0) > 7 \Rightarrow 2x(1-\frac{x}{7}) < 0$, \\
+Falls $0 < x(0) < 7 \Rightarrow 2x(1-\frac{x}{7}) > 0$, \\
+Falls $x(0) < 0 \Rightarrow 2x(1-\frac{x}{7}) < 0$. \\
+$f(x) = 2x(1-\frac{x}{7}) \rightarrow$ Goodnotes 3
+\subsection{}
+Goodnotes 4
+\section{\DGLs zweiter Ordnung und AWP}
+\subsection{Definition}
+Für linerare \DGLs der Form $x'' + ax' + bx = 0, a,b \in \mathbb{R}, t \geq 0$, legt das assoziierte AWP \underline{zwei} Werte fest: $x(t_0) = x_0$ und $x'(t_0) = x_0', x_0, x_0' \in \mathbb{R}$.
+\subsection{Theorem}
+Betrachte $x'' + ax' + bx = 0, a,b \in \mathbb{R}, t \geq 0$. \\
+Dann gibt es ein Lösungspaar $x_1(t), x_2(t)$, welches explizit durch \LSG der quadratischen Gleichung $\lambda^2+a\lambda+b=0$ beschrieben werden kann, sodass jede \Lsg der \DGL eindeutig wie folgt ausgedrückt werden kann: \\
+$x(t) = c_1 \cdot x_1(t) + c_2 \cdot x_2(t), c_1, c_2 \in \mathbb{R}$. Weiter gilt: Für jedes $t_0$ und jedes $x_0, x_0'$ existiert \underline{genau eine} solche \Lsg, die das AWP mit $x(t_0) = x_0, x'(t_0) = x_0'$ erfüllt.
+\subsection{Wichtiges praktisches Beispiel}
+\begin{itemize}
+\item[(a)] $x''(t) + \omega^2x(t) = 0, \omega > 0$ \\ goodnotes 5 \\
+Feder an der Wand, Masse an einer Feder. \underline{Annahme: } Reibung spielt keine Rolle, $x(t)$ - Position der Feder. Ziehen oder Zusammendrücken der Feder lässt die Position der Masse oszillieren, $x=0$ Ruhezustand. Das Bewegungsgesetz(Newton) und das Hook'sche Gesetz für Federn $mx''+kx = 0$, wobei $m>0$ die Masse des an der Feder befestigten Objektes ist und $k>0$ die Federkonstante, d.h. $\omega = \sqrt{\frac{k}{m}}$. (Bem. Es gibt auch nichtlineare Federn.)
+\item[(b)] LC-Schaltkreis/Schwingkreis: \\
+elektronischer Schaltkreis, der aus einer Induktivität (z.B. Spule) L und einem Kondensator besteht. Das Kirckhoffsche Gesetz besagt, dass der elektrische Strom $I(t)$ folgende Dynamik hat: \\
+$LI''(t) + \frac{1}{C}I(t) = 0$. L ist die Induktivität und C die sogenannte Kapazität des Kondensators, d.h. $\omega = \frac{1}{\sqrt{LC}}$. \\
+Betrachte allgemein $x''+ax'+bx=0$. \\
+ \underline{Ansatz: } $e^{\lambda t} = x(t)$. Dann ist $x'(t) = \lambda e^{\lambda t}, x''(t) = \lambda^2e^{\lambda t}$. Also $\lambda^2e^{\lambda t}+a \lambda e^{\lambda t} + b e^{\lambda t} = 0$ bzw. $\lambda^2 + a \lambda + b = 0$. \\
+Dies ist das charakteristische Polynom der DGL $\lambda_1 = -\frac{a}{2} + \sqrt{(\frac{a^2}{4})-b}, \lambda_2 = -\frac{a}{2} - \sqrt{(\frac{a^2}{4})-b}$. Falls $\frac{a^2}{4}-b$ bzw. $a^2-4b >0$, also $\lambda_1, \lambda_2$ reell erhalten wir zwei verschiedene Lösungen $x_1(t= = e^{\lambda_1 t}, x_2(t= = e^{\lambda_2 t}$. Damit ist eine allgemeine Lösung $x(t) = c_1e^{\lambda_1 t} + c_2 e^{\lambda_2 t}, c_1, c_2 \in \mathbb{R}$. \\
+Betrachte: $x''-x=0$. Das charakteristische Polynom lautet $\lambda^2-1=(\lambda+1)(\lambda-1) \Rightarrow \lambda_1 = 1, \lambda_2 = -1 \Rightarrow x_1(t) = e^t, x_2(t) = e^{-t} \Rightarrow x(t) = c_1e^t + c_2e^{-t}$ ist eine allgemeine \Lsg der \DGL. 
+\end{itemize}
+\subsection{Definition}
+Eine Linearkombination von Funktionen $f_1, f_2, ..., f_m: \mathbb{R} \rightarrow \mathbb{R}$ ist eine Funktion der Form $h(t) = c_1f_1(t) + ... + c_mf_m(t), c_1,...,c_m \in \mathbb{R}$. \\
+$f, g: \mathbb{R} \rightarrow \mathbb{R}$ heißen linear unabhängig, falls sie kein Vielfaches voneinander sind.
+\begin{itemize}
+\item $-5t^3+2t^2-3$ ist eine Linearkombination von $t^3, t^2, t$ und $t^0=1$, die linear unabhängig sind.
+\item $e^{\lambda_1 t}$ und $e^{\lambda_2 t}$ sind linear unabhängig, falls $e^{\lambda_1 t} \neq c e^{\lambda_2 t}$. Dies ist der Fall für $\lambda_1 \neq \lambda_2$.
+\item Betrachte $x''+x'-2x=0$. Das charakteristische Polynom lautet $\lambda^2+\lambda-2=0$ \\
+$\lambda_{1,2} = - \frac{1}{2} \overset{+}{-} \sqrt{\frac{1}{4}+2} = -\frac{1}{2} \overset{+}{-} \frac{3}{2} \Rightarrow \lambda_1 0 1, \lambda_2 = -2 \Rightarrow x(t) = c_1e^{-2t} + c_2 e^t$ ist eine allgemeine Lösung.
+\item $x''+bx=0$. Das charakteristische Polynom lautet $\lambda^2+b=0$. Falls $b<0$, schreibe $b=-k^2$, also $\lambda^2-k^2=0 \Rightarrow \lambda_1, \lambda_2 = \overset{+}{-} k \Rightarrow x(t) = c_1e^{kt}+c_2e^{-kt}$ ist eine allgemeine Lösung. \\
+Falls $b>0$, dann hat $\lambda^2+b$ keine reelle Wurzel. Hier finden wir andere Lösungen als die zuvor vermuteten Exponentialfunktionen.
+\item x''+x=0. Das charakteristische Polynom $\lambda^2+1$ hat keine reellen \LSG. $\lambda_1 = i, \lambda_2 = -1$. Betrachte $x_1(t) = e^{it}$ und $x_2(t) = e^{-it}$.
+Für die allgemeine Differentialgleichung $x''+ax'+bx=0$ und Lösungen $u + iv$, $u,v$ reell gilt: \\
+$(u''+iv'') + a (u'+iv') + b (u+iv) = (u''+au'+bu) + i(v''+av'+bv) = 0 \\ \Rightarrow$ sowohl u wie v sind Lösungen der Differentialgleichung. \\
+$e^{it} = cos(t) + i \cdot sin(t), e^{-it}=cos(t) -i \cdot sin(t)$. Sowohl cos(t) wie sin(t) ist eine \Lsg von $x''+t=0$.
+\item $x''-2x'+2x=0$. Das charakteristische Polynom lautet $\lambda^2-2\lambda+2$. Setze es gleich 0. \\
+$\lambda_{1,2} = 1 \overset{+}{-} \sqrt{1-2} = 1 \overset{+}{-} i$. Komplexwertige \Lsg sind $e^{(1+i)t}$ und $e^{(1-i)t}$ bzw. $e^t(cos(t) + i \cdot sin(t))$ und $e^t(cos(t) - i \cdot sin(t))$. \LSG sind $x_1(t) = e^t cos(t), x_2(t) = e^t sin(t)$ (Prüfe nochmal durch einsetzen). Allgemeine \LSG sind dann $x(t) = c_1e^tcos(t) + c_2e^tsin(t)$ für $c_1, c_2 \in \mathbb{R}$.
+\item $x''-2x'+x=0$ Das charakteristische Polynom lautet $\lambda^2-2\lambda+1 = (\lambda-1)^2$ mit der einzigen Wurzel $\lambda=1$: $x_1(t) = e^t$. \\
+\underline{Versuch: } $x=te^t$. Dann ist $x'=te^t+e^t$ und $x''te^t+e^t+e^t = te^t + 2e^t \Rightarrow x''-2x'+x = te^t+2e^t-2te^t-2e^t+te^t=0$. \\
+$\Rightarrow x(t) = c_1e^t+c_2te^t$ ist eine allgemeine \Lsg, $c_1, c_2 \in \mathbb{R}$.
+\underline{Bemerkung:} $e^{rt}$ und $te^rt$ sind linear unabhängig.
+\end{itemize}
+\subsection{Theorem}
+Betrachte $x''+ax'+bx=0$ für $t \geq 0, a,b \in \mathbb{R}$. \\
+Seien $\lambda_1, \lambda_2$ die Wurzeln des charakteristischen Polynoms $\Lambda^2+a\lambda+b=0$. Definiere dazu sogenannte Grundlösungen $x_1(t), x_2(t)$ wie folgt: \\
+\begin{enumerate}
+\item Falls $\lambda_1 \neq \lambda_2$ beide reell, dann sei $x_1(t) := e^{\lambda_1t}$ und $x_2(t) := e^{\lambda_2t}$
+\item Falls $\lambda_1, \lambda_2 \notin \mathbb{R}$, also $\lambda_1, \lambda_2 = r_0 \overset{+}{-} i s_0$ mit $r_0 = \frac{-a}{2}, s_0 = \frac{1}{2} \sqrt{|a^2-4b|} = \sqrt{b-(\frac{a}{2})^2}>0$
+\item Falls $\lambda_1=\lambda_2 \in \mathbb{R}$, dass sein $x_1(t) := e^{\lambda_1t}$ und $x_2(t) := e^{\lambda_1t}$. Diese \LSG sind linear unabhängig. \underline{Alle} \LSG der \DGL haben die Form $x(t) = c_1x_1(t) + c_2x_2(t), c_1, c_2 \in \mathbb{R}$ und es existiert \underline{genau ein} $x(t_0) = x_0, x'(t_0) = x_0'$ für jede Wahl von $t_0, x_0, x_0'$.
+\end{enumerate}
+
+\section{Homogene Systeme linearer \DGLs und Eigenschaften}
+\subsection{}
+Betrachte $x''(t) + ax'(t) +bx(t) = f(t)$. Setze $y_1(t) = x(t), y_2(t) = x'(t)$
+\begin{align*}
+\Rightarrow y_1'(t) &= y_2(t) \\
+y_2'(t) &= -ax'(t)-bx(t)+f(t) \\
+&= -ay_2(t)-by_1(t)+f(t)
+\end{align*}
+$\Rightarrow$ System von \DGLs erster Ordnung, linear \\
+$y(t) = \begin{pmatrix}
+y_1(t) \\
+y_2(t)
+\end{pmatrix} = \begin{pmatrix}
+x(t) \\
+x'(t)
+\end{pmatrix} $ und $y'(t) = Ay(t) + F(t)$ für $A:= \begin{pmatrix}
+0 & 1 \\
+-b & -a
+\end{pmatrix}, F(t) = \begin{pmatrix}
+0 \\
+f(t)
+\end{pmatrix}$ \\
+Die Spur von $A$ ist $(-a)$, die Determinante ist b. Das charakteristische Polynom von A ist $\lambda^2-Spur(A) \cdot \lambda + det(a) = \lambda^2+a\lambda+b$. Die Wurzeln des charakteristischen Polynoms sind die Eigenwerte von A.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
