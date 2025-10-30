@@ -3,6 +3,8 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{ifthen}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \author{Jan Minor}
 \title{Analysis und Numerik von Differentialgleichungen}
@@ -10,10 +12,100 @@
 \newcommand{\DGLs}{Differentialgleichungen }
 \newcommand{\Lsg}{Lösung }
 \newcommand{\LSG}{Lösungen }
+%\Phasendiagramm{Anzahl stabiler Lösungen(max. 8), 1 , (0 für stabil, 1 für instabil, 2 für semistabil) 0}%
+\newcommand{\Phasendiagramm}[9]{
+	\resizebox{\textwidth}{!}{%
+    	\begin{tikzpicture}
+		\draw (-2,0) -- (#1*3,0);
+		\newcounter{ctra}
+		\setcounter{ctra}{0}
+		
+		\ifnum#2<2
+			\Punkt{\value{ctra}*3}{0}{#2}
+		\fi
+		\ifnum#2=2
+			\filldraw[black] (\value{ctra}*3,0) circle (2pt);
+		\fi
+		\stepcounter{ctra}
+		
+		\ifnum#3<2
+			\Punkt{\value{ctra}*3}{0}{#3}
+		\fi
+		\ifnum#3=2
+			\filldraw[black] (\value{ctra}*3,0) circle (2pt);
+		\fi
+		\stepcounter{ctra}
+		
+		\ifnum#4<2
+			\Punkt{\value{ctra}*3}{0}{#4}
+		\fi
+		\ifnum#4=2
+			\filldraw[black] (\value{ctra}*3,0) circle (2pt);
+		\fi
+		\stepcounter{ctra}
+		
+		\ifnum#5<2
+			\Punkt{\value{ctra}*3}{0}{#5}
+		\fi
+		\ifnum#5=2
+			\filldraw[black] (\value{ctra}*3,0) circle (2pt);
+		\fi
+		\stepcounter{ctra}
+		
+		\ifnum#6<2
+			\Punkt{\value{ctra}*3}{0}{#6}
+		\fi
+		\ifnum#6=2
+			\filldraw[black] (\value{ctra}*3,0) circle (2pt);
+		\fi
+		\stepcounter{ctra}
+		
+		\ifnum#7<2
+			\Punkt{\value{ctra}*3}{0}{#7}
+		\fi
+		\ifnum#7=2
+			\filldraw[black] (\value{ctra}*3,0) circle (2pt);
+		\fi
+		\stepcounter{ctra}
+		
+		\ifnum#8<2
+			\Punkt{\value{ctra}*3}{0}{#8}
+		\fi
+		\ifnum#8=2
+			\filldraw[black] (\value{ctra}*3,0) circle (2pt);
+		\fi
+		\stepcounter{ctra}
+		
+		\ifnum#9<2
+			\Punkt{\value{ctra}*3}{0}{#9}
+		\fi
+		\ifnum#9=2
+			\filldraw[black] (\value{ctra}*3,0) circle (2pt);
+		\fi
+		\stepcounter{ctra}
+	\end{tikzpicture}
+	}
+}
+\newcommand{\Punkt}[3]{ %{x}{y}{(0 für stabil, 1 für instabil)}%
+	\filldraw[black] (#1,#2) circle (2pt);
+	\ifnum#3=0
+		\draw (#1-1, #2) -- (#1-1-0.25,#2+0.25);
+		\draw (#1-1, #2) -- (#1-1-0.25,#2-0.25);
+		\draw (#1+1, #2) -- (#1+1+0.25,#2+0.25);
+		\draw (#1+1, #2) -- (#1+1+0.25,#2-0.25);
+	\fi
+	\ifnum#3=1
+		\draw (#1+1, #2) -- (#1+1-0.25,#2+0.25);
+		\draw (#1+1, #2) -- (#1+1-0.25,#2-0.25);
+		\draw (#1-1, #2) -- (#1-1+0.25,#2+0.25);
+		\draw (#1-1, #2) -- (#1-1+0.25,#2-0.25);
+	\fi
+}
 \begin{document}
 \setcounter{section}{-1}
 \section{Infos zu diesem Skript}
-Dieses Skript ist \underline{nicht} garantiert vollständig. An den Stellen, an denen "goodnotes $x$" für $x \in \mathbb{N}$ steht, fehlt ein Teil der Vorlesung. Dieser wird evtl. in Zukunft noch ergänzt. Bei Fragen oder ähnlichem Mail an jminor@uni-muenster.de.
+Dieses Skript ist \underline{nicht} garantiert vollständig. An den Stellen, an denen "goodnotes $x$" für $x \in \mathbb{N}$ steht, fehlt ein Teil der Vorlesung. Dieser wird evtl. in Zukunft noch ergänzt. Bei Fragen oder ähnlichem Mail an jminor@uni-muenster.de. \\
+\Phasendiagramm{3}{0}{1}{0}{3}{3}{3}{3}{3}
 \newpage
 \section{Einleitung}
 16.10.25: \\
@@ -174,13 +266,46 @@ Falls $f'(c) = f''(c) = 0$, dann muss der Graph von f näher studiert werden.
 Betrachet die allgemeine logistische \DGL $x'(t) = rx(t)(1-\frac{x}{K}) = rx-\frac{rx^2}{K}$ für $r,K > 0$ und $t \geq 0$. \\
 Sei $x(0) \geq 0$. Dieses AWP besitzt die \Lsg $x(t) = \frac{Kx(0)}{x(0)+(K-x(0))e^{-rt}}$ (prüfe durch Einsetzen). \\
 Die Lösungskurven $x(t)$ für $t \geq 0$ und $x(0) \geq 0$ wechseln Konkarität an der Horizontalen $\frac{K}{2}$ (Wendestellen). K zieht Lösungen an, 0 stößt Lösungen ab. \\
+\\
 \underline{Phasenlinien/Phasendiagramme} \\
 $x'=rx(1-\frac{x}{K})$, hier mit Parameter $r=2, K=7$. Falls $x(0) = 0$ oder $x(0) = 7$ passiert nichts mehr. \\
 Falls $x(0) > 7 \Rightarrow 2x(1-\frac{x}{7}) < 0$, \\
 Falls $0 < x(0) < 7 \Rightarrow 2x(1-\frac{x}{7}) > 0$, \\
 Falls $x(0) < 0 \Rightarrow 2x(1-\frac{x}{7}) < 0$. \\
-$f(x) = 2x(1-\frac{x}{7}) \rightarrow$ Goodnotes 3
-\subsection{}
+$f(x) = 2x(1-\frac{x}{7}) \rightarrow$ Phasendiagramm: \\
+\begin{tikzpicture}
+	\draw[gray, thick] (-2,0) -- (9,0);
+	\draw (-1,-3) .. controls (0,4) and (7,4) .. (8,-3) node[anchor=west]{f(x)};
+	\filldraw[black] (0,0) circle (1pt)	node[anchor=north west]{x=0};
+	\filldraw[black] (7,0) circle (1pt)	node[anchor=north east]{x=7};
+	\draw (-1.5,0) -- (-1.25,0.25);
+	\draw (-1.5,0) -- (-1.25,-0.25);
+	
+	\draw (-0.5,0) -- (-0.25,0.25);
+	\draw (-0.5,0) -- (-0.25,-0.25);
+	
+	\draw (5.5,0) -- (5.25,0.25);
+	\draw (5.5,0) -- (5.25,-0.25);
+	
+	\draw (4.5,0) -- (4.25,0.25);
+	\draw (4.5,0) -- (4.25,-0.25);
+	
+	\draw (3.5,0) -- (3.25,0.25);
+	\draw (3.5,0) -- (3.25,-0.25);
+	
+	\draw (2.5,0) -- (2.25,0.25);
+	\draw (2.5,0) -- (2.25,-0.25);
+	
+	\draw (1.5,0) -- (1.25,0.25);
+	\draw (1.5,0) -- (1.25,-0.25);
+	
+	\draw (7.5,0) -- (7.75,0.25);
+	\draw (7.5,0) -- (7.75,-0.25);
+	
+	\draw (8.5,0) -- (8.75,0.25);
+	\draw (8.5,0) -- (8.75,-0.25);
+\end{tikzpicture}
+\subsection{Beispiele}
 Goodnotes 4
 \section{\DGLs zweiter Ordnung und AWP}
 \subsection{Definition}
@@ -287,15 +412,90 @@ f(t)
 -a_0 & -a_1 & -a_2 & ... & -a_{n-2} & -a_{n-1} \\
 \end{pmatrix}$ \\ \\
 30.10.25:
+Wie finden wir \LSG?
+\subsection{Beispiel}
+$n=2$. Falls $A$ eine Diagonalmatrix ist, wir also $x'(t) = Ax, x=\begin{pmatrix}
+x_1 \\
+x_2
+\end{pmatrix}$ mit $A=\begin{pmatrix}
+\lambda_1 & 0 \\
+0 & \lambda_2
+\end{pmatrix}$ betrachte, dann gilt $\begin{pmatrix}
+x_1'(t) \\
+x_2'(t)
+\end{pmatrix} = \begin{pmatrix}
+\lambda_1x_1(t) \\
+\lambda_2x_2(t)
+\end{pmatrix}$. Mit $x(t_0) = x_0 = \begin{pmatrix}
+\alpha \\
+\beta
+\end{pmatrix}$ ist $x_1(t) = \alpha e^{\lambda_1(t-t_0)}$ und $x_2(t) = \beta e^{\lambda_2(t-t_0)}$, da das System entkoppelt ist. \\
+Für nicht-diagonale $A$ verfahre wie folgt: \\
+Seien $\overset{\rightarrow}{v}$ und $\overset{\rightarrow}{w}$ linear unabhängige Eigenvektoren. Also $A\overset{\rightarrow}{v}=\lambda_1\overset{\rightarrow}{v}$ und $A\overset{\rightarrow}{w}=\lambda_2\overset{\rightarrow}{w}$. Diese existieren immer, wenn $\lambda_1 \neq \lambda_2$ in $\mathbb{R}$ sind. Dann können wir $x(t)$ mit Hilfe dieser Eigenvektorbasis ausdrücken: $x(t) = u_1(t) \overset{\rightarrow}{v} + u_2(t) \overset{\rightarrow}{w}$ \\
+Also $x'(t) = u_1'(t)\overset{\rightarrow}{v}+u_2'(t)\overset{\rightarrow}{w}$ und $Ax(t) = A(u_1(t) \overset{\rightarrow}{v} + u_2(t) \overset{\rightarrow}{w}) = u_1(t)A\overset{\rightarrow}{v}+u_2(t)A\overset{\rightarrow}{w} = \lambda_1u_1(t)\overset{\rightarrow}{v}+\lambda_2u_2(t)\overset{\rightarrow}{w}$ \\
+$\Rightarrow u_1'(t)\overset{\rightarrow}{v} + u_2'(t)\overset{\rightarrow}{w} = \lambda_1u_1(t)\overset{\rightarrow}{v} + \lambda_2u_2(t)\overset{\rightarrow}{w}$. Da $\overset{\rightarrow}{v},\overset{\rightarrow}{w}$ eine \underline{Basis bilden}, muss $u_1'(t) = \lambda_1u_1(t), u_2'(t) = \lambda_2u_2(t)$ \\
+$\Rightarrow u_1(t) = u_1(t_0) e^{\lambda_1(t-t_0)}, u_2(t) = u_2(t_0) e^{\lambda_2(t-t_0)}$ und $x(t) = u_1(t_0) e^{\lambda_1(t-t_0)} \overset{\rightarrow}{v} + u_2(t_0)e^{\lambda_2(t-t_0)}\overset{\rightarrow}{w}$ \\
+Also müssen die Eigenvektoren von A explizit berechnet werden. Für die Anfangswerte betrachten wir: \\
+$u_1(t)\overset{\rightarrow}{v} + u_2(t)\overset{\rightarrow}{w} = x(t) = x_1(t) \overset{\rightarrow}{e_1} + x_2(t) \overset{\rightarrow}{e_2}$ \\
+Definiere $E=\begin{pmatrix}
+v_1 & w_1 \\
+v_2 & w_2
+\end{pmatrix}, \overset{\rightarrow}{v} = \begin{pmatrix}
+v_1 \\
+v_2
+\end{pmatrix}, \overset{\rightarrow}{w} = \begin{pmatrix}
+w_1 \\
+w_2
+\end{pmatrix}$ \\
+Also $\begin{pmatrix}
+u_1(t) \\
+u_2(t)
+\end{pmatrix} = E^{-1} \begin{pmatrix}
+x_1(t) \\
+x_2(t)
+\end{pmatrix}$ bzw. $u(t) = E^{-1}x(t)$ auch für $t=t_0$.
+\newpage
+\section{\DGLs erster Ordnung, Existenz und Eindeutigkeit (von \LSG) (Picard-Lindelöf)}
+\subsection{Vorraussetzung}
+Betrachte $x'(t) = f(x(t),t)$ für $t_0 \leq t \leq t_0+a$ mit $x(t_0)=x_0$. \\
+Sei $S$ die Menge $\{(t,x) : t_0 \leq t \leq a, -\inf < x < \inf\}$. Sei $f$ auf $S$ definiert und erfülle $f$ eine Lipschitz-Bedingung bezüglich $x$, d.h.: \\
+$(\star)$ $|f(x,t)-f(\overline{x},t)|\leq L|x-\overleftarrow{x}|, L \geq 0$.
+\subsection{Theorem}
+Gelte 7.1. Sei $f$ stetig auf $S$, einschließlich $(\star)$. \\
+Dann hat das Anfangswertproblem $x'=f(x,t), x(t_0 = x_0$ \underline{genau eine} \Lsg $x(t)$. Sie existiert auf ganz $t_0 \leq t \leq t_0 + a$. \\
+\underline{Beweis:} Wir wollen einen Fixpunktsatz verwenden. Definiere $J := [t_0, t_0+a]$. \\
+Sei $x(t)$ eine in $J$ differenzierbare \Lsg des Anfangswertproblems. Da $f$ stetig ist, ist auch $u(t):=f(x(t),t)$ in $J$ stetig. Also $x(t)$ sogar stetig differenzierbar. Aus dem Hauptsatz der Differential- und Integralrechnung folgt dann: \\
+$(\star \star)$ $x(t) = x_0 + \int_{t_0}^{t} f(x(s),s) ds$. Umgekehrt genügt jede in $J$ stetige \Lsg von $(\star \star)$ der Anfangsbedingung $x(t_0) = x_0$. \\
+Die rechte Seite von $(\star \star)$ ist stetig differenzierbar und damit auch $x(t)$ und $x'(t)=f(x(t),t)$. \\
+Unser Anfangswertproblem ist also gleichwertig mit der Integralgleichung $(\star \star)$. \\
+Schreibe dies in der Form $x=Tx$ mit $(Tx)(t) = \int_{t_0}^{t} f(x(s),s) ds$. \\
+Der Integraloperator ordnet jeder Funktion aus dem Banachraum \{$f$ $|$ $f$ ist stetige Funktion auf $J$\} $=: C(J)$ eine Funktion $Tx$ aus demselben Raum zu. Die \LSG unseres AWP in 7.1 sind also gerade die Fixpunkte des Operators $T:C(J) \rightarrow C(J)$. Nach dem Fixpunktsatz (siehe unten) ist unser Theorem bewiesen, falls wir zeigen können, dass $T$ einer Lipschitzbedingung mit Konstante $k<1$ genügt. \\
+Normiere $C(J)$ mit der Maximumsnorm $||x||_0 := max\{|x(t)| : t \in J\}$. \\
+Seien $x,y \in C(J)$. Dann gilt $|T(x)(t)-(Ty)(t)|=|\int_{t_0}^{t} f(x(s),s)-f(y(s),s) ds| \leq \int_{t_0}^t L|x(s)-y(s)|ds \leq L||x-y||_0(t-t_0)$ \\
+$\Rightarrow ||Tx-Ty||_0 \leq La||x-y||_0$. T genügt also einer Lipschitzbedingung, \underline{aber} $La$ ist \underline{nur dann} $<1$, wenn $a<\frac{1}{L}$. \\
+\underline{Betrachte stattdessen} eine gerichtete Maximum-Norm $||x||_\alpha := max\{|x(t)| e^{-\alpha t} | t \in J\}, \alpha > 0$. Nun schätze wie folgt ab: \\ 
+$L \int_{t_0}^t |x(s)-y(s)|e^{-\alpha s} e^{\alpha s} ds \leq L ||x-y||_\alpha \int_{t_0}^t e^{\alpha s} ds \leq L ||x-y||_\alpha \frac{e^{\alpha s}}{\alpha}$ \\
+$\Rightarrow |(Tx)(t)-(Ty)(t)|e^{-\alpha t} \leq \frac{L}{\alpha}||x-y||_\alpha$. Wähle nun $\alpha = 2L$, dann genügt T einer Lipschitzbedingung mit der Lipschitzkonstanten $\frac{1}{2}$ und wir haben Existenz im ganzen Intervall. Das Ganze geht auch für $[t_0-b,t_0]$. $\Box$
+\\
+\\
+\textbf{Fixpunktsatz:}
+Sei $B$ ein Banachraum, das heißt ein vollständiger, linearer, normierter Raum. \\
+Sei $\emptyset \neq D \subset B$ abgeschlossen. Sei $T:D \rightarrow T(D) \subset D$. Genügt $T$ einer Lipschitzbedingung in $D$ mit einer Lipschitzkonstante $k < 1$. Das heißt $||Tx-T\overset{\sim}{x}|| \leq k ||x-\overset{\sim}{x}||$. Dann hat $Tx=x$ \underline{genau eine} \Lsg x =: $\overline{x}$. \\
+Betrachte das Iterationsverfahren: \\
+$x_1=Tx_0, x_2=Tx_1, ..., x_{n+1}=Tx_n$. Dann gilt: \\
+$||\overline{x}-x_n||\leq \frac{k^n}{1-k}||x_1-x_0||$. Insbesondere konvergiert die Folge $(x_n)_{n \in \mathbb{N}}$ gegen $\overline{x}$ im Sinne der Norm $||.||$.
+\\
+\\
+\textbf{Lokale Lipschitzbedingung (Unterkapitel ohne Nummer xD)} \\
+Sei $D \subset \mathbb{R}^2.$ $f(x,t)$ genügt in $D$ einer \underline{lokalen} Lipschitzbedingung bezüglich $x$, \underline{wenn} zu jedem $(x_0, t_0) \in D$ eine Umgebung $U=U(x_0, t_0)$ und $L=L(x_0, t_0)$ existiert, sodass $f$ in $D \cap U$ einer Lipschitzbedingung $|f(x,t)-f(\overset{\sim}{x},t)| \leq L |x-\overset{\sim}{x}|$ genügt. \\
+\underline{Kriterium:} Falls $D$ offen ist und $f \in C(D)$ eine in $D$ stetige Ableitung $f_x$ besitzt, dann genügt $f$ in $D$ einer lokalen Lipschitzbedingung. \\
+\underline{Beispiel:} $f(x,t) = x^2$: $|f(x,t)-f(\overset{\sim}{x},t)| = |x^2 - \overset{\sim}{x}^2| = |x+\overset{\sim}{x}||x-\overset{\sim}{x}|$ genügt auf $\mathbb{R}^2$ einer lokalen, aber \underline{keiner} globalen Lipschitzbedingung.
+\\
+03.11.25:
 
 
 
-
-
-
-
-
-
+ 
 
 
 
