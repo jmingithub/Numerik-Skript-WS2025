@@ -130,6 +130,7 @@ $x(t) = tan(t + a)$ im Intervall $(-a-\frac{\pi}{2}, -a+\frac{\pi}{2})$ \\
 Weiter ist $(-cot)' = -cot'(t) = csc^2(t) = (\frac{1}{sin(t)})^2 = (-cot(t))^2 + 1$ eine Lsg und $tan(t+\frac{\pi}{2}) = -cot(t)$ \\
 \subsection{}
 $x'(t) = \mu \sqrt{x(t)}, \mu > 0.$ Hier $x(t) \geq 0$, damit die Wurzel gezogen werden kann. \\ \underline{Anwendung}: x(t) beschreibt die Höhe einer Flüssigkeit in einem zylindrischen Tank mit Radius R, welche durch ein kleines Loch im Boden ausläuft. ("Torncelli's Gesetz") \\
+
 \subsection{\underline{Wie können wir autonome Differentialgleichungen lösen?}}
 $x'(t) = f(x(t))$ oder $x' = f(x)$ (das ist eine autonome DGL) \\
 Bsp.: $x' = 3x$ bzw. $\frac{dx}{dt} = 3x$. Annahme $x \neq 0$, dann gilt: \\
@@ -141,11 +142,13 @@ $\frac{1}{x} \frac{dx}{dt} = 3$. Schreiben \underline{symbolisch}: $\frac{dx}{x}
 \Rightarrow |x(t)| &= e^{3t+c} = e^{3t}e^c = e^{3t}k, k > 0 \Rightarrow x(t) = k e^{3t}, k \neq 0
 \end{align*}
 Da $k \neq 0$, haben wir \underline{nicht} durch 0 geteilt. Aber $x(t) = 0$ ist auch eine Lösung.
+
 \subsubsection{Theorem}
 Sei $r \in \mathbb{R}$. Die Lösung von $x'(t) = r \cdot x(t)$ sind genau $x(t) = x_0e^{rt}$, wobei $x_o = x(0)$ ist.
 Beweis: Betrachte $y(t) = \frac{x(t)}{e^{rt}} = x(t) e^{-rt}$. \\
 Dann gilt $y'(t) = -re^{-rt}x(t) + e^{-rt}x'(t) = e^{-rt}(-rx(t)+rx(t)) = 0$ \\
 $\Rightarrow y(t) = const. \Rightarrow$ Behauptung
+
 \subsection{Beispiel}
 \begin{align*}
 x'(t) &= x(t)^2 \Leftrightarrow \frac{1}{x^2} \frac{dx}{dt} = 1 \textbf{ } falls \textbf{ } x \neq 0 \\
@@ -168,6 +171,7 @@ Dieser Ausdruck ist im Intervall $(-a-\frac{\pi}{2}, -a+\frac{\pi}{2})$ definier
 \\
 20.10.25: \\
 Learning Center Termin: 14-16 Uhr im ComputerPool \\
+
 \subsection{Beispiel: "Blow-Up" in endlicher Zeit, (2.5) bei ihr}
 \begin{align*}
 x(t) &= - \frac{1}{t-1} = \frac{1}{1-t} \{^{\rightarrow \text{ } \inf \text{ für } t \rightarrow 1^-}_{\rightarrow -\inf \text{ für } t \rightarrow 1^+}
@@ -179,6 +183,7 @@ x(t) &= - \frac{1}{t-1} = \frac{1}{1-t} \{^{\rightarrow \text{ } \inf \text{ fü
 \item Das untersuchte Phänomen durchläuft eine "katastrophale" Dynamik, z.B. thermisches Durchgehen von Batterien
 \end{itemize}
 Der \DGL selbst sieht man dieses Verhalten nicht ohne weiteres an. Hier spielt also die Definition, was eine Lösung ist, eine Rolle und die Existenz von solchen Lösungen.
+
 \subsection{Beispiel, (2.6) bei ihr}
 Betrachte $x''(t) + Ax'(t) = B$ für Konstanten $A,B; A \neq 0$. Da x selbst nicht vorkommt, betrachte $y=x' \Rightarrow y'(t) + Ay(t) = B$.
 \begin{align*}
@@ -187,7 +192,6 @@ Betrachte $x''(t) + Ax'(t) = B$ für Konstanten $A,B; A \neq 0$. Da x selbst nic
 Setze $u=-Ay+B, du=-Ady$.
 $\Rightarrow \int \frac{dy}{-Ay+B} = \int \frac{-\frac{1}{A}du}{u} = -\frac{1}{A} ln|u| = -\frac{1}{A} ln|-Ay+B| \Rightarrow ln|-Ay+B| = -At-Ac \Rightarrow -Ay+B=\overline{c}e^{-At}$, wobei $\overline{c} = ^+_- e^{-Ac} \neq 0$. \\
 Wir erhalten die Lösungsformel $y_k(t) = ke^{-At} + \frac{B}{A}$ für $k=-\overline{c}/A \neq 0$. Hier korrespondiert $k=0$ zur Lösung $y=\frac{B}{A}$, die wir beim Dividieren ausschließen mussten. \\
-
 Sei $y_k(t_0) = y_0$, dann ist $y_0 = ke^{-At_0} + \frac{B}{A}$, also $k=e^{At_0}(y_0-\frac{B}{A})$ \\
 $\Rightarrow y(t) = (y_0 - \frac{B}{A}e^{-A(t-t_0)} + \frac{B}{A}) \star$ \\
 Da $y=x' \Rightarrow x(t) = -\frac{k}{A} e^{-At} + \frac{B}{A} t + c_2 \Rightarrow x(t) = c_1 e^{-At} + \frac{B}{A} t + c_2$ ist eine Lösung von $x''+Ax'=B$ für beliebige konstanten $c_1, c_2$ \\
@@ -199,8 +203,10 @@ Wie vergleicht sich die Lösung für $A \neq 0$ im limes $A \rightarrow 0$ mit d
 \underline{Fehler:} k fest für $A \rightarrow 0$. \\
 Der Anfangswert für $t_0 = 0$ $y_0 = k + \frac{B}{A}$ sollte fest sein, auch für $A \rightarrow 0$. \\
 Für $A \neq 0, y_0 = ke^{-At_0} + \frac{B}{A}$, also $k = (y_0 - \frac{B}{A}) e^{At_0}$. Dann ist die Lösung des AWP $y'+Ay=b, y(t_0)=y_0$ für $A \neq 0$ $(y_0-\frac{B}{A})e^{At_0}e^{-At} + \frac{B}{A} = y_0 e^{-A(t-t_0)} + B \frac{1-e^{-A(t-t_0)}}{A} \star$. Das AWP $y'=B, y(t_0) = y_0$ für $A = 0$ hat die (eindeutige) Lösung $y_0 + B(t-t_0)$. Nun betrachte für festes B und $y_0$ (\underline{nicht} festes k) für $A \rightarrow 0$ die rechte Seite von $\star$; $y_0e^{-A(t-t_0)} \rightarrow y_0e^{-0(t-t_0) \rightarrow y_0}$ und $\underset{A \rightarrow 0}{lim} \frac{1-e^{-A(t-t_0)}}{A} \underset{l'Hopital}{=} \frac{(t-t_0)e^{-A(t-t_0)}}{1} = t-t_0 \Rightarrow$ der limes $A \rightarrow 0$ ist $y_0+B(t-t_0).$
+
 \subsection{Separable \DGL; bei ihr (2.7)}
 Definition: Sei $t\geq0$. Eine separable \DGL erster Ordnung ist eine \DGL der Form $x'(t) = a(t)f(x(t))$ bzw. $x(t)=a(t)f(x)$. Hier sind a und f bekannte Funktionen. Der Fall a = konst ist der Fall einer autonomen \DGL. Wir können auch schreiben $\frac{dx}{f(x)} = a(t)dt$, falls $f(x) \neq 0$ und $\int \frac{dx}{f(x)} = \int a(t)dt$.
+
 \section{\DGL erster Ordnung - eine dynamische Perspektive}
 "Poincare'sches Prinzip" \\
 sehr verschiedene Phänomene können durch sehr ähnliche \DGLs beschrieben werden. Erkenntnisse über die \DGL in einer spezifischen Situation geben Hinweise über das Verhalten ihrer Lösungen und diese können dann auf \underline{jede} konkrete Interpretation der \DGL angewendet werden.
@@ -232,10 +238,12 @@ Nun können wir Vorhersagen treffen: \\
 Wie lange dauert es, bis das Objekt von seinen 145°F zum Zeitpunkt t auf 85°F abgekühlt ist? \\
 Sei nun $x(0) = 145, x(t) = 80+65e^{-kt}, x(t) \overset{!}{=} 85$, d.h. für $5=65e^{-kt} \Leftrightarrow 1=13e^{-kt} \Rightarrow t = \frac{ln(13)}{k} \approx 246,6.$ \\
 Das Newton'sche Gesetz funktioniert nicht mehr, wenn die Objekt-Umgebungstemperaturdifferenz sehr groß ist.
+
 \section{Stationäre Zustände, Stabilität, Phasendiagramme}
 $x'=f(x)$ ist eine autonome \DGL erster Ordnung.
 \subsection{Definition: stationäre Lösung}
 Eine stationäre Lösung einer autonomen \DGL $x'(t) = f(x(t))$ ist eine konstante Funktion $x(t) = c$, die diese \DGL löst, d.h. $f(c) = 0$.
+
 \subsection{Beispiele}
 Stationäre Lösungen von $x'=3x$ und $x'=x^2$ sind $c=0$
 \begin{itemize}
@@ -244,6 +252,7 @@ Stationäre Lösungen von $x'=3x$ und $x'=x^2$ sind $c=0$
 \item[(c)] $x'=x^2+1$ existieren nicht für reelle $c$
 \item[(d)] $x'=rx(1-\frac{x}{K}), r,K > 0$ (logistische Gleichung) sind $c=0$ und $c=K$, unabhängig von r.
 \end{itemize}
+
 \subsection{Theorem}
 Betrachte $x'(t) = f(x(t))$ (autonome \DGL). Falls zwei voneinander verschiedene Lösungen $x_1(t), x_2(t)$ existieren, dann berühren sich ihre Graphen \underline{nie}. Falls $x(t)$ nicht konstant ist, dann liegt der zugehörige Graph \underline{ganz} auf einer Seite der stationären Lösungen.
 \subsection{Definition: Stabilität von \LSG von autonomen \DGLs}
@@ -252,6 +261,7 @@ c heißt \underline{instabil}, falls ein r > 0 existiert, sodass für \underline
 c heißt \underline{semi-stabil}, falls es auf einer Seite stabil und auf der anderen Seite instabil ist. \\
 \underline{Bemerkung:} Diese Klassifikation ist \underline{nicht} vollständig. \underline{Beispiel:} $x'=e^{-\frac{1}{x^2}}sin(\frac{1}{x}), c=0$. \\
 Stabilität bedeutet z.B., dass kleine Messfehler die Vorhersagen des Verhaltens in der Nähe stationärer \LSG nicht beeinflussen. Instabile \LSG sieht man im Experiment mit großer Wahrscheinlichkeit \underline{nicht}.
+
 \subsection{Theorem}
 Betrachte die autonome \DGL $x'(t) = f(x(t))$ für $t \geq 0$ und "genügend glattes" f. \\
 Sei $x(t) = c$ eine stationäre \Lsg, d.h. $f(c)=0$.
@@ -261,6 +271,7 @@ Sei $x(t) = c$ eine stationäre \Lsg, d.h. $f(c)=0$.
 \item[(iii)] c ist semi-stabil, falls $f'(c) = 0$ und $f''(c) \neq 0$.
 \end{itemize}
 Falls $f'(c) = f''(c) = 0$, dann muss der Graph von f näher studiert werden.
+
 \subsection{Beispiel}
 Betrachet die allgemeine logistische \DGL $x'(t) = rx(t)(1-\frac{x}{K}) = rx-\frac{rx^2}{K}$ für $r,K > 0$ und $t \geq 0$. \\
 Sei $x(0) \geq 0$. Dieses AWP besitzt die \Lsg $x(t) = \frac{Kx(0)}{x(0)+(K-x(0))e^{-rt}}$ (prüfe durch Einsetzen). \\
@@ -304,6 +315,7 @@ $f(x) = 2x(1-\frac{x}{7}) \rightarrow$ Phasendiagramm: \\
 	\draw (8.5,0) -- (8.75,0.25);
 	\draw (8.5,0) -- (8.75,-0.25);
 \end{tikzpicture}
+
 \subsection{Beispiele}
 \begin{itemize}
 \item[(a)] $x'=x$: Stationäre \Lsg $x=0$. $f(x)=x, f'(x)=1>0 \Rightarrow$ instabil: \\
@@ -323,6 +335,7 @@ $f(x) = 2x(1-\frac{x}{7}) \rightarrow$ Phasendiagramm: \\
 \item[(c)] $x'=x^2-1$. Stationäre \LSG $x=1, x=-1$. $f(x) = x^2-1, f'(x) = 2x,$ \\ $f'(-1) = -2 < 0 \Rightarrow$ stabil, $f'(1) = 2 > 0 \Rightarrow$ instabil: \\
 \Phasendiagramm{2}{0}{1}{3}{3}{3}{3}{3}{3}
 \end{itemize}
+
 \section{\DGLs zweiter Ordnung und AWP}
 \subsection{Definition}
 Für linerare \DGLs der Form $x'' + ax' + bx = 0, a,b \in \mathbb{R}, t \geq 0$, legt das assoziierte AWP \underline{zwei} Werte fest: $x(t_0) = x_0$ und $x'(t_0) = x_0', x_0, x_0' \in \mathbb{R}$.
@@ -330,6 +343,7 @@ Für linerare \DGLs der Form $x'' + ax' + bx = 0, a,b \in \mathbb{R}, t \geq 0$,
 Betrachte $x'' + ax' + bx = 0, a,b \in \mathbb{R}, t \geq 0$. \\
 Dann gibt es ein Lösungspaar $x_1(t), x_2(t)$, welches explizit durch \LSG der quadratischen Gleichung $\lambda^2+a\lambda+b=0$ beschrieben werden kann, sodass jede \Lsg der \DGL eindeutig wie folgt ausgedrückt werden kann: \\
 $x(t) = c_1 \cdot x_1(t) + c_2 \cdot x_2(t), c_1, c_2 \in \mathbb{R}$. Weiter gilt: Für jedes $t_0$ und jedes $x_0, x_0'$ existiert \underline{genau eine} solche \Lsg, die das AWP mit $x(t_0) = x_0, x'(t_0) = x_0'$ erfüllt. \\
+
 27.10.25:
 \subsection{Wichtiges praktisches Beispiel}
 \begin{itemize}
@@ -343,6 +357,7 @@ Betrachte allgemein $x''+ax'+bx=0$. \\
 Dies ist das charakteristische Polynom der DGL $\lambda_1 = -\frac{a}{2} + \sqrt{(\frac{a^2}{4})-b}, \lambda_2 = -\frac{a}{2} - \sqrt{(\frac{a^2}{4})-b}$. Falls $\frac{a^2}{4}-b$ bzw. $a^2-4b >0$, also $\lambda_1, \lambda_2$ reell erhalten wir zwei verschiedene Lösungen $x_1(t= = e^{\lambda_1 t}, x_2(t= = e^{\lambda_2 t}$. Damit ist eine allgemeine Lösung $x(t) = c_1e^{\lambda_1 t} + c_2 e^{\lambda_2 t}, c_1, c_2 \in \mathbb{R}$. \\
 Betrachte: $x''-x=0$. Das charakteristische Polynom lautet $\lambda^2-1=(\lambda+1)(\lambda-1) \Rightarrow \lambda_1 = 1, \lambda_2 = -1 \Rightarrow x_1(t) = e^t, x_2(t) = e^{-t} \Rightarrow x(t) = c_1e^t + c_2e^{-t}$ ist eine allgemeine \Lsg der \DGL. 
 \end{itemize}
+
 \subsection{Definition}
 Eine Linearkombination von Funktionen $f_1, f_2, ..., f_m: \mathbb{R} \rightarrow \mathbb{R}$ ist eine Funktion der Form $h(t) = c_1f_1(t) + ... + c_mf_m(t), c_1,...,c_m \in \mathbb{R}$. \\
 $f, g: \mathbb{R} \rightarrow \mathbb{R}$ heißen linear unabhängig, falls sie kein Vielfaches voneinander sind.
@@ -364,6 +379,7 @@ $\lambda_{1,2} = 1 \overset{+}{-} \sqrt{1-2} = 1 \overset{+}{-} i$. Komplexwerti
 $\Rightarrow x(t) = c_1e^t+c_2te^t$ ist eine allgemeine \Lsg, $c_1, c_2 \in \mathbb{R}$.
 \underline{Bemerkung:} $e^{rt}$ und $te^rt$ sind linear unabhängig.
 \end{itemize}
+
 \subsection{Theorem}
 Betrachte $x''+ax'+bx=0$ für $t \geq 0, a,b \in \mathbb{R}$. \\
 Seien $\lambda_1, \lambda_2$ die Wurzeln des charakteristischen Polynoms $\Lambda^2+a\lambda+b=0$. Definiere dazu sogenannte Grundlösungen $x_1(t), x_2(t)$ wie folgt: \\
@@ -396,6 +412,7 @@ x'(t)
 f(t)
 \end{pmatrix}$ \\
 Die Spur von $A$ ist $(-a)$, die Determinante ist b. Das charakteristische Polynom von A ist $\lambda^2-Spur(A) \cdot \lambda + det(a) = \lambda^2+a\lambda+b$. Die Wurzeln des charakteristischen Polynoms sind die Eigenwerte von A.
+
 \subsection{Inhomogene lineare \DGL}
 Betrachte für $n>1$ die folgende inhomogene lineare \DGL mit konstanten Koeffizienten:\\
 $x^{(n)} + a_{n-1}x^{(n-1)} + ... + a_1x' + a_0x = f(t)$. Definiere $y_1=x, y_2=x', ..., y_n = x^(n-1) \Rightarrow$
@@ -429,6 +446,7 @@ f(t)
 \end{pmatrix}$ \\ \\
 30.10.25:
 Wie finden wir \LSG?
+
 \subsection{Beispiel}
 $n=2$. Falls $A$ eine Diagonalmatrix ist, wir also $x'(t) = Ax, x=\begin{pmatrix}
 x_1 \\
@@ -471,11 +489,13 @@ x_1(t) \\
 x_2(t)
 \end{pmatrix}$ bzw. $u(t) = E^{-1}x(t)$ auch für $t=t_0$.
 \newpage
+
 \section{\DGLs erster Ordnung, Existenz und Eindeutigkeit (von \LSG) (Picard-Lindelöf)}
 \subsection{Vorraussetzung}
 Betrachte $x'(t) = f(x(t),t)$ für $t_0 \leq t \leq t_0+a$ mit $x(t_0)=x_0$. \\
 Sei $S$ die Menge $\{(t,x) : t_0 \leq t \leq a, -\inf < x < \inf\}$. Sei $f$ auf $S$ definiert und erfülle $f$ eine Lipschitz-Bedingung bezüglich $x$, d.h.: \\
 $(\star)$ $|f(x,t)-f(\overline{x},t)|\leq L|x-\overleftarrow{x}|, L \geq 0$.
+
 \subsection{Theorem}
 Gelte 7.1. Sei $f$ stetig auf $S$, einschließlich $(\star)$. \\
 Dann hat das Anfangswertproblem $x'=f(x,t), x(t_0 = x_0$ \underline{genau eine} \Lsg $x(t)$. Sie existiert auf ganz $t_0 \leq t \leq t_0 + a$. \\
@@ -500,14 +520,69 @@ Sei $\emptyset \neq D \subset B$ abgeschlossen. Sei $T:D \rightarrow T(D) \subse
 Betrachte das Iterationsverfahren: \\
 $x_1=Tx_0, x_2=Tx_1, ..., x_{n+1}=Tx_n$. Dann gilt: \\
 $||\overline{x}-x_n||\leq \frac{k^n}{1-k}||x_1-x_0||$. Insbesondere konvergiert die Folge $(x_n)_{n \in \mathbb{N}}$ gegen $\overline{x}$ im Sinne der Norm $||.||$.
-\\
-\\
-\textbf{Lokale Lipschitzbedingung (Unterkapitel ohne Nummer xD)} \\
+\newpage
+
+03.11.25: \\
+\underline{Bemerkung (in Anschluss an Theorem 7.2):}
+\begin{itemize}
+\item[a)] Ausgehend von einer in J stetigen Funktion $y_0(t)$ approximiere $y_{k+1}(t)=x_0 + \int_{t_0}^t f(y_k(s,s)) ds$ für $k = 0,1,2,...$. Diese Folge konvergiert nach der Norm und damit auch gleichmäßig gegen die Lösung $x(t)$ des AWP.
+\item[b)] Eine hinreichende Bedingung für die Erfüllung einer Lipschitzbedingung ist: $f$ ist partiell nach x differenzierbar und $|f_x(x,t)| \leq L.$
+\end{itemize}
+
+\subsection{Theorem}
+Sei R das Rechteck $\{t_0 \leq t \leq t_0+a : |x-x_0| \leq b \}$ mit $a,b>0$. Genüge $f \in C(R)$ in $R$ einer Lipschitzbedingung, d.h.: \\
+$|f(x,t)-f(\overset{\sim}{x},t)| \leq L |x-\overset{\sim}{x}|$. Dann existiert genau eine \Lsg des AWP $x'=f(x,t), x(t_0)=x_0$ mindestens in einem Intervall $t_0 \leq t \leq t_0+\alpha$ wobei $\alpha = min\{ a, \frac{b}{A} \}$ ist, mit $A=\underset{R}{max}|f|$. \\
+Hier ist $f$ nicht in einem ganzen Streifen, sondern in einer Umgebung des Punktes $(x_0,t_0)$ definiert.
+
+\subsection{Lokale Lipschitzbedingung (von Oben hierher verschoben)}
 Sei $D \subset \mathbb{R}^2.$ $f(x,t)$ genügt in $D$ einer \underline{lokalen} Lipschitzbedingung bezüglich $x$, \underline{wenn} zu jedem $(x_0, t_0) \in D$ eine Umgebung $U=U(x_0, t_0)$ und $L=L(x_0, t_0)$ existiert, sodass $f$ in $D \cap U$ einer Lipschitzbedingung $|f(x,t)-f(\overset{\sim}{x},t)| \leq L |x-\overset{\sim}{x}|$ genügt. \\
 \underline{Kriterium:} Falls $D$ offen ist und $f \in C(D)$ eine in $D$ stetige Ableitung $f_x$ besitzt, dann genügt $f$ in $D$ einer lokalen Lipschitzbedingung. \\
 \underline{Beispiel:} $f(x,t) = x^2$: $|f(x,t)-f(\overset{\sim}{x},t)| = |x^2 - \overset{\sim}{x}^2| = |x+\overset{\sim}{x}||x-\overset{\sim}{x}|$ genügt auf $\mathbb{R}^2$ einer lokalen, aber \underline{keiner} globalen Lipschitzbedingung.
-\\
-03.11.25:
+
+\subsection{Theorem: Lokale Lösbarkeit}
+Sei $D \subset \mathbb{R}^2$ offen und genüge $f \in C(D)$ einer Lokalen Lipschitzbedingung in $D$. \\
+\underline{Dann} ist das AWP $x'=f(x,t), x(t_0)=x_0$ für $(x_0,t_0) \in D$ \underline{lokal} eindeutig lösbar, d,h, in einer Umgebung von $t_0$ existiert genau eine \Lsg.
+
+\subsection{Theorem: Existenz und Eindeutigkeit}
+Sei $d \subset \mathbb{R}^2$ offen. Genüge $f \in C(D)$ in $D$ einer lokalen Lipschitzbedingung. Dann hat für jedes $(x_0,t_0) \in D$ (jedes Tupel definiert ein AWP) das AWP $x'=f(x,t), x(t_0)=x_0$ $(\star)$ \\ eine Lösung $\phi$, welche nicht fortsetzbar ist und nach links und rechts dem Rand von $D$ beliebig nahe kommt. Diese \Lsg ist eindeutig bestimmt. D.h. alle \LSG von $(\star)$ sind Restriktionen von $\phi$. \\
+\underline{Bemerkung:} "$\phi$ kommt nach rechts dem Rand von $D$ beliebig nahe" ist wie folgt definiert: \\
+Sei $G$ die abgeschlossene Hülle vom Graphen von $\phi$. Sei $G_t$ die Menge aller $(x,t) \in G$ mit $t \geq t_0$. Dann ist $G_t$ \underline{keine} kompakte Teilmenge von $D$. \\
+\underline{Äquivalent und anschaulicher} ist: \\
+$\phi$ existiert nach rechts in $[t_0,b)$ ($b=\inf$ ist erlaubt) und es liegt einer der folgenden drei Fälle vor:
+\begin{itemize}
+\item[(i)] Falls $b=\inf$: Die Lösung existiert für alle $t \geq t_0$.
+\item[(ii)] Falls $b < \inf$ und $\underset{t \rightarrow b^-}{\limsup}|\phi(t)| = \inf$: Die Lösung wird unendlich.
+\item[(iii)] Falls $b < \inf$ und $\underset{t \rightarrow b^-}{\liminf}$ $d(t,\phi(t)) = 0$, wobei $d(\overset{\sim}{t}, \overset{\sim}{x})$ der Abstand des Punktes $(\overset{\sim}{t}, \overset{\sim}{x})$ vom Rand von D ist: Die Lösung kommt dem Rand von D beliebig nahe.
+\end{itemize}
+Also ist $G_t$ entweder unbeschränkt (i),(ii) oder beschränkt und enthält Randpunkte von D (iii).
+
+\subsection{Theorem: Existenzsatz von Peano}
+Sei $f(x,t)$ in einem \underline{Gebiet} $D \subset \mathbb{R}^2$ stetig. Dann geht durch jeden Punkt $(x_0, t_0) \in D$ \underline{mindestens eine} \Lsg der \DGL $x'=f(x,t)$. Jede \Lsg lässt sich nach rechts und nach links bis zum Rand von $D$ fortsetzen.
+
+\subsection{Polygonzugverfahren von Cauchy}
+Sei $f(x,t)$ stetig und beschränkt in $[t_0, t_0+a] x \mathbb{R}, a>0$. Betrachte $x'=f(x,t)$ in $[t_0,t_0+a]$, $x(t_0)=x_0$. Definiere $t_k=t_o+\alpha k, k = 0,1,2,...$ \\ Setze für $t_0 \leq t \leq t_1$: $u_\alpha (t) := x_0+(t-t_0)f(x_0,t_0)$, d.h. $u_\alpha$ ist eine Gerade durch den Punkt $(x_0,t_0)$ mit der Steigung $f(x_0,t_0)$. Für $t_1 \leq t \leq t_2$ sei $u_\alpha$ die Gerade durch den Punkt $(x_1, t_1) := (u_\alpha (t_1), t_1)$. \\
+Jetzt folgt das Verfahren: \\
+
+\section{Ober- und Unterfunktionen}
+\subsection{Lemma}
+Seien die Funktionen $\phi(t), \psi(t)$ in $J_0:=(t_0, t_0+a]$ differenzierbar. \\
+gelte $\phi < 2 \psi(t)$ in $(t_0, t_0+ \epsilon), \epsilon > 0$. Dann gilt entweder
+\begin{enumerate}
+\item[(i)] $\phi < \psi$ in $J_0$ \underline{oder} \\
+\item[(ii)] Es existiert ein $\overset{\sim}{t} \in J_0$, sodass $\phi(t) < \psi(t)$ für $t_0<t< \overset{\sim}{t}$ \underline{und} $\phi(\overset{\sim}{t}) = \psi(\overset{\sim}{t})$ und $\phi'(\overset{\sim}{t}) \geq \psi(\overset{\sim}{t})$.
+\end{enumerate}
+Beweis: Gelte (i) nicht, dann existiert ein erster Punkt $\overset{\sim}{t} > 0$ mit $\phi(\overset{\sim}{t}) = \psi(\overset{\sim}{t})$. Für die linksseitigen Differenzenquotienten an der Stelle $\overset{\sim}{t}$ $(h>0)$ gilt $\frac{\phi(\overset{\sim}{t}) - \phi(\overset{\sim}{t} - h)}{h} > \frac{\psi(\overset{\sim}{t}) - \psi(\overset{\sim}{t} - h)}{h}$, da links von $\overset{\sim}{t}$ gilt, dass $\phi < \psi$. Die Behauptung folgt für $h \to 0$.
+
+\subsection{Definition: Defekt einer Funktion}
+Der Defekt $P\phi$ einer Funktion $\phi(t)$ bezüglich der \DGL $x'=f(x,t)$ ist $P\phi := \phi'-f(\phi,t)$. Das heißt der Defekt gibt an, "wie gut" $\phi$ der \DGL genügt. Eine \Lsg Px der \DGL hat Defekt $Px=0$.
+
+\subsection{Theorem}
+Sei $f: D \to R, D \subset \mathbb{R}^2$ und seien $\phi(t), \psi(t)$ Funktionen mit Graphen $\phi, \psi \subset D$. Seien $\phi(t), \psi(t)$ in $J_0 := (t_0, t_0+a]$ differenzierbar und gelte a) $\phi(t) < \psi(t)$ für $t_0 < t < t_0 + \epsilon, \epsilon > 0$, b) $P\phi < P\psi$ in $J_0$. \\
+Gelten die Beziehungen aus 8.1 und 8.2. \\
+\underline{Dann} ist $\phi < \psi$ in $J_0$. \\
+Beweis: Wir zeigen, dass (ii) In Lemma 8.1 \underline{nicht} gilt: Sei $\phi(t_0 = \psi(t_0)$. Dann gilt wegen Voraussetzung b), dass $\phi'(t_0) = P\phi + f(\phi(t_0), t_0) < P\psi + f(\psi(t_0), t_0) = \psi'(t_0)$, also gilt sicher nicht (ii). q.e.d. \\
+Genauso gilt alles für ein links von $t_0$ liegendes Intervall.
+
 
 
 
