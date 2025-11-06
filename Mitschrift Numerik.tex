@@ -583,6 +583,60 @@ Gelten die Beziehungen aus 8.1 und 8.2. \\
 Beweis: Wir zeigen, dass (ii) In Lemma 8.1 \underline{nicht} gilt: Sei $\phi(t_0 = \psi(t_0)$. Dann gilt wegen Voraussetzung b), dass $\phi'(t_0) = P\phi + f(\phi(t_0), t_0) < P\psi + f(\psi(t_0), t_0) = \psi'(t_0)$, also gilt sicher nicht (ii). q.e.d. \\
 Genauso gilt alles für ein links von $t_0$ liegendes Intervall.
 
+\subsection{Definition: Unter-/Oberfunktion bezüglich eines AWP}
+Sei $D \subset \mathbb{R}^2$ und $f(x,t)$ in $D$ definiert. Dann heißt $v(t)$ Unter- und $w(t)$ Oberfunktion bezüglich des AWP $x'=f(x,t)$ in $J:=[t_0,t_0+a], x(t_0)=x_0$ $(\star)$, wenn $v,w$ in $J$ differenzierbar sind und $v'<f(v,t)$ in $J$ und  $v(t_0) \leq x_0$, $w'<f(w,t)$ in $J$ und $w(t_0) \geq x_0$, vorausgesetzt, dass die Graphen von $v$ und $w$ in $D$ liegen. \\
+\underline{Bemerkung:} Falls $v$ Unter- beziehungsweise $w$ Oberfunktion und $x$ eine \Lsg des AWP $(\star)$ ist, dann gilt $v(t) < x(t) < w(t)$ in $(t_0, t_0+a] \rightarrow$ Beweis Übungsblatt 4 \\
+\\
+Ein übliches Verfahren zur Bestimmung von Ober- und Unterfunktionen ist, $f$ leicht abzuändern zu $f_1(x,t) < f(x,t) < f_2(x,t)$ und dann die beiden AWPs $v'=f_1(v,t)$ und $w'=f_2(w,t)$ explizit zu lösen.
+
+\subsection{Beispiel}
+$x'=x^2+t^2, x(0) = 1, t \geq 0$. Für positive $x$ folgt für $f_1(x,t) = x^2$ und $v'=v^2, v(0)=1$, dass $v(t)=\frac{1}{1-t}$. Diese \Lsg existiert nach rechts höchstens bis zur Stelle $t=1$. Sei also $0 \leq t < 1$ und setze $f_2(x,t) = x^2 + 1$. Dann hat $w'=w^2+1, w(0)=1$ die Lösung $w(t) = tan(t+\frac{\pi}{4})$. Und für die Asymptote $b \leq 1, x \to \inf$ für $t \to b$, gilt die Abschätzung $0,78 < \frac{\pi}{4} < b \leq 1$. WARUM? goodnotes 6 \\
+\underline{Neuer Ansatz:} Neue Oberfunktion $\overset{\sim}{w}(t) = \frac{1}{1-at}, a > 1$. Die Ungleichung $\overset{\sim}{w}' > \overset{\sim}{w}^2 + t^2$ ist gleichbedeutend mit $a-1 > (1-at)^2 t^2$ für $0 \leq t < \frac{1}{a}$. Die rechte Seite dieser Ungleichung hat ihr Maximum bei $t = \frac{1}{2a}$, da $[(1.at)^2 t^2]' = 2(1-at)(-a)t^2+2t(1-at)^2 = 0$ gilt für \\ $-2at^2+2t-2at^2 = 0 \Leftrightarrow -2at+2-2at=0 \Leftrightarrow 4at = 2 \Leftrightarrow t = \frac{1}{2a}$ \\
+$\Rightarrow a-1 > (1-\frac{1}{2})^2 \frac{1}{4a^2} \Rightarrow 16a^2(a-1) > 1$, also zum Beispiel für $a = \frac{17}{16} \\ \Rightarrow \overset{\sim}{w}(t) = \frac{16}{16-17t}$ und $b \geq \frac{16}{17} > 0,94$. Die \Lsg unseres AWP verläuft im schraffierten Bereich. goodnotes 7
+
+\section{Systeme von \DGLs erster Ordnung und \DGLs höherer Ordnung}
+\subsection{•}
+Betrachte $x'=F(x,t)$, wobei $x'(t) = \begin{pmatrix}
+x_1(t) \\
+.. \\
+.. \\
+x_n(t)
+\end{pmatrix}$ und $F(x,t) = \begin{pmatrix}
+f_1(x,t) \\
+.. \\
+.. \\
+f_n(x,t)
+\end{pmatrix}$. \\ Sei $D \subset \mathbb{R}^{n+1}$ mit Elementen $(x_1,...,x_n,t)$
+
+\subsection{Definition: Lipschitz-Bedingung}
+Eine Vektorfunktion $F(x,t)$ genügt einer Lipschitz-Bedingung bezüglich x mit Lipschitz-Konstante $L$, wenn $|F(x,t)-F(\overset{\sim}{x},t)| \leq L|x-\overset{\sim}{x}|$ für $(x,t), (\overset{\sim}{x},t) \in D$ und wobei $|.|$ eine Norm im $\mathbb{R}^n$ ist, zum Beispiel die euklidische Norm. Die Lipschitzkonstante L ist verschieden für unterschiedliche Normen.
+
+\subsection{Hilfssatz}
+Sei $D \subset \mathbb{R}^{n+1}$ konvex. Seien in $D$ die partiellen Ableitungen $\frac{\partial F_\nu}{\partial x_\mu}$ stetig und beschränkt, $\nu, \mu = 1,...,n$. Dann genügt $F$ in $D$ einer Lipschitzbedingung.
+
+\subsection{Folgerung}
+Sei $D$ ein Gebiet in $\mathbb{R}^{n+1}$. Sei $F(x,t)$ in $D$ stetig differenzierbar. Dann genügt $F$ in $D$ einer lokalen Lipschitz-Bedingung.
+
+\subsection{Theorem: Existenz- und Eindeutigkeitssatz}
+Sei $D \subset \mathbb{R}^{n+1}$ ein Gebiet. Sei $F(x,t)$ in $D$ stetig und genüge $F$ in $D$ einer lokalen Lipschitz-Bedingung bezüglich $x$ (z.B. $F \in C^1(D)$). Sei $(x_0, t_0) \in D$. Dann besitzt das AWP $x'(t) = F(x,t), x(t_0)=x_0$ \underline{genau eine} \Lsg. Diese lässt sich nach links und rechts bis zum Rand von $D$ fortsetzen.
+
+\subsection{Theorem: Existenzsatz von Peano}
+Sei $F(x,t)$ im Gebiet $D \subset \mathbb{R}^{n+1}$ stetig. Sei $(x_0, t_0) \in D$. Dann besitzt das AWP $x' = F(x,t), x(t_0) = x_0$ \underline{mindestens} eine \Lsg. Jede lässt sich nach links und rechts bis zum Rand von $D$ fortsetzen.
+
+\section{Das klasssische SIR-DGL-Modell}
+s-suszeptible (Diese können infiziert werden), i-infektiöse (Diese verbreiten die Krankheit), r-"removed"(Immun, in Quarantäne, verstorben). Neue Infektionen entstehen durch Kontakt zwischen s und i \\
+$(\star)$ $s' = -\alpha is, i'= \alpha is - \beta i, r'= \beta i$ \\
+\underline{Bemerkung:} Das entsprechende Differentialgleichungssystem mit "Erholung" lautet $s'=-\alpha is + \varepsilon r, i'= \alpha is - \beta i, r' = \beta i - \varepsilon r, \varepsilon > 0$. Es hat ein anderes Verhalten.... Eigenwerte der Linearisierung. \\
+Schreibe $(\star)$ um: $i(s'+i'+r') = - \alpha is + \alpha is - \beta i + \beta i = 0$ \\
+$\Rightarrow s+i+r=1$ (normiert) $\Rightarrow i'=i(\alpha s - \beta)$. Betrachte $(log(s) + \frac{\alpha}{\beta}r)' = -\alpha i + \alpha i = 0$ \\
+Damit haben wir zwei sogenannte \underline{Invarianten} $s+i+r=1$(Konstante normiert) und $(log(s)-\frac{\alpha}{\beta}s-\frac{\alpha}{\beta}i)' = 0$, da $(1)' = 0$ und $r=1-s-i$ \\
+$\Rightarrow -\alpha is = (s') = - \beta s log(s) + \alpha s^2 + \beta s \gamma(0)$ (however?)
+
+
+
+
+
+
 
 
 
