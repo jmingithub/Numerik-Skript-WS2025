@@ -629,8 +629,49 @@ $(\star)$ $s' = -\alpha is, i'= \alpha is - \beta i, r'= \beta i$ \\
 \underline{Bemerkung:} Das entsprechende Differentialgleichungssystem mit "Erholung" lautet $s'=-\alpha is + \varepsilon r, i'= \alpha is - \beta i, r' = \beta i - \varepsilon r, \varepsilon > 0$. Es hat ein anderes Verhalten.... Eigenwerte der Linearisierung. \\
 Schreibe $(\star)$ um: $i(s'+i'+r') = - \alpha is + \alpha is - \beta i + \beta i = 0$ \\
 $\Rightarrow s+i+r=1$ (normiert) $\Rightarrow i'=i(\alpha s - \beta)$. Betrachte $(log(s) + \frac{\alpha}{\beta}r)' = -\alpha i + \alpha i = 0$ \\
-Damit haben wir zwei sogenannte \underline{Invarianten} $s+i+r=1$(Konstante normiert) und $(log(s)-\frac{\alpha}{\beta}s-\frac{\alpha}{\beta}i)' = 0$, da $(1)' = 0$ und $r=1-s-i$ \\
-$\Rightarrow -\alpha is = (s') = - \beta s log(s) + \alpha s^2 + \beta s \gamma(0)$ (however?)
+Damit haben wir zwei sogenannte \underline{Invarianten} $s+i+r=1$(Konstante normiert) und \\ $(log(s)-\frac{\alpha}{\beta}s-\frac{\alpha}{\beta}i)' = 0$, da $(1)' = 0$ und $r=1-s-i$ \\
+10.11.25: \\
+Multipliziere $(log(s)-\frac{\alpha}{\beta}s-\frac{\alpha}{\beta}i)$ mit $(\beta s)$ \\
+$\Rightarrow -\alpha is = (s') = - \beta s$ $log(s) + \alpha s^2 + \beta s \gamma(0)$ mit Integrationskonstante $\gamma(0)$, wobei $\gamma(0) \beta = \beta log(s(0)) - \alpha s(0) - \alpha i(0)$ ist, denn $\beta s$ $log s - \alpha s^2 - \alpha is = konst. \beta s$.  \\
+\newpage
+\underline{Formale Überlegungen:} \\ 
+\begin{enumerate}
+\item Falls $s(0) \leq \frac{\beta}{\alpha}$ und da s fallend ist $(s'=-\alpha i s)$, fällt das $i$ ebenfalls, da $i'=i(\alpha s - \beta), (\alpha s - \beta) = 0$ für $s = \frac{\beta}{\alpha} \sim$ Es gibt keinen epidemischen Ausbruch. \\
+\item Falls $s(0) > \frac{\beta}{\alpha}$, dann steigt $i$ zu Beginn, bis $s$ auf $\frac{\beta}{\alpha}$ gefallen ist. Also bricht eine Epidemie aus mit Maximum bei $s = \frac{\beta}{\alpha}$. Final geht $i \to 0$ für $t \to \inf$. \\
+\end{enumerate}
+Was ist das finale Verhalten \underline{dieser} Epidemie? Wir versuchen, das Verhalten $t \to \inf$ zu verstehen. \\
+$i(\infty) = 0$ und (Invariante): $\beta log(s(\infty)) - \alpha s(\infty) - \alpha i(\inf) = \beta log(s(0))-\alpha s(0) - \alpha i(0)$ und $\frac{\partial}{\partial s}(log(s) - \frac{\alpha}{\beta}s) = \frac{1}{s} - \frac{\alpha}{\beta}$, also $\frac{\partial}{\partial s}(log(s) - \frac{\alpha}{\beta}s)(\infty) = \frac{1}{s(\infty)}-\frac{\alpha}{\beta} \geq 0$ (denn $\frac{1}{s(\infty)} \geq \frac{\alpha}{\beta} \Leftrightarrow \beta \geq \alpha s(\infty) \Leftrightarrow 0 \geq (\alpha s -  \beta)$ und $s$ fällt wegen $s'=-\alpha is$). \\
+Das heißt das Verhalten hängt von der strikt konkaven Kurve $\beta log(s) - \alpha s =: f(s)$ ab, die ihr globales Maximum bei $s=\frac{\beta}{\alpha}$ hat. \\
+Seien $s(0), i(0) > 0$ beliebig. Da $i(\infty) = 0$ und $r = 1-s-i$ wird sich der Anteil der "removed" für große Zeiten für große Zeiten $(r(\infty) = 1 - s(\infty))$ der eindeutigen \Lsg $(r_1-s)$ von $\beta log(s) - \alpha s = \beta log(s(0)) - \alpha s(0) - \alpha i(0)$ annähern mit $s \leq \frac{\beta}{\alpha}$. \\
+Achtung: formale Überlegungen, Positivität, Eindeutigkeit, Limes-Verhalten müssten noch gezeigt werden (gelten aber). \\
+Der Wert $\frac{\beta}{\alpha}$ ist die Herdenimmunität. Diese hat zwei Interpretationen:
+\begin{enumerate}
+\item Der maximal mögliche Anteil der betrachteten Population, der keine Infektion während der gesamten Epidemie erlitten hat.
+\item Der Anteil der Suszeptiblen in der betrachteten Population, bei dem die Anzahl der Infektiösen anfängt zu fallen.
+\end{enumerate}
+
+\section{Phasenraumanalyse}
+Betrachte die \DGL $\dot{x} =\alpha x - \beta x^2$. Fasse $x(t)$ also Punkt des Phasenraums $\mathbb{R}$ auf, dessen Bewegung ("Fluss") durch die \DGL beschrieben wird. Wenn $x(t)$ die \Lsg des \DGL ist, dann ist $\dot{x}(t)$ die Geschwindigkeit, mit der sich der Punkt bewegt. Trage in jedem Punkt $x \in \mathbb{R}$ den Wert $f(x) = \alpha x - \beta x^2$ in Form eines Vektors auf. Dann erhalten wir das sogenannte Richtungsfeld unserer \DGL. \\
+\Phasendiagramm{2}{1}{0}{3}{3}{3}{3}{3}{3} \\
+Die Punkte sind die Stellen $0$ und $\frac{\alpha}{\beta}$. \\
+Dieses gibt an, mit welcher Geschwindigkeit und in welcher Richtung sich der Punkt bewegt beziehungsweise wenn $t \to x(t)$ die \DGL $x'=f(x)$ (erfüllt?), dann ist $f(x)$ der Tangentialvektor im Punkt $x = x(t)$ an den Weg $t \to x(t)$ in $\mathbb{R}$. $0$ und $\frac{\alpha}{\beta}$ sind Ruhepunkte/stationäre Punkte. \\
+
+\subsection{Das Räuber-Beute-Modell}
+$x(t)$ - Beutespezies, $y(t)$ - Räuberspezies \\
+Einfacher Ansatz: $x'=(\alpha - \beta y)x,$ $y'=(-\gamma + \delta x)y, \alpha, \beta, \gamma, \delta > 0$ \\
+$Z(t):=(x(t),y(t)) \in \mathbb{R}^2, F : \mathbb{R}^2 \rightarrow \mathbb{R}^2, (x,y) \mapsto ((\alpha - \beta y)x, (\delta x - \gamma)y). z'=F(z)$. \\
+Eine \Lsg dieses Differentialgleichungssystems ist ein Weg $Z: I \subset \mathbb{R} \rightarrow \mathbb{R}^2$, dessen Tangentialvektor $Z'(t)$ im Punkt $Z(t)$ durch $F(Z(t))$ gegeben ist. Durch Anhalten des Vektors $F(Z)$ an den Punkt $Z \in \mathbb{R}^2$ erhalten wir das Richtungsfeld der \DGL. \\
+Eine \Lsg von $Z'=F(Z)$ ist dann eine (durch $t \in I \subset \mathbb{R}$ parametrisierte, orientierte) Kurve $C$ in $\mathbb{R}^2$ so, dass in jedem Punkt $Z$ von $C$ der Vektor $F(Z)$ ein Tangentialvektor ist. \\
+\includegraphics[scale=0.3]{lib/Richtungsfeld Räuber-Beute-Modell.png} \\
+Unser Differentialgleichungssystem hat zwei Ruhepunkte: $(0,0)$ und $(\frac{\gamma}{\delta}, \frac{\alpha}{\beta})$. Man \underline{kann} zeigen, dass das Phasenportrait für unser Räuber-Beute-Modell wie folgt aussieht: \\
+\includegraphics[scale=0.5]{lib/Phasenportrait Räuber-Beute-Modell.png} \\
+Die Periodizität im 1. Quadranten ist zu begründen. \\
+Das Phasendiagramm beschreibt das Langzeitverhalten der Population. \\
+Wir wollen 2-dimensionale Flüsse klassifizieren. Betrachte also $X'=AX$ in $\mathbb{R}^2$ beziehungsweise $x_1'=ax_1+bx_2, x_2'=cx_1+dx_2, a,b,c,d \in \mathbb{R}$. \\
+Für $X(0) = I_d$ gilt $X(t) = I_d + \int_0^t AX(\tau) d \tau = T_d + A \int_0^t X(\tau)d\tau$. Diese legt folgende Iteration nahe: \\
+$X_0:=I_d,$ \\$X_1:= I_d + A \int_0^t X_0(\tau)d \tau = I_d + tA,$ \\$X_2(t):=T_d + A \int_0^t X_1(\tau)d\tau = I_d + tA + \frac{t^2}{2}A,$\\$...,$\\$X_{n+1}(t) = T_d + A \int_0^t X_n(\tau)d\tau = \Sigma_{k=0}^{n+1}\frac{t^k}{k!}A^k$
+
+
 
 
 
