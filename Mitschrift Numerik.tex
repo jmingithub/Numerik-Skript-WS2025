@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{tikz}
 \usepackage{ifthen}
+\usepackage{multicol}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \author{Jan Minor}
 \title{Analysis und Numerik von Differentialgleichungen}
@@ -669,7 +670,50 @@ Die Periodizität im 1. Quadranten ist zu begründen. \\
 Das Phasendiagramm beschreibt das Langzeitverhalten der Population. \\
 Wir wollen 2-dimensionale Flüsse klassifizieren. Betrachte also $X'=AX$ in $\mathbb{R}^2$ beziehungsweise $x_1'=ax_1+bx_2, x_2'=cx_1+dx_2, a,b,c,d \in \mathbb{R}$. \\
 Für $X(0) = I_d$ gilt $X(t) = I_d + \int_0^t AX(\tau) d \tau = T_d + A \int_0^t X(\tau)d\tau$. Diese legt folgende Iteration nahe: \\
-$X_0:=I_d,$ \\$X_1:= I_d + A \int_0^t X_0(\tau)d \tau = I_d + tA,$ \\$X_2(t):=T_d + A \int_0^t X_1(\tau)d\tau = I_d + tA + \frac{t^2}{2}A,$\\$...,$\\$X_{n+1}(t) = T_d + A \int_0^t X_n(\tau)d\tau = \Sigma_{k=0}^{n+1}\frac{t^k}{k!}A^k$
+$X_0:=I_d,$ \\$X_1:= I_d + A \int_0^t X_0(\tau)d \tau = I_d + tA,$ \\$X_2(t):=T_d + A \int_0^t X_1(\tau)d\tau = I_d + tA + \frac{t^2}{2}A,$\\$...,$\\$X_{n+1}(t) = T_d + A \int_0^t X_n(\tau)d\tau = \Sigma_{k=0}^{n+1}\frac{t^k}{k!}A^k$ \\
+13.11.25: \\
+Weiter Räuber-Beute-System (Wiederholung von letzter VL): \\
+$x'=(\alpha - \beta y)x,$ $y'=(-\gamma + \delta x)y, \alpha, \beta, \gamma, \delta > 0$. \\
+$(\alpha - \beta y) = 0$ für $y = \frac{\alpha}{\beta}$, $(-\gamma + \delta x) = 0$ für $x = \frac{\gamma}{\delta}$ \\
+Es gelten:
+\begin{itemize}
+\item $\alpha - \beta y > 0 \Leftrightarrow \frac{\alpha}{\beta}>y$
+\item $\alpha - \beta y < 0 \Leftrightarrow \frac{\alpha}{\beta}<y$
+\item $-\gamma + \delta x > 0 \Leftrightarrow x > \frac{\gamma}{\delta}$
+\item $-\gamma + \delta x < 0 \Leftrightarrow x < \frac{\gamma}{\delta}$
+\end{itemize}
+Betrachte folgende Fälle:
+\begin{enumerate}
+\item $x' > 0$, falls $\frac{\alpha}{\beta} > y$ und $x > 0$ oder falls $\frac{\alpha}{\beta} < y$ und $x < 0$
+\item $x' < 0$, falls $\frac{\alpha}{\beta} < y$ und $x > 0$ oder falls $\frac{\alpha}{\beta} > y$ und $x < 0$
+\item $y' > 0$, falls $x > \frac{\gamma}{\delta}$ und $y > 0$ oder falls $x < \frac{\gamma}{\delta}$ und $y < 0$
+\item $y' < 0$, falls $x < \frac{\gamma}{\delta}$ und $y > 0$ oder falls $x > \frac{\gamma}{\delta}$ und $y < 0$
+\end{enumerate}
+Einschub: Nullklinen sind Geraden oder auch Kurven. Sie sind da, wo $x'=0 oder y'=0$, hier bei $x = \frac{\gamma}{\delta}$ und bei $y = \frac{\alpha}{\beta}$ geraden. \\
+Zwei Ruhepunkte $(0,0)$ und $(\frac{\gamma}{\delta}, \frac{\alpha}{\beta})$. \\
+\begin{multicols}{2}
+\includegraphics[scale=0.3]{lib/Richtungsfeld Räuber-Beute-Modell.png}
+\columnbreak \\
+Zu dem Richtungsfeld zugehörige Fälle: \\
+\begin{tabular}{c|c|c}
+1,4 & 2,4 & 2,3 \\
+\hline
+2,4 & 1,4 & 1,3 \\
+\hline
+2,3 & 1,3 & 1,4
+\end{tabular}
+\end{multicols}
+Es folgt das Phasendiagramm: \\
+\includegraphics[scale=0.4]{lib/Phasenportrait Räuber-Beute-Modell.png} \\
+Wir wollen 2-dimensionale lineare Flüsse klassifizieren. Betrachte also $X'=AX$ in  $\mathbb{R}^2$.
+$x_1'=ax_1 + bx_2, x_2'=cx_1 + dx_2, a,b,c,d \in \mathbb{R}$ \\
+Für $X(0) = I_d$ gilt $X(t) = T_d + \int_0^t AX(\tau)d\tau = I_d + A \int_0^t x(\tau)d\tau$. \\
+Dies legt folgende Iteration nahe: \\
+$X_0 := I_d, X_1(t) := I_d + A \int_0^t X_0(\tau)d\tau = I_d + At, X_2(t) := I_d + A \int_0^t X_1(\tau)d\tau = I_d + At + A^2 \frac{t^2}{2}, ... , x_{n+1}(t) = I_d + A \int_0^t X_n(\tau)d\tau = \Sigma_{k=0}^{n+1} \frac{t^k}{k!}A^k$. \\
+Die Reihe konvergiert absolut und gleichmäßig auf jedem kompakten Intervall von $\mathbb{R}$ gegen $e^{tA}$
+
+
+
 
 
 
