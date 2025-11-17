@@ -709,12 +709,114 @@ Wir wollen 2-dimensionale lineare Flüsse klassifizieren. Betrachte also $X'=AX$
 $x_1'=ax_1 + bx_2, x_2'=cx_1 + dx_2, a,b,c,d \in \mathbb{R}$ \\
 Für $X(0) = I_d$ gilt $X(t) = T_d + \int_0^t AX(\tau)d\tau = I_d + A \int_0^t x(\tau)d\tau$. \\
 Dies legt folgende Iteration nahe: \\
-$X_0 := I_d, X_1(t) := I_d + A \int_0^t X_0(\tau)d\tau = I_d + At, X_2(t) := I_d + A \int_0^t X_1(\tau)d\tau = I_d + At + A^2 \frac{t^2}{2}, ... , x_{n+1}(t) = I_d + A \int_0^t X_n(\tau)d\tau = \Sigma_{k=0}^{n+1} \frac{t^k}{k!}A^k$. \\
-Die Reihe konvergiert absolut und gleichmäßig auf jedem kompakten Intervall von $\mathbb{R}$ gegen $e^{tA}$
+$X_0 := I_d, X_1(t) := I_d + A \int_0^t X_0(\tau)d\tau = I_d + At,$ \\$X_2(t) := I_d + A \int_0^t X_1(\tau)d\tau = I_d + At + A^2 \frac{t^2}{2},$ \\$... ,$ \\$X_{n+1}(t) = I_d + A \int_0^t X_n(\tau)d\tau = \Sigma_{k=0}^{n+1} \frac{t^k}{k!}A^k$. \\
+Die Reihe $\Sigma_{k=0}^{\infty} \frac{t^k}{k!}A^k$ konvergiert absolut und gleichmäßig auf jedem kompakten Intervall von $\mathbb{R}$ gegen $e^{tA} \forall t \in \mathbb{R}$, \\
+17.11.25: \\
+da sie die Majorante $\Sigma_{k=0}^{\infty} \frac{|t|^k}{k!}||A||^k = e^{|t|\text{ }||A||}$ hat. \\
+$t \mapsto e^{tA}$ ist stetig (wegen der gleichmäßigen Konvergenz auf kompakten Intervallen). \\
+Wir können bei der Iteration zum Grenzwert übergehen (wegen lokal gleichmäßiger Konvergenz) $\rightsquigarrow$ evtl. Übung \\
+und erhalten $U(t) = T_d + \int_0^t AU(s)ds \forall t \in \mathbb{R}$ als eindeutige globale Lösung des AWP $X'=AX, X(0) = I_d$. \\
+Die \DGL $X'=AX$ geht durch Transformation $Y=BX$ für invertierbares B über in $Y'=BAB^{-1}Y$ mit "Fundamentalmatrix" $e^{tBAB^{-1}} = Be^{tA}B^{-1}, t \in \mathbb{R} \Rightarrow$ für die Fundamentalmatrix von $X'=AX$, dass $e^{tA} = B^{-1}e^{tBAB^{-1}}B$ gilt $\forall t \in \mathbb{R}$. Dies erlaubt uns, den Operator $A$ auf eine möglichst einfache Form zu bringen und man kann folgendes Theorem beweisen.
 
+\subsection{Theorem}
+Sei $K=\mathbb{C}$. Sei $A$ eine stetige, lineare Abbildung (unsere Matrix), m-dimensional in $\mathbb{C}^m$. Seien $\lambda_1,...,\lambda_k$ die paarweise verschiedenen Eigenvektoren von A mit algebraischer Multiplizität $m_1,...,m_k$. \\
+Dann existieren für jeden $j=1,...,k$ genau $m_j$ linear unabhängige Lösungen der homogenen \DGL $X'=AX$ der Form $x_{j,s}(t) = e^{\lambda_j t} p_{j,s-1}(t)$, wobei $p_{j,\nu}(t)$ Polynome in $t$ vom Grad $\leq \nu$ sind. \\
+Die Gesamtheit der \LSG bildet ein sogenanntes "Fundamentalsystem" für unser Differentialgleichungssystem. \\
+Ist A diagonalisierbar, dann ist das Fundamentalsystem $\{ e^{\lambda_j t} v_{j,s} | 1 \leq s \leq m_j, 1 \leq j \leq k \}$ mit linear unabhängigen Vektoren $v_{j,s}$.
 
+\subsection{Beispiel}
+Betrachte $x'=x-y, y'=4x-3y$. Also $A = \begin{pmatrix}
+1 & -1 \\
+4 & -3
+\end{pmatrix}; det(A-\lambda I_d) = (1-\lambda)(-3-\lambda)+4 = \lambda^2 + 2\lambda + 1 = (\lambda+1)^2 \\
+\lambda = 1$ ist der einzige Eigenwert mit algebraischer Vielfachheit 2. Da $A-\lambda I_d = A + I_d = \begin{pmatrix}
+2 & -1 \\
+4 & -2
+\end{pmatrix}$ ist $\begin{pmatrix}
+1 \\
+2
+\end{pmatrix} \in ker(A + I_d) \Rightarrow t \mapsto \begin{pmatrix}
+2 & -1 \\
+4 & -2
+\end{pmatrix} e^{-t}$ ist eine Lösung. \\ 
+\underline{Ansatz} für die zweite \Lsg gemäß Theorem $\begin{pmatrix}
+x(t) \\
+y(t)
+\end{pmatrix} = \begin{pmatrix}
+\alpha + \beta t \\
+\gamma + \delta t
+\end{pmatrix} e^{-t}$. \\
+Es muss gelten $\begin{pmatrix}
+x'(t) \\
+y'(t)
+\end{pmatrix} = \begin{pmatrix}
+\beta - \alpha - \beta t \\
+\delta - \gamma - \delta t
+\end{pmatrix} e^{-t} = A \begin{pmatrix}
+\alpha + \beta t \\
+\gamma + \delta t
+\end{pmatrix} e^{-t}$ 
+\\$\Rightarrow \begin{pmatrix}
+\beta - \alpha \\
+\delta - \gamma
+\end{pmatrix} = A \begin{pmatrix}
+\alpha \\
+\gamma
+\end{pmatrix}$ und $\begin{pmatrix}
+-\beta t \\
+-\delta t
+\end{pmatrix} = A \begin{pmatrix}
+\beta t \\
+\delta t
+\end{pmatrix}$. \\
+Dies ist gerade die Eigenwert Gleichung $\Rightarrow \beta = 1, \delta = 2$. Damit erhalten wir $1-\alpha = \alpha - \gamma$ und $2 - \gamma = 4 \alpha - 3 \gamma$ beziehungsweise $1+\gamma = 2 \alpha, 2+2\gamma = 4 \alpha \Rightarrow$ eindeutig $\alpha = 0, \gamma = -1$ \\
+$\Rightarrow$ Die zweite linear unabhängige \Lsg lautet $\begin{pmatrix}
+t \\
+-1+2t
+\end{pmatrix} e^{-t}$.
 
-
+\subsection{Klassifikation (von linearen Flüssen, glaube ich)}
+Betrachte den linearen Fluss $e^{tA} X_0$ für die lineare stetige Abbildung $A$ (unsere Matrix) in der Nähe des kritischen Punktes $X=0; X'=AX$ in $\mathbb{R}^2$. Die Lösungen dieses Differentialgleichungssystems hängen von den Eigenwerten und deren algebraischen Vielfachheiten der Matrix $A$ ab. Sinnvollerweise wenden wir die Transformation $Y=BX$ und $Y'=BAB^{-1}Y$ bzw. $X=B^{-1}Y$ für invertierbares $B$ an. \\
+\begin{enumerate}
+\item Fall: A hat reelle, nicht verschwindende Eigenwerte mit verschiedenen Vorzeichen. \\
+Dann existiert ein $B$ mit $BAB^{-1} = \begin{pmatrix}
+\lambda & 0 \\
+0 & \mu
+\end{pmatrix}, \lambda < 0 < \mu$. Der von $BAB^{-1}$ erzeugte Fluss $e^{t BAB^{-1}}$ ist dann durch $t \mapsto \begin{pmatrix}
+e^{\lambda t}y_1 & e^{\mu t}y_2
+\end{pmatrix}$ gegeben. \\
+Damit hat das Phasenportrait des Flusses $e^{tA} = B e^{tA} B^{-1}$ in den $Y$-Koordinaten die Gestalt goodnotes 8. Der Nullpunkt ist ein Sattelpunkt. Eventuelle Darstellung in der $X$-Koordinate(evtl. andere Winkel etc., aber Richtungspfeile gleich, also Bewegung in Relation zueinander ist gleich): goodnotes 8.1
+\item Fall: Alle Eigenwerte haben negativen Realteil. \\
+Aus den Stabilitätskriterium (siehe unten) folgt, dass $\underset{t \to \infty}{\lim} X(t) = 0$ für alle \Lsg unseres Differentialgleichungssystems. In diesem Fall nennt man den Nullpunkt eine Senke oder sagt, dass er \underline{asymptotisch stabil} ist.
+\begin{enumerate}
+\item Falls die Eigenwerte reell sind: $\lambda \leq \mu < 0$.
+\begin{enumerate}
+\item Falls A auf die Form $\begin{pmatrix}
+\lambda & 0 \\
+0 & \mu
+\end{pmatrix}$ gebracht werden kann, erhält man folgende Phasenportraits in den transformierten Koordinaten $\begin{pmatrix}
+e^{\lambda t}y_1 & e^{\mu t}y_2
+\end{pmatrix}$: goodnotes 9
+\item Falls A auf die Form $\begin{pmatrix}
+\lambda & 1 \\
+0 & \lambda
+\end{pmatrix}$ gebracht werden kann (also $\lambda = \mu$) mit $\lambda < 0$, dann leutet die \Lsg der transformierten Gleichung $y_1(t) = \alpha e^{\lambda t} + \beta t e^{\lambda t}, y_2(t) = \beta e^{\lambda t}$ für $\alpha, \beta \in ^\mathbb{R}$. \\
+$y_1 = \xi, y_2 = \eta \rightarrow \Xi = \frac{\alpha}{\beta} \eta + \frac{1}{\lambda} \eta log(\frac{\eta}{\beta})$. Das Phasenportrait in den $Y$-Koordinaten sieht dann wie folgt aus: goodnotes 10. Hier heißt 0 ein (stabiler) Knoten.
+\end{enumerate}
+\item Falls die Eigenwerte komplexwertig sind: \\
+$\lambda = \alpha + i w, \overline{\lambda} = \alpha - i w, w \neq 0$ sind die Eigenvektoren und es existiert eine Transformation, sodass $(\star) BAB^{-1} = \begin{pmatrix}
+\alpha & -w \\
+w & \alpha
+\end{pmatrix}, w > 0$. \underline{Einschub:} Komplexifizierung: $\mathbb{R}_\mathbb{C}^n$ von $\mathbb{R}^n$. $\gamma := \alpha + i \beta = \mathbb{R} + i \mathbb{R}$. Multiplikation $\gamma z := \begin{pmatrix}
+\alpha x - \beta y & \beta x + \alpha y
+\end{pmatrix}$ für $z = x + i y$ bzw. $(x,y)$. \\
+Jedes Element $z = (x,y)$ kann eindeutig in der Form $z = x + i y$ dargestellt werden und $\mathbb{R}^n$ wird in $\mathbb{R}_\mathbb{C}^n$ mit $\mathbb{R}^n \times \{0\}$ identifiziert. \\
+$\mathbb{R}_\mathbb{C}^n = \mathbb{R}^n + i \mathbb{R}^n$. Für eine stetige lineare Abbildung $A$ (unsere Matrizen) wird die Komplexifizierung $A_{\mathbb{C}}$ von $A$ durch $A_{\mathbb{C}}(Ax+iAy):=Ax+iAy$ definiert. Es gilt $A_{\mathbb{C}}^n = (A^n)_{\mathbb{C}}$ und aus der Eigenwerts-Gleichung $A_\mathbb{C} z = \lambda z$ folgt $A_\mathbb{C} z = \overline{\lambda} z = \overline{A_\mathbb{C} z} = \overline{\lambda z} = \overline{\lambda} \overline{z} \Rightarrow (e^{tA})_\mathbb{C} = e^{t{A_\mathbb{C}}}$ mit $\lambda$ ist auch $\overline{\lambda}$ ein Eigenwert von $A_\mathbb{C}$.
+\end{enumerate}
+\item Fall: 
+\end{enumerate}
+\underline{Einschub für oben: Theorem: Stabilitätskriterium} \\
+Gelten die Bezeichnungen von 11.4, dann gilt $\underset{t \to \infty}{\lim} e^{tA} = 0 \Leftrightarrow Re(\lambda) < 0 \forall \lambda$ Eigenwerte von $A$. Das heißt alle Eigenvektoren von $A$ liegen genau dann in der offenen negativen komplexem Halbebene, wenn für jede \Lsg $X$ von $X'=AX$ gilt, dass $\underset{t \to \infty}{\lim} X(t) = 0$.
 
 
 
