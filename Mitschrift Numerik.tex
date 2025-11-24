@@ -816,12 +816,162 @@ $\mathbb{R}_\mathbb{C}^n = \mathbb{R}^n + i \mathbb{R}^n$. Für eine stetige lin
 \item Fall: 
 \end{enumerate}
 \underline{Einschub für oben: Theorem: Stabilitätskriterium} \\
-Gelten die Bezeichnungen von 11.4, dann gilt $\underset{t \to \infty}{\lim} e^{tA} = 0 \Leftrightarrow Re(\lambda) < 0 \forall \lambda$ Eigenwerte von $A$. Das heißt alle Eigenvektoren von $A$ liegen genau dann in der offenen negativen komplexem Halbebene, wenn für jede \Lsg $X$ von $X'=AX$ gilt, dass $\underset{t \to \infty}{\lim} X(t) = 0$.
+Gelten die Bezeichnungen von 11.4, dann gilt $\underset{t \to \infty}{\lim} e^{tA} = 0 \Leftrightarrow Re(\lambda) < 0 \forall \lambda$ Eigenwerte von $A$. Das heißt alle Eigenvektoren von $A$ liegen genau dann in der offenen negativen komplexem Halbebene, wenn für jede \Lsg $X$ von $X'=AX$ gilt, dass $\underset{t \to \infty}{\lim} X(t) = 0$. \\
+\\
+\textbf{Hier fehlt ein Donnerstag}
 
+\section{Orbits und Flüsse - nichtlineare autonome Differentialgleichungen}
+\subsection{}
+\subsection{}
+\subsection{}
+\subsection{}
+\subsection{Typen von \LSG bzw. Orbits}
+Gelte 12.1. Für jedes $\psi \in \Omega$ hat $X_\psi$ genau eine der folgenden Eigenschaften: 
+......
 
+\subsection{Definition: Fluss}
+Ein Fluss ist eine Familie von Abbildungen $F_t:\Omega \to \Omega$ mit $F_0 = {I_d}_\Omega$ und $F_{t_2+t_1} = F_{t_2} \dot F_{t_1} \forall t_1,t_1 \in \mathbb{R}$. \\
+Bemerkung:
+\begin{enumerate}
+\item Ein Fluss ist eine Gruppe. Insbesondere gilt $(F_t)^{-1} = F_{-t} \forall t \in \mathbb{R}$, d.h. jede Abbildung $F_t$ ist bijektiv.
+\item Man schreibt oft auch $F(t,x)$ statt $F_t(x)$ und konkret betrachtet man dann einen Fluss als Abbildung $F:\mathbb{R} \times \Omega \to \Omega$
+\end{enumerate}
 
+\subsection{Theorem: Glatter Fluss einer Differentialgleichung}
+(Ich benutze hier $\psi$ statt dem Zeichen, das sie in der VL verwendet hat.) \\
+Die \DGL in $(\star) x'(t) = f(x(t))$ erzeugt einen Fluss via $F_t(\psi) := x_\psi(t) \forall t \in \mathbb{R}, \psi \in \Omega$. Dieser Fluss ist, als Abbildung von $\mathbb{R} \times \Omega$ nach $\Omega$ betrachtet, stetig differenzierbar. Damit ist auch $F_t:\Omega \to \Omega$ stetig differenzierbar $\forall t \in \mathbb{R}$. \\
+Irgendwann Beweis, dazu brauchen wir: \\
+\\
+\textbf{Lemma: Shiftinvarianz von Lösungen autonomer \DGLs} \\
+Seien $t_0, \overline{t_0} \in \mathbb{R}$. Sei $x:\mathbb{R} \to \Omega$ eine Lösung von $(\star)$ mit $x(t_0) = \psi$. \\
+Dann ist auch $\tilde{x}:\mathbb{R} \to \Omega$ mit $\tilde{x}(t) = x(t-\tilde{t_0} + t_0)$ eine Lösung von $(\star)$ mit $\tilde{x}(\tilde{t_0}) = \psi$. \\
+Insbesondere gilt $x(t) = x_\psi(t-t_0)$ und $\tilde{x}(t) = x_\psi(t-\tilde{t_0})$. \\
+\\
+\textbf{Definition} \\
+Für $x'=A(t)x$ heißt eine Basis $x^{(1)}, x^{(2)}, ..., x^{(d)}: \mathbb{R} \to \mathbb{R}^d$ des Lösungsraumes Fundamentalsystem. Die Matrixwertige Fnktion $\phi:\mathbb{R} \to \{d \times d \text{ Matrizen}\}$ mit $\phi(t) = \begin{pmatrix}
+x_1^{(1)}(t) & ... & x_1^{(d)}(t) \\
+... & & ... \\
+x_d^{(1)}(t) ... x_d^{(d)}(t)
+\end{pmatrix}$ heißt Fundamentalmatrix und $det(\phi):\mathbb{R} \to \mathbb{R}$ heißt Wronski-Determinante. \\
+Es gilt $\phi'=A(t) \phi$ und $x(t) = \phi(t) \phi^{-1}(t_0) \psi$ löst $x'=A(t)x$ mit $x(t_0) = \psi$. \\
+\underline{Beispiel:} \\
+$x'=\begin{pmatrix}
+0 & 1 \\
+-1 & 0
+\end{pmatrix} \begin{pmatrix}
+x_1 \\
+x_2
+\end{pmatrix}$ (harmonischer Oszillator). \\
+Linear unabhängige \LSG sind $x^{(1)}(t) = \begin{pmatrix}
+cos(t) \\
+-sin(t)
+\end{pmatrix}$ und $x^{(2)}(t) = \begin{pmatrix}
+sin(t) \\
+cos(t)
+\end{pmatrix} \Rightarrow \phi(t) = \begin{pmatrix}
+cos(t) & sin(t) \\
+-sin(t) & cos(t)
+\end{pmatrix}$ und $det(\phi(t)) = 1 \forall t \in \mathbb{R}$. \\
+\underline{Bemerkung:}
+\begin{itemize}
+\item Da $(F_t)^{-1} = F_{-t}$, ist jede Abbildung $F_t:\Omega \to \Omega$ ein Diffeomorphismus.
+\item Für $f(x) = Ax$ ist $F_t(\psi) = exp(tA) \psi$.
+\end{itemize}
+\underline{Das Theorem von Poincare-Deudixon:}
 
+\subsection{Annahmen}
+Sei $f$ stetig diffbar und auf ganz $\mathbb{R}^2$ definiert. Existiere für alle $\psi \in \mathbb{R}$ die \Lsg $x_\psi \forall t \in \mathbb{R}$ für unsere \DGL.
 
+\subsection{Definition}
+Gelte 12.8. Für jedes $\psi \in \mathbb{R}^2$ heißen $\alpha_\psi := \{ \psi \in \mathbb{R}^2 | \text{Es existiert eine Folge } \{t_n \}_{n \in \mathbb{N}}, t_n \to - \infty, x_\psi(t_n) \to \psi \}$, $\omega\psi := \{ \psi \in \mathbb{R}^2 | \text{Es existiert eine Folge } \{t_n \}_{n \in \mathbb{N}}, t_n \to + \infty, x_\psi(t_n) \to \psi \}$ die $\alpha$-Limes- und die $\omega$-Limesmenge von $\psi$.
+
+\subsection{Lemma}
+Gelte 12.8. Für jedes $\psi$ ist $\omega_\psi$ abgeschlossen und invariant unter der Dynamik, d.h. $T_\psi \subset \omega_\psi \forall \psi \in \omega_\psi$ und damit $x_\psi(t) \in \omega_\psi \forall \psi \in \omega_\psi$. Analog für $\alpha_\psi$.
+
+\subsection{Theorem: Poincare-Beudixson}
+Gelte 12.8. Sei $\underset{t \to \infty}{\limsup} |x_\psi(t)| < \infty$, dann enthält $\omega_\psi$ entweder einen Fixpunkt oder ist ein echt-periodischer Orbit.
+
+\subsection{Folgerung}
+Gelte 12.8. Sei $\Sigma \in \mathbb{R}^2$ ein beschränktes Gebiet. Sei $\overline{\Sigma}$ vorwärts-invariant unter der Dynamik, d.h. $x_\psi(t) \in \overline{\Sigma}$ $\forall \psi \in \overline{\Sigma}, t \geq 0$. \underline{Dann} enthält $\overline{\Sigma}$ einen stationären Punkt oder eonen echt-periodischen Orbit.
+
+\subsection{Lemma: Beudixon-kriterium}
+gelte 12.8. Eine einfach zusammenhängende Menge $\Sigma \in \mathbb{R}^2$ kann nur dann einen echt-periodischen Orbit enthalten, wenn $div f$ mindestens eine Nullstelle in $\Sigma$ besitzt.
+
+\subsection{Beispiel}
+Betrachte $x'=\begin{pmatrix}
+-x_1+x_2^2 \\
+x_1^2 - x_2^3
+\end{pmatrix}$. Dann $div f(x_1,x_2) = -1-3 x_2^2$. Also existiert \underline{keine} Nullstelle(weil $div f$ keine Nullstelle in $\mathbb{R}$ besitzt ?). \\
+\\
+\underline{\textbf{Stabilität von stationären Punkten}} \\
+Wir betrachten stationäre Orbits von $x'=f(x)$, d.h. konstante \LSG $x_{\psi^\star}(t) = \psi^\star$ $\forall t$. \\
+Wann sind diese stabil unter kleinen Störungen? \\
+Wir wissen, dass $T_{\psi^\star} = \{\psi^\star\}$ genau dann, wenn $\psi^\star$ kritischer Punkt des Vektorfeldes $f$ ist, d.h. gaenau dann, wenn $f(\psi^\star) = 0$ ist.
+
+\subsection{Definition: Lyapunov-Stabilität}
+Gelte 12.8. Ein stationärer Punkt $\psi^\star \in \Omega$ (bzw. der Orbit $T_{\psi^\star}$, bzw. die stationäre \Lsg $x_{\psi^\star}$) heißt
+\begin{itemize}
+\item Lyapunov-stabil(oder einfach stabil), falls $\forall \epsilon > 0$ ein $\delta > 0$ existiert, sodass für $|\psi - \psi^\star| \leq \delta \Rightarrow |x_{\psi}(t) - \psi^\star| \leq \epsilon \forall t \geq 0$.
+\item asymptotisch stabil, falls Stabilität gilt und ein $\tilde{\delta}$ existiert, sodass für $|\psi - \psi^\star| \leq \tilde{\delta} \Rightarrow \underset{t \to \infty}{\lim} x_\psi(t) = \psi^\star$. Ein nicht-stabiler stationärer Punkt heißt instabil.
+\end{itemize}
+
+\subsection{Linearisierte Stabilität}
+Gelte 12.8. Sei $\psi^\star$ ein stationärer Punkt und haben alle (komplexen) Eigenwerte (also auch reelle) der Matrix $A:=Df(\psi^\star)$ alle negativen Realteil haben, d.h.$-\mu = max\{Re(\lambda) | \lambda \in \text{Spektrum } A \} < 0$.\\
+Dann existieren für jedes $0 < \alpha < \mu$ Konstanten $C>0, \delta > 0$, sodass \\
+$|x_\psi(t) - \psi^\star| \leq C exp(-\alpha t)|\psi - \psi^\star|$ $\forall t$ und alle $\psi$ mit $|\psi - \psi^\star| \leq \delta$. \\
+$\Rightarrow \psi^\star$ ist asymptotisch stabil.
+
+\subsection{Theorem: Grobmann und Hartmann}
+Gelte 12.8. Sei der stationäre Punkt $\psi^\star$ \underline{hyperbolisch}, d.h. alle (komplexen) Eigenwerte von $A:=Df(\psi^\star)$ haben nicht-verschwindenden Realteil. \underline{Dann} existieren zwei Umgebungen $U$ und $V$ von $\psi^\star$ sowie ein Homöomorphismus $H:U \to V$, sodass $H(U \cap V) = \square_{H(\psi)} \cap V$ gilt, wobei $\square_\psi$ die Orbits der \underline{linearisierten} Gleichung $y'=Df(\psi^\star)(y-\psi^\star)$ bezeichnet. \\
+Das heißt unter der Hyperbolitätsannahme beschreibt der Fluss der linearisierten Gleichung lokal den Fluss der nicht-linearen Gleichung.
+
+\subsection{Beispiele}
+\begin{enumerate}
+\item $\begin{pmatrix}
+x_1' \\
+x_2'
+\end{pmatrix} = \begin{pmatrix}
+-x_1 x_2 \\
+-x_2 + x_1^2 - 2 x_2^2
+\end{pmatrix}$. Stationäre Punkte sind $\mu^\star = \begin{pmatrix}
+0 \\
+0
+\end{pmatrix}, \nu^\star = \begin{pmatrix}
+0 \\
+-\frac{1}{2}
+\end{pmatrix}$. \\
+$A := Df(\mu^\star) = \begin{pmatrix}
+-x_2 & -x_1 \\
+2x_1 & -1-4x_2
+\end{pmatrix} |_{\mu^\star} = \begin{pmatrix}
+0 & 0 \\
+0 & -1
+\end{pmatrix} \rightarrow$ Eigenwerte 0 und -1. \\
+$B := Df(\nu^\star) = \begin{pmatrix}
+-x_2 & -x_1 \\
+2x_1 & -1-4x_2
+\end{pmatrix} |_{\nu^\star} = \begin{pmatrix}
+\frac{1}{2} & 0 \\
+0 & 1
+\end{pmatrix} \rightarrow$ Eigenwerte $\frac{1}{2}$ und 1. \\
+\item Betrachte $x'=\begin{pmatrix}
+-x_1+x_2 \\
+2-x_1^2-x^2
+\end{pmatrix}$. Stationäre Punkte $\mu^\star = \begin{pmatrix}
+1 \\
+1
+\end{pmatrix}, \nu^\star = \begin{pmatrix}
+-1 \\
+-1
+\end{pmatrix}$.
+$A := Df(\mu^\star) = \begin{pmatrix}
+-1 & 1 \\
+-2x_1 & -2x_2
+\end{pmatrix} |_{\mu^\star} = \begin{pmatrix}
+-1 & 1 \\
+-2 & -2
+\end{pmatrix} \rightarrow$ Eigenwerte: $(-1-\lambda)(-2-\lambda)+2 = \lambda^2 + 3 \lambda + 4 \Rightarrow \lambda_{1,2} = -\frac{3}{2} + - \sqrt{\frac{9}{4} - \frac{16}{4}} = \frac{3}{2} + - i \sqrt{7}$.
+\end{enumerate}
 
 
 
