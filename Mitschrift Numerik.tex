@@ -841,6 +841,28 @@ Bemerkung:
 (Ich benutze hier $\psi$ statt dem Zeichen, das sie in der VL verwendet hat.) \\
 Die \DGL in $(\star) x'(t) = f(x(t))$ erzeugt einen Fluss via $F_t(\psi) := x_\psi(t) \forall t \in \mathbb{R}, \psi \in \Omega$. Dieser Fluss ist, als Abbildung von $\mathbb{R} \times \Omega$ nach $\Omega$ betrachtet, stetig differenzierbar. Damit ist auch $F_t:\Omega \to \Omega$ stetig differenzierbar $\forall t \in \mathbb{R}$. \\
 Irgendwann Beweis, dazu brauchen wir: \\
+\textbf{Einschub(01.12.25): Irgendwann ist jetzt!} \\
+$F_0(\psi) = F(0,\psi) 0 x_\psi(0) = \psi$. \\
+Wegen der Shiftinvarianz (siehe unterhalb) gilt: \\$(F_{t_2} \circ F_{t_1})(\psi) = F(t_2,(F(t_1,\psi)) = x_{F(t_1,\psi)}(t_2) = x_{x_\psi(t_1)}(t_2) = x_\psi(t_2+t_1) = F(t_2+t_1,\psi) = F_{t_2+t_1}(\psi)$ \\
+Dies definiert einen Fluss. Die stetige Differenzierbarkeit folgt aus \\
+$\frac{\partial}{\partial t}F(t,\psi) = f(F(t,\psi))$ und der Stetigkeit von $F$ in $t$ und in $\psi$. \\
+Denn $F(t_2,\psi)-F(t_1,\psi) = \int_{t_1}^{t_2} f(x_\psi(t))dt \to 0$ für $t_2 \to t_1$. \\
+Wir setzen voraus, dass Stetigkeit in $\psi$ gegeben ist. Dies kann man beweisen, Z.B. "Stetige Abhängigkeit von Anfangswerten" bei Differentialgleichungen. \\
+Seien nun $\psi \in \Omega$ und $T>0$ beliebig, aber fest. Sei $t \in [0,T]$. Wegen der stetigen Abhängigkeit von den Anfangsdaten existiert eine kompakte Menge $K \subset \Omega$ so, dass $x_\psi(t),x_{\psi+h \mu}(t) \in K$ $\forall \mu \in \mathbb{R}^d$ mit $|\mu| = 1$, für alle $t \in [0,T]$ und alle genügend kleinen h. \\
+Definiere $y_{h,\mu}(t) := \frac{F(t,\psi+h\mu) - F(t,\psi)}{h} = \frac{x_{\psi+h \mu}(t) - x_\psi(t)}{h}$. Wir wollen Konvergenz für $h \to 0$ zeigen. \\
+Es gilt $y_{h,\mu}'(t) = \frac{f(x_{\psi+h \mu}(t))-f(x_\psi(t))}{h} = \frac{f(x_\psi(t) + h y_{h,\mu}(t))-f(x_\psi(t))}{h} \leq L |y_{h,\mu}(t)|$ mit $L = L(\psi, T, K)$. \\
+$\Rightarrow |y_{h,\mu}|(t) \leq |y_{h,\mu}|(0) + \int_0^t L|y_{h,\mu}|(s)ds \underset{\text{Gronwall}}{\Rightarrow} |y_{h,\mu}(t)| \leq \exp(Lt)|\mu| \leq \exp(LT) |\mu|$. Schranke ist unabhängig von $h$. \\
+Definiere nun $y_{0,\mu}$ als \Lsg des linearen, jedoch nicht autonomen AWP \\
+$y'=Df(x_\psi(t))y, y(0) = \mu$ $(\star)$ \\
+Also  $y_{0,\mu}(t) = \phi(t) \mu$, wobei $\phi(t)$ die Fundamentalmatrix von $(\star)$ ist $(\phi = \phi(x_\psi, \psi))$. \\
+Damals: $x(t) = \phi(t) \phi^{-1}(t_0) \psi$. \\
+Es gilt $y_{h,\mu}(t) - y_{0, \mu}(t) = \int_0^t Df(x_\psi(s)) (y_{h,\mu}8s) - y_{0,\mu}(s)) + R_{h, \mu}(s) ds$, wobei das Restglied \\
+$R_{h,\mu}(t) := \frac{f(x_{\psi+h\mu}(t)) - f(x_\psi(t))}{h} - Df(x_\psi(s)) y_{h,\mu}(t)$ ist. \\ Gronwall liefert dann $|y_{h,\mu}(t)-y_{0,\mu}(t)| \leq a_{h,\mu} \exp(\int_0^t |Df(x_\psi(s))|ds)$, wobei $a_{h,\mu} := \int_0^T |R_{h,\mu}(s)|ds$ ist. \\
+Da die Funktionen $y_{h,\mu}$ gleichmäßig in $h$ beschränkt sind, gilt $|R_{h,\mu}(t)| \leq C$ $\forall 0 \leq t \leq T, |\mu| \leq 1$ und alle $h$ klein genug. \\
+Nach Taylor gilt Restgliedkonvergenz $\lim R_{h,\mu}(t) = 0$ $\forall t \in \mathbb{R}$ und alle $\mu$. \\
+$\Rightarrow a_{h,\mu} \to 0, y_{h,\mu}(t) \to y_{0,\mu}(t) = \phi(t) \mu$ $\forall 0 \leq t \leq T$ \\
+$\rightarrow$ Der Fluss besitzt im Punkt $(t,\psi)$ alle Richtungsableitungen in Richtung $\mu$ $\Rightarrow$ alle partiellen Ableitungen existieren $\frac{\partial}{\partial \psi_i} F(t,\psi), i=1,...,d$. Die Stetigkeit der Richtungsableitungen bezüglich $t$ und $\psi$ folgt, da $x_\psi$ stetig in $t$ und $\psi$ ist und da $\phi(t) \mu$ stetig von $t$ und $\mu$ abhängt. \\
+\textbf{Ende Einschub} \\
 \\
 \textbf{Lemma: Shiftinvarianz von Lösungen autonomer \DGLs} \\
 Seien $t_0, \overline{t_0} \in \mathbb{R}$. Sei $x:\mathbb{R} \to \Omega$ eine Lösung von $(\star)$ mit $x(t_0) = \psi$. \\
@@ -956,22 +978,179 @@ $B := Df(\nu^\star) = \begin{pmatrix}
 \end{pmatrix} \rightarrow$ Eigenwerte $\frac{1}{2}$ und 1. \\
 \item Betrachte $x'=\begin{pmatrix}
 -x_1+x_2 \\
-2-x_1^2-x^2
-\end{pmatrix}$. Stationäre Punkte $\mu^\star = \begin{pmatrix}
+2-x_1^2-x_2^2
+\end{pmatrix}$. Stationäre Punkte: $\mu^\star = \begin{pmatrix}
 1 \\
 1
 \end{pmatrix}, \nu^\star = \begin{pmatrix}
 -1 \\
 -1
-\end{pmatrix}$.
+\end{pmatrix}$. \\
+Nun Linearisieren wir, indem wir die Jacobi-Matrix bestimmen und an $\mu_\star$ und $\nu_\star$ auswerten: \\
 $A := Df(\mu^\star) = \begin{pmatrix}
 -1 & 1 \\
 -2x_1 & -2x_2
 \end{pmatrix} |_{\mu^\star} = \begin{pmatrix}
 -1 & 1 \\
 -2 & -2
-\end{pmatrix} \rightarrow$ Eigenwerte: $(-1-\lambda)(-2-\lambda)+2 = \lambda^2 + 3 \lambda + 4 \Rightarrow \lambda_{1,2} = -\frac{3}{2} + - \sqrt{\frac{9}{4} - \frac{16}{4}} = \frac{3}{2} + - i \sqrt{7}$.
+\end{pmatrix}$ \\ Für den Punkt $\mu_\star$ betrachten wir also das lineare System $x'=Ax$ \\
+$\rightarrow$ Eigenwerte(über char. Polynom $det(A-\lambda I_d)$): $(-1-\lambda)(-2-\lambda)+2 = \lambda^2 + 3 \lambda + 4 = 0 \Rightarrow \lambda_{1,2} = -\frac{3}{2} + - \sqrt{\frac{9}{4} - \frac{16}{4}} = -\frac{3}{2} + - i \sqrt{7} \Rightarrow $ stabiler Wirbel(auch wahr für das nichtlineare System). \\
+$B := Df(\nu^\star) = \begin{pmatrix}
+-1 & 1 \\
+2 & 2
+\end{pmatrix}$ \\ Für den Punkt $\nu_\star$ betrachten wir also das lineare System $x'=Bx$ \\
+$\rightarrow$ Eigenwerte(über char. Polynom $det(B-\lambda I_d)$): $(-1-\lambda)(2-\lambda)-2 = \lambda^2 - \lambda - 4 = 0 \Rightarrow \lambda_{1,2} = \frac{1}{2} + - \frac{\sqrt{17}}{2} \Rightarrow$ Sattelpunkt. goodnotes 11
 \end{enumerate}
+Wir können immer annehmen $\psi^\star = 0$, denn: \\ Für $x'=Ax$ klar. \\
+Wenn $x'=f(x), f(\psi^\star) = 0$. Setze $y=x-\psi^\star \Rightarrow y'=x'=f(x) = f(y+\psi^\star$. \\
+$f(\psi^\star + y) = f(\psi^\star) = f(\psi^\star+y)$. Setze $g(y) = f(\psi^\star+y), g'(0) = \frac{df(\psi^\star + y)}{dy}|_{y=0} = f'(\psi^\star)$. \\
+Die Systeme 
+$y'=g(y), y=0, y'=g(0) y$ \\
+$x'=f(x), x = \psi^\star, x'=f'(\psi^\star)x$
+sind äquivalent.
+
+\subsection{Definition: Nichtlineare Stabilitätskonzepte}
+Sei $\psi^\star$ ein stationärer Punkt einer DGL. Eine Funktion $L \in C^1(\Omega), L: \Omega \to \mathbb{R}$ heißt Lyapunov-Funktion von $\psi^\star$, wenn:
+\begin{enumerate}
+\item $L(\psi^\star) < L(x) \forall x \in \Omega \setminus \{\psi^\star\}$
+\item $L'(x) = DL(x)f(x) \leq 0 \forall x \in \Omega \setminus \{\psi^\star\}$ \\
+Falls $L'(x) < 0$, heißt $L$ strikte Lyapunovfunktion.
+\end{enumerate}
+
+\subsection{Theorem}
+Jeder stationäre Punkt $\psi^\star$, für den es eine (strikte) Lyapunov-funktion existiert, is (asymptotisch) stabil.
+
+\subsection{Beispiel: Differentialgleichung zweiter Ordnung}
+\begin{itemize}
+\item $y''+g(y)y'+y = 0, g \geq 0$, stetig \\
+Transformiere in ein System erster Ordnung: $x_1=y, x_2 = y'$ \\
+$x_2'+g(x_1)x_2 + x_1 = 0 \Rightarrow x_2'=-g(x_1)x_2-x_1$ \\
+$x_1'=x_2$ \\
+$\begin{pmatrix}
+x_1 \\
+x_2
+\end{pmatrix}' = \begin{pmatrix}
+x_2 \\
+-g(x_1)x_2 - x_1
+\end{pmatrix} := f(x_1,x_2)$ \\
+Finde stationäre Punkte: \\
+$x_2 = 0, g(x_1)x_2 - x_1 = 0 \Rightarrow x_1 = 0$ \\
+Also ist $\begin{pmatrix}
+0 \\
+0
+\end{pmatrix}$ der einzige stationäre Punkt. \\
+$L(x_1,x_2) = x_1^2 + x_2^2 \geq 0 = L(0,0)$ \\
+$L(x_1,x_2) > L(0,0)$ für $(x_1,x_2) \neq (0,0)$ \\
+$L'(x_1,x_2) = \nabla L (x_1',x_2') = (2x_1, 2x_2)(x_2, -g(x_1)x_2-x_1) \\ = 2 x_1x_2 - 2 x_2g(x_1)x_2-2x_1x_2 = -2x_2^2g(x_1) \leq 0$ \\
+Also ist $\begin{pmatrix}
+0 \\
+0
+\end{pmatrix}$ stabil.
+\item Volterra-Lotka (x: Beute, y: Jäger): \\
+$x'(t) = ax(t) - \alpha x(t)y(t)$ \\
+$y'(t) = -c y(t) + \gamma x(t) y(t)$ \\
+$ax-\alpha xy = 0 \Rightarrow x(a-\alpha y) = 0 \Rightarrow x=0 \lor y = \frac{a}{/alpha}$ \\
+$-cy+\gamma xy = 0 \Rightarrow y(-c+\gamma x) = 0 \Rightarrow y=0 \lor x = \frac{c}{\gamma}$ \\
+$\Rightarrow (0,0), (\frac{c}{\gamma}, \frac{a}{\alpha})$ \\
+$f(x,y) = \begin{pmatrix}
+ax-\alpha xy \\
+-cy + \gamma xy
+\end{pmatrix} \Rightarrow Df = \begin{pmatrix}
+a-\alpha y & -\alpha x \\
+\gamma y & -c+\gamma x
+\end{pmatrix}$ \\
+Bei $(0,0)$: $Df(0,0) = \begin{pmatrix}
+a & 0 \\
+0 & -c
+\end{pmatrix} \Rightarrow$ Eigenwerte: $a, -c. \Rightarrow$ Sattelpunkt. \\
+Bei $(\frac{c}{\gamma}, \frac{a}{\alpha})$: $Df(\frac{c}{\gamma}, \frac{a}{\alpha}) = \begin{pmatrix}
+0 & \alpha \frac{c}{\gamma} \\
+\gamma \frac{a}{\alpha} & 0
+\end{pmatrix} \Rightarrow$ Eigenwerte: $\sqrt{\alpha c} i, - \sqrt{\alpha c} i$. Man kann nicht auf das nichtlineare System schließen. \\
+$L(x,y) = \gamma x - c \cdot log(x) + \alpha y - a \cdot log(y) > L(\frac{c}{\gamma}, \frac{a}{\alpha})$ \\
+$f(x) = \gamma x - c \cdot log(x) \Rightarrow f'(x) = \gamma - \frac{c}{x}$ Minimum bei $x=\frac{c}{\gamma}$ \\
+$g(y) = \alpha y - a \cdot log(y) \Rightarrow g'(y) = \alpha - \frac{a}{y}$  Minimum bei $y = \frac{a}{\alpha}$\\
+$\nabla L \cdot f \leq 0$ \\
+$\frac{d L(x(t),y(t))}{dt} \leq 0$ \\
+$\nabla L = \begin{pmatrix}
+\gamma - \frac{c}{x} \\
+\alpha - \frac{a}{\gamma}
+\end{pmatrix}$ \\
+$\nabla L \cdot f = (\gamma - \frac{c}{x}, \alpha . \frac{\alpha}{y})\cdot(ax-\alpha xy , -cy + \gamma xy) = \gamma ax - \gamma a x y - \frac{c}{x} ax + \frac{c}{x} axy - cy \alpha + ??wtf??? = 0$ \\
+Lyapunov-stabil \\
+\underline{Erinnerung:} In 11.1 war das Räuber-Beute-Modell $x'=(\alpha - \beta y)x, y'=(-\gamma + \delta x)y$.
+\item $u_t = u_{xx} + u(1-u)$ \\
+$u(t,x) = U(x-ct)$ \\
+goodnotes 12 \\
+$u_t = -c U'(x-ct), u_{xx} = U''(x-ct)$ \\
+$-cU'=U''+U(1-U)$ \\
+$-cU'=U''+U(1-U), U(-\infty) = 1, U(\infty) = 0$ \\
+Mit der Zeit verschieben sich die Wellen. \\
+Durch Transformation: $\begin{pmatrix}
+U \\
+V
+\end{pmatrix}' = \begin{pmatrix}
+V \\
+-cV-U(1-U)
+\end{pmatrix}$, stationäre Punkte $(0,0), (1,0)$. \\
+$Df(U,V) = \begin{pmatrix}
+0 & 1 \\
+2U-1 & -c
+\end{pmatrix}$ \\
+$Df(0,0) = \begin{pmatrix}
+0 & 1 \\
+-1 & -c
+\end{pmatrix} \Rightarrow$ Eigenwerte über char. Polynom: $\lambda_{1,2} = \frac{-c + - \sqrt{c^2-4}}{2}$, beide negativ. Stabiler Knoten für $c \geq 2$, stabiler Wirbel für $c < 2$. \\
+$Df(U,V) = \begin{pmatrix}
+0 & 1 \\
+2U-1 & -c
+\end{pmatrix}$ \\
+$Df(1,0) = \begin{pmatrix}
+0 & 1 \\
+1 & -c
+\end{pmatrix} \Rightarrow$ Eigenwerte über char. Polynom: $\lambda_{1,2} = \frac{-c + - \sqrt{c^2+4}}{2}$, einer negativ, einer positiv, beide reell. Sattelpunkt.
+\end{itemize}
+01.12.25:
+\subsection{Definition: Erhaltungsgröße}
+(Anderer Name für 12.19) \\
+Gelte 12.8. $E:\Omega \to \mathbb{R}$ stetig differenzierbar heißt Erhaltungsgröße (oder erstes Integral) unserer Differentialgleichung, falls $d_f E(x) := DE(x)f(x) = 0$ $\forall x \in \Omega$ ist.
+
+\subsection{Theorem}
+(Anderer Name für 12.20) \\
+Gelte 12.8. Sei $E$ eine zweimal stetig differenzierbare Erhaltungsgröße und $\xi_\star$ ein striktes lokales Minimum/Maximum von $E$. Dann ist $\xi_\star$ ein stabiler stationärer Punkt.
+
+\subsection{Bezug auf Kapitel 10: SIR-Modell}
+$s' = -\alpha is, i'= \alpha is - \beta i, r'= \beta i$ \\
+$\underbrace{(s+i+r)'}_{\text{Invariante}}=0$, $\underbrace{(log(s)-\frac{\alpha}{\beta}s-\frac{\alpha}{\beta}i)'}_{\text{Invariante}}=0$ \\
+$\beta \log(s(\infty)) - \alpha s(\infty) - \alpha i(\infty) = \beta log(s(0))-\alpha s(0)-\alpha i(0)$ \\
+Wie würde man unter der Voraussetzung, dass dieses Modell die Realität gut approximiert, in das epidemische Geschehen eingreifen? \\
+Sei $i(0)$ klein und $s(0) > \frac{\beta}{\alpha}$. \underline{Ziel:} Senkung der Infektionsrate $\alpha$ auf $\tilde{\alpha}$ durch Maßnahmen. \\
+\underline{Frage:} Wie weit sollte man $\alpha$ senken? Final ist ohnehin $s(\infty) \leq \frac{\beta}{\alpha}$. Man möchte $s(\infty) = \frac{\beta}{\alpha}$ erreichen, aber für das $\tilde{\alpha}$-Modell.\\
+$\beta \log(s(\infty)) - \tilde{\alpha} s(\infty) - \underbrace{\tilde{\alpha} i(\infty)}_{=0} = \beta log(s(0))-\tilde{\alpha} s(0) -\tilde{\alpha} i(0)$ \\
+$\beta \log \frac{\beta}{\alpha} - \tilde{\alpha} \frac{\beta}{\alpha} = \beta \log s(0) - \tilde{\alpha} (s(0)+i(0))$ bzw. $\alpha \beta (\log \beta - \log \alpha - \log s(0)) = \tilde{\alpha}(\beta - \alpha(s(0)+i(0)))$ \\
+$\Rightarrow \tilde{\alpha} = \frac{\alpha \beta (\log \beta - \log \alpha - \log s(0))}{\beta - \alpha(s(0)+i(0))}$ wäre in diesem Sinne optimal.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Ende}
+Random Stuff:
+\begin{itemize}
+\item negativer Realteil impliziert stabil
+\item Lyapunov.Funktionen werden in der Klausur gegeben
+\item Kein solcher/so langer Beweis wie zu 12.7 in der Klausur
+\end{itemize}
+
 
 
 
