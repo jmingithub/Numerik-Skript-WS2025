@@ -1130,11 +1130,49 @@ $\beta \log(s(\infty)) - \tilde{\alpha} s(\infty) - \underbrace{\tilde{\alpha} i
 $\beta \log \frac{\beta}{\alpha} - \tilde{\alpha} \frac{\beta}{\alpha} = \beta \log s(0) - \tilde{\alpha} (s(0)+i(0))$ bzw. $\alpha \beta (\log \beta - \log \alpha - \log s(0)) = \tilde{\alpha}(\beta - \alpha(s(0)+i(0)))$ \\
 $\Rightarrow \tilde{\alpha} = \frac{\alpha \beta (\log \beta - \log \alpha - \log s(0))}{\beta - \alpha(s(0)+i(0))}$ wäre in diesem Sinne optimal.
 
+\section{Numerische Methoden für \DGLs}
+04.12.25: \\
+Orientierung an Buch: Rolf-Rannackv, Numerik gewöhnlicher Differentialgleichungen \\
 
+\subsection{}
+Betrachte $u: I:=[t_0, t_0+T] \to \mathbb{R}$ und $u'(t) = f(t,u(t)), t \geq 0$ mit $u(t_0)=u_0$. \\
+Dazu gehört die Integralgleichung (/Fixpunktgleichung): \\
+$u(t) = u_0 + \int_0^t f(s,u(s)) ds$ für $t \in I$
 
+\subsection{Fixpunktiteration}
+Gelte 13.1. Sei $u^0 \equiv u_0$ der Startwert. Für $k \geq 1$ definiere: \\
+$u^k(t) = u_0 + \int_{t_0}^t f(s,u^{k-1}(s)) ds$ \\
+Hier ist $u^i$ keine Potenz, sondern $i$ ist ein Index. \\
+Die Konvergenz dieser Iteration wird durch den Banachschen Fixpunktsatz sichergestellt, \underline{falls} die Abbildung \\
+$g(v)(t) = u_0 + \int_{t_0}^t f(s,v(s)) ds$ eine Kontraktion im Banachraum $C(I)$ ist. Falls $f(t,\cdot)$ Lipschitz-stetig ist, dann gilt: \\
+$\underset{I}{\max} |g(v)-g(w)| \leq \int_{t_0}^t \underset{I}{\max} |f(s,v)-f(s,w)| ds \leq L \underset{I}{\max} |v-w|$ und wir haben eine Kontraktion für $T < \frac{1}{L}$.
 
+\subsection{Methode der Taylorentwicklung}
+Gelte 13.1. Sei die Lösung $u$ des Anfangswertproblems analytisch. \\
+Dann lässt sich $u(t_0+T) = \sum_{k=0}^\infty \frac{T^K}{k!} u^{(k)}(t_0) = u_0 + T \sum_{k=1}^\infty \frac{T^{k-1}}{k!} f^{(k-1)}(t_0, u_0)$ in eine Taylorreihe entwickeln, wobei $f^{(k)}(t,x)$ die k-te \underline{totale} Zeitableitung von $f(t,u(t))$ ist. \\
+Also ist $f^{(1)}(t,x) = (f_t'+f_x'f)(t,x)$. (Da x Variable ist, kann man z.B. auch $u$ statt $x$ schreiben.) \\
+Durch Abschneiden der Reihe bei $k=m$ erhält man ein numerisches Verfahren. \\
+Dieses Verfahren ist meist $\frac{\text{"zu teuer"}}{\text{nicht praktikabel}}$.
 
+\subsection{Finite Differenzen}
+Gelte 13.1. Betrachte das Punktgitter (Menge an Zeitpunkten) des Intervalls $I$, $t_0 < t_1 < ... < t_n < ... < t_N = t_0+T$ mit Gitterweiten $h_n = t_n - t_{n-1}$.\\
+Berechne $y_n = y_{n-1} + h_n f(t_{n-1}, y_{n-1}), n \geq 1, y_0 = u_0$ (Eulersche Polygonzugmethode \underline{oder} explizites Euler-Schema) \\
+Hierdurch wird ein approximierender Polygonzug erzeugt: \\
+$y(t) := y_{n-1} + (t-t_{n-1})f(t_{n-1}, y_{n-1}), t \in [t_{n-1}, t_n]$ \\
+(Hier ist glaube ich $y_{n} = y(t_n)$) \\
+Der neue Wert $y_n$ wird aus dem alten Wert $y_{n-1}$ berechnet durch Auswerten von $f(t_{n-1}, y_{n-1})$. Dies ist ein \underline{explizites} Verfahren. Das analoge \underline{implizite} Verfahren (implizites Eulerschema) erhält man durch $y_n - h_n f(t_n, y_n) = y_{n-1}$. \\
+Hier muss für die Berechnung von $y_n$ aus $y_{n-1}$ ein (im Allgemeinen) \underline{nicht lineares} Gleichungssystem gelöst werden. Für alle Verfahren sind Konvergenzabschätzungen nötig. Für Euler \underline{kann} man Konvergenzabschätzungen der Form $\underset{t_n \in I}{\max} |y_n - u(t_n)| \leq c(T, u) h$, wobei $h := \underset{n}{\max} h_n$, $c$ ist eine Konstante! \\
+Implizite verfahren sind sehr aufwändig und auch nur in speziellen Situationen (steife Probleme) relevant, wenn explizite Verfahren aus Gründen  der numerischen Stabilität \underline{nicht} verwendet werden können.
 
+\subsection{Galerkin Methode}
+Gelte 13.1. Wir formulieren das AWP "variationell". \\
+Wir multiplizieren die \DGL mit einer sogenannten Testfunktion $\phi$ \\
+$\int_I u'(t) \phi(t) ds = \int_I f(t,u(t)) \phi(t) dt$. Dies kann man sinnvoll für jede stetige und stückweise stetig differenzierbare Funktion $u$ formulieren. Sei $V$ der Vektorraum all dieser Funktionen. Das linke Integral kann also auch stückweise sein, d.h. eine Summe von Teilintegralen. Die Galerkin Methode bestimmt eine Näherungslösung $u_h$ in einem Teilraum $V_h \subset V$, dem sogenannten Ansatzraum mit dem Startwert $u_h(t_0) = u_0$ und  \\
+$\int_I u_h'(t) \phi_h(t) dt = \int_I f(t,u_h) \phi_h(t) dt$ für ein beliebiges $\phi_h \in W_h$, wobei $W_h$ ein diskreter Testfunktionenraum ist, in der Regel verschieden von $V_h$. \\
+\textbf{Beispiel:} Zerlege $I$ gemäß $t_0 < t_1 < ... < t_n < ... < t_N = t_0+T$. \\
+Setze $V_h := \{ v_h : I \to \mathbb{R}|v_h \in C(I), v_h|_{(t_{n-1}, t_n]} \in P_1 \text{ für } n=1,...,N \}$, wobei $P_1$ die Menge der Polynome ersten Grades ist. \\
+Setze $W_h := \{ \phi_h:T \to \mathbb{R}| \phi_h|_{(t_{n-1}, t_n]} \in P_0 \text{ für } n=1,...,N \}$. \\
+Relevant wird am Montag: $u_h(t_n) - u_h(t_{n-1}) = \int_{t_{n-1}}^{t_n} u_h'(t) dt = \int_{t_{n-1}}^{t_n} f(t,u_h(t)) dt$
 
 
 
@@ -1147,8 +1185,9 @@ $\Rightarrow \tilde{\alpha} = \frac{\alpha \beta (\log \beta - \log \alpha - \lo
 Random Stuff:
 \begin{itemize}
 \item negativer Realteil impliziert stabil
-\item Lyapunov.Funktionen werden in der Klausur gegeben
+\item Lyapunov Funktionen werden in der Klausur gegeben
 \item Kein solcher/so langer Beweis wie zu 12.7 in der Klausur
+\item Aus Feld 13 eine AUfgabe in der Klausur
 \end{itemize}
 
 
