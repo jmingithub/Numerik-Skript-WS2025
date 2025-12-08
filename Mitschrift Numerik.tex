@@ -1172,7 +1172,58 @@ $\int_I u_h'(t) \phi_h(t) dt = \int_I f(t,u_h) \phi_h(t) dt$ für ein beliebiges
 \textbf{Beispiel:} Zerlege $I$ gemäß $t_0 < t_1 < ... < t_n < ... < t_N = t_0+T$. \\
 Setze $V_h := \{ v_h : I \to \mathbb{R}|v_h \in C(I), v_h|_{(t_{n-1}, t_n]} \in P_1 \text{ für } n=1,...,N \}$, wobei $P_1$ die Menge der Polynome ersten Grades ist. \\
 Setze $W_h := \{ \phi_h:T \to \mathbb{R}| \phi_h|_{(t_{n-1}, t_n]} \in P_0 \text{ für } n=1,...,N \}$. \\
-Relevant wird am Montag: $u_h(t_n) - u_h(t_{n-1}) = \int_{t_{n-1}}^{t_n} u_h'(t) dt = \int_{t_{n-1}}^{t_n} f(t,u_h(t)) dt$
+Relevant wird am Montag: $u_h(t_n) - u_h(t_{n-1}) = \int_{t_{n-1}}^{t_n} u_h'(t) dt = \int_{t_{n-1}}^{t_n} f(t,u_h(t)) dt$ \\
+08.12.25: \\
+Da die Testfunktionen nur stückweise stetig zu sein brachen, kann die Bestimmungsgleichung (die hier drüber) auf jedes Teilintervall eingeschränkt werden. \\
+Das Galerkin-Verfahren ist, wie das Differenzenverfahren, ein sogenanntes "Zeitschrittverfahren" (besteht aus einzelnen Zeitschritten). Werte das rechte Integral mit Hilfe der Trapezregel aus: \\
+$y_n - y_{n-1} = \frac{1}{2} h_n (f(t_n, y_n) + f(t_{n-1}, y_{n-1}))$ für $y_n := u_h(t_n)$. \\
+Dies ist ein implizites Differenzenverfahren. Man \underline{kann} zeigen, dass die Konvergenzabschätzung $\underset{t \in I}{\max} |u_h(t) - u(t)| \leq c(T,u) h^2$ gilt für $h:=\underset{n}{\max}$ $h_n$. \\
+Wir erhalten also eine höhere Genauigkeit als beim impliziten Eulerverfahren.
+
+\subsection{Verfahrensanalyse}
+Wie kann man die Effizienz/Güte verschiedener Lösungsverfahren beurteilen? \\
+Dazu gehören Fragen der Konvergenz, die Konvergenzordnung, der numerischen Stabilität, eine zuverlässige Kontrolle des Approximationsfehlers und eine effektive Schrittweitensteuerung. \\
+
+\subsection{Analyse der Eulerschen Polygonzugmethode}
+Betrachte das Anfangswertproblem $u'(t)=f(t,u(t)), t \in I = [t_0, t_0+T], u(t_0) = u_0$. \\
+Sei $f(t,x)$ stetig auf $I\times\mathbb{R}^d$ und genüge einer globalen Lipschitzbedingung, sodass $||f(t,x)-f(t,y)|| \leq L_f ||x-y||$ für $(t,x), (t,y) \in I\times\mathbb{R}^d$. Dann existiert ein eindeutig bestimmtes $u(t)$ für unser Anfangswertproblem $\forall t \in I$ und \\
+$||f(t,x)|| \leq ||f(t,x)-f(t,0)|| + ||f(t,0)|| \leq L_f ||x|| + ||f(t,0)||$. \\
+Sei diese Lösung hinreichend glatt. \\
+Wie zuvor wählen wir eine Folge von diskreten Zeitpunkten $t_0 < ... < t_n < ... t_N = t_0+T$. Definiere $I_n := [t_{n-1}, t_n]$, $h_n := t_n - t_{n-1}, h := \underset{1 \leq n \leq N}{\max}$ $h_n$. \\
+Sei $y_0^h \in \mathbb{R}^d$ der Startwert und betrachte die rekursive Vorschrift $y_n^h = y_{n-1}^h + h_n f(t_{n-1}, y_{n-1}^h), n=1,...,N$. \\
+Wir schreiben dies in Form einer Differenzengleichung: \\
+$(L_h y^h)_n = 0, n=1,...,N$ mit dem Differenzenoperator $(L_hy^h)_n := h^{-1}_n (y_n^h - y_{n-1}^h) - f(t_{n-1}, y_{n-1}^h)$ für die Gitterfunktion $y^h = \{ y_n^h \}_{n=1,...,N}$. \\
+Man \underline{kann} zeigen, dass falls $y_0^h \to u_0$ konvergiert für $h \to 0$, dann $\underset{0 \leq n \leq N}{\max}$ $||y_n^h - u(t_n)|| \to 0$ für $h \to 0$, wegen der Eindeutigkeit der Lösung $u$. \\
+\textbf{Konvergenzgeschwindigkeit:} Definiere den Abschneidefehler \\
+$\tau_n^h := (L_h u^h)_n = h_n^{-1} (u_n^h - u_{n-1}^h) - f(t_{n-1}, u_{n-1}^h)$ für die Gitterfunktion \\
+$u^h := (u_n^h := u(t_n))_{0 \leq n \leq N}$. Da $u'(t) = f(t,u)$ ist, gilt $\tau_n^h = h_n^{-1} \int_{t_{n-1}}^{t_n} u'(t) dt - u'(t_{n-1}) \overset{\text{Produktregel}}{=} h_n^{-1} \int_{t_{n-1}}^{t_n} (t_n-t) u''(t) dt$ \\
+$\Rightarrow ||\tau_n^h|| \leq \frac{1}{2} h_n \underset{t \in I_n}{\max}$ $||u''(t)||$ $(\star)$. \\
+Dies ist eine Diskretisierung erster Ordnung. \\
+Falls keine Missverständnisse entstehen, schreiben wir im Folgenden auch $y_n$ für $y_n^h$ und $\tau_n = \tau_n^h$. Dann gilt $u_n = u_{n-1} + h_n f(t_{n-1}, u_{n-1}) + h_n \tau_n$. Die Abschätzung des globalen Diskretisierungsfehlers $e_n = y_n - u_n$ erfolgt über einen sogenannten Stabilitätssatz für Differenzenverfahren. \\
+$e_n = e_{n-1} + h_n (f(t_{n-1}, y_{n-1}) f f(t_{n-1}, u_{n-1})) - h_n \tau_n$. Da $f(t,x)$ Lipschitz-stetig ist, gilt: \\
+$||e_n|| \leq ||e_{n-1}|| + h_n L_f ||e_{n-1}|| + h_n ||\tau_n||$. Durch sukzessive Anwendung dieser Ungleichung erhalten wir: $||e_n|| \leq ||e_0|| + L_f \sum_{\nu = 0}^{n-1} h_{\nu+1} ||e_\nu|| + \sum_\nu^n h_\nu ||\tau_\nu||$. \\
+Nun benötigen wir den \\
+\textbf{Hilfssatz: Diskretes Lemma von Gronwall} \\
+Seien $(w_n)_{n \geq 0}, (a_n)_{n \geq 0}, (b_n)_{n \geq 0}$ Folgen nicht-negativer Zahlen mit $w_0 \leq b_0$ und \\
+$w_n \leq \sum_{\nu = 0}^{n-1} a_\nu w_\nu + b_n$, $n \geq 1$. \\
+Falls $(b_n)_{n \geq 0}$ monoton steigend ist, dann gilt $w_n \leq exp(\sum_{\nu = 0}^{n-1} a_\nu) b_n, n \geq 1$. \\
+Mit diesem diskreten Lemma von Gronwall folgern wir, dass: \\
+$||e_n|| \leq e^{L_f(t-t_0)} (||e_0|| + \sum_{\nu = 1}^n h_\nu ||\tau_\nu||), n \geq 1$ bzw. \\
+$\underset{1 \leq n \leq N}{\max}$ $||e_n|| \leq e^{L_fT} (||e_0|| + T \underset{1 \leq n \leq N}{\max}$ $||\tau_n||)$. \\
+$\Rightarrow \underset{1 \leq n \leq N}{\max}$ $||e_n|| \leq e^{L_fT}(||e_0|| + \frac{1}{2} T \underset{1 \leq n \leq N}{\max} \{ h_n \underset{t \in I_n}{\max}$ $||u''(t)|| \})$. \\
+Damit ist die globale Konvergenzordnung mindestens gleich der lokalen Konsistenzordnung (wird später erklärt). \\
+Wegen ihrer geringen Genauigkeit hat die Eulersche Polygonzugmethode in der Praxis keine Bedeutung.
+
+\subsection{Allgemeine Einschrittmethoden}
+Für Differenzenformeln höherer Ordnung betrachten wir die Taylorentwicklung. \\
+Sei $d=1$. Dann ist $u(t) = \sum_{r=0}^R \frac{h^r}{r!} u^{(r)}(t-h) + \frac{h^{R+1}}{(R+1)!} u^{(R+1)} (\xi)$ für $\xi \in [t-h, t]$.
+
+
+
+
+
+
+
 
 
 
@@ -1187,7 +1238,7 @@ Random Stuff:
 \item negativer Realteil impliziert stabil
 \item Lyapunov Funktionen werden in der Klausur gegeben
 \item Kein solcher/so langer Beweis wie zu 12.7 in der Klausur
-\item Aus Feld 13 eine AUfgabe in der Klausur
+\item Aus Feld 13 eine Aufgabe in der Klausur
 \end{itemize}
 
 
