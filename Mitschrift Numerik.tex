@@ -1199,7 +1199,7 @@ $\tau_n^h := (L_h u^h)_n = h_n^{-1} (u_n^h - u_{n-1}^h) - f(t_{n-1}, u_{n-1}^h)$
 $u^h := (u_n^h := u(t_n))_{0 \leq n \leq N}$. Da $u'(t) = f(t,u)$ ist, gilt $\tau_n^h = h_n^{-1} \int_{t_{n-1}}^{t_n} u'(t) dt - u'(t_{n-1}) \overset{\text{Produktregel}}{=} h_n^{-1} \int_{t_{n-1}}^{t_n} (t_n-t) u''(t) dt$ \\
 $\Rightarrow ||\tau_n^h|| \leq \frac{1}{2} h_n \underset{t \in I_n}{\max}$ $||u''(t)||$ $(\star)$. \\
 Dies ist eine Diskretisierung erster Ordnung. \\
-Falls keine Missverständnisse entstehen, schreiben wir im Folgenden auch $y_n$ für $y_n^h$ und $\tau_n = \tau_n^h$. Dann gilt $u_n = u_{n-1} + h_n f(t_{n-1}, u_{n-1}) + h_n \tau_n$. Die Abschätzung des globalen Diskretisierungsfehlers $e_n = y_n - u_n$ erfolgt über einen sogenannten Stabilitätssatz für Differenzenverfahren. \\
+Falls keine Missverständnisse entstehen, schreiben wir im Folgenden auch $y_n$ für $y_n^h$ und $\tau_n = \tau_n^h$(für u auch). Dann gilt $u_n = u_{n-1} + h_n f(t_{n-1}, u_{n-1}) + h_n \tau_n$. Die Abschätzung des globalen Diskretisierungsfehlers $e_n = y_n - u_n$ erfolgt über einen sogenannten Stabilitätssatz für Differenzenverfahren. \\
 $e_n = e_{n-1} + h_n (f(t_{n-1}, y_{n-1}) f f(t_{n-1}, u_{n-1})) - h_n \tau_n$. Da $f(t,x)$ Lipschitz-stetig ist, gilt: \\
 $||e_n|| \leq ||e_{n-1}|| + h_n L_f ||e_{n-1}|| + h_n ||\tau_n||$. Durch sukzessive Anwendung dieser Ungleichung erhalten wir: $||e_n|| \leq ||e_0|| + L_f \sum_{\nu = 0}^{n-1} h_{\nu+1} ||e_\nu|| + \sum_\nu^n h_\nu ||\tau_\nu||$. \\
 Nun benötigen wir den \\
@@ -1216,8 +1216,60 @@ Wegen ihrer geringen Genauigkeit hat die Eulersche Polygonzugmethode in der Prax
 
 \subsection{Allgemeine Einschrittmethoden}
 Für Differenzenformeln höherer Ordnung betrachten wir die Taylorentwicklung. \\
-Sei $d=1$. Dann ist $u(t) = \sum_{r=0}^R \frac{h^r}{r!} u^{(r)}(t-h) + \frac{h^{R+1}}{(R+1)!} u^{(R+1)} (\xi)$ für $\xi \in [t-h, t]$.
+Sei $d=1$. Dann ist $u(t) = \sum_{r=0}^R \frac{h^r}{r!} u^{(r)}(t-h) + \frac{h^{R+1}}{(R+1)!} u^{(R+1)} (\xi)$ für $\xi \in [t-h, t]$. \\
+11.12.25: \\
+Da $u'=f(t,u)$ gilt, dass $u^{(r)}=(\frac{d}{t})^{(r-1)} f(t,u(t)) =: f^{(r-1)} (t,u(t))$. Damit lautet das "R-stufige Taylor-Verfahren" dann \\
+$y_n = y_{n-1} + h \sum_{r=1}^R \frac{h^{r-1}}{r!} f^{(r-1)} (t_{n-1}, y_{n-1}), n \geq 1$. Nun schreiben wir die allgemeine Formel für ein "Einschrittverfahren" wie folgt: \\
+$y_n = y_{n-1} + h_n F(h_n, t_{n-1}, y_n, y_{n-1})$ bzw. $(L_hy)_n = h_n^{-1}(y_n-y_{n-1}) - F(h_n, t_{n-1}, y_n, y_{n-1}) = 0 (\star)$ mit der sogenannten Verfahrensfunktion $F(h,t,y,x) := \sum_{r=1}^R \frac{h^{r-1}}{r!} f^{(r-1)}(t,x)$. \\
+Da die Verfahrensfunktion \underline{nur} von $y_{n-1}$, also der unmittelbar vorausgehenden Näherung, abhängt, heißt diese Methode explizit: $F=F(h_n, t_{n-1},y_{n-1})$ (also nicht von $y_n$ abhängig). \\
+Der sogenannte \underline{Abschneidefehler} ist definiert durch \\
+$\tau_n := (L_hu)_n = h_n^{-1}(u_n-u_{n-1}) - F(h_n, t_{n-1},u_n, u_{n-1})$ \\
 
+\subsection{Definition: Konsistenz}
+Die Einschrittmethode $(\star)$ heißt \underline{konsistent} mit unserem AWP \underline{bzw. konsistent mit Konsistenzordnung m}, falls $\underset{t_n \in I}{\max} ||\tau_n|| \to 0$ bzw. $\underset{t_n \in I}{\max} ||\tau_n|| = O(h^m)$ für $h \to 0$. \\
+Die R-stufige Taylorformel für skalare AWP hat damit die Konsistenzordnung $m=R$. \\
+Sei $f_t := \frac{\partial f}{\partial t}$ und $f_x:=\frac{\partial f}{\partial x}$. Totale Ableitung $f^{(1)}(t,x) = (f_t + f_x f)(t,x)$, wobei $f=x'(t)$. \\
+$f^{(2)}(t,x) = (f_{tt} + 2 f_{tx} f + f_xf_t + f_{xx}f^2 + f_x^2f)$. (soll in der Übungsaufgabe begründet werden) \\
+Dies kann in der Praxis sehr aufwendig sein. Ersetze die Ableitungen $f^{(r-1)}$ durch Differenzenquotienten. \\
+\underline{z.B. für R=2} $f^{(1)}(t,u(t)) \sim h^{-1} (f(t+h, u(t+h)) - f(t,u(t))) \sim h^{-1} (f(t+h, u(t) + h f(t,u(t))) - f(t,u(t)))$ \\
+$\Rightarrow y_n = y_{n-1} + h_nf(t_{n-1}, y_{n-1}) + \frac{1}{2} h_n ( f(t_n, y_{n-1} + h_m f(t_{n-1}, y_{n-1})) - f(t_{n-1}, y_{n-1}) ) \\
+= y_{n-1} + h_n ( \frac{1}{2}f(t_{n-1}, y_{n-1}) + \frac{1}{2} f(t_n, y_{n-1 + h_n f(t_{n-1}, y_{n-1})}) )$ \\
+Wenn man die Restglieder hier mitverfolgt, dann ergibt sich die Konsistenzordnung $m=2$. \\
+Damit haben wir allgemein die sogenannten (expliziten) Runge-Kutta-Verfahren der Form \\
+$f(h,t,x) = \sum_{r=1}^R c_rk_r(h,t,x)$ mit $k_1 = f(t,x), k_r = f(t+ha_r, x+h \sum_{s=1}^{r-1} b_{rs} k_s), r=2,...,R$ erhalten, mit geeignet gewählten Konstanten $a_r, c_r, b_{rs}$. Diese Konstanten bestimmt man so, dass für möglichst großes $m$ (idealerweise $m=R$) gilt: \\
+$\sum_{r=1}^R c_rk_r(h,t,u(t)) = \sum_{r=1}^m \frac{h^{r-1}}{r!} f^{(r-1)} (t,u(t)) + O(h^m)$. \\
+Konstruktionsgemäß ist damit die Konsistenzordnung der entsprechenden Runge-Kutta-Formel genau $m$.
+
+\subsection{Beispiel (für Einschrittverfahren): Runge-Kutta-Methode der Stufen $R=1,2,3,4$:}
+\begin{itemize}
+\item R=1: Eulersche Polygonzugmethode
+
+\item R=2: Durch Taylorentwicklung und Koeffizientenvergleich $(f=f(t,u(t)), f_t = f_t(t,u) \text{ usw.})$ folgt: \\
+$c_1f + c_2f(t+ha_2, u+hb_{21}f) = (c_1+c_2) f + c_2 a_2 h f_t + c_2b_{21}hff_x + O(h^2) \\
+= f + \frac{1}{2} h (f_t + f_xf) + O(h^2) \\
+\Rightarrow c_1 + c_2 = 1 und c_2a_2 = \frac{1}{2} = c_2b_{21}$. Mögliche Lösungen sind z.B.:
+\begin{itemize}
+\item $c_1 = c_2 = \frac{1}{2}$ und $a_2 = b_{21} = 1$ (Heun'sches Verfahren zweiter Ordnung) \\
+$y_n = y_{n-1} + \frac{1}{2} h_n ( f(t_{n-1}, y_{n-1}) + f(t_n, y_{n-1 + h_n f(t_{n-1}, y_{n-1})}) )$
+\item $c_1 = 0, c_2 = 1, a_2 = b_{21} = \frac{1}{2}$ (modifiziertes Euler Verfahren) \\
+$y_n = y_{n-1} + h_n f (t_{n - \frac{1}{2}}, y_{n-1} + \frac{1}{2} h_n f(t_{n-1}, y_{n-1}))$
+\end{itemize}
+
+\item R=3: Wir haben 8 freie Parameter und 6 Gleichungen. \\
+$c_1+c_2+c_3 = 1, c_2a_2 + c_3a_3 = \frac{1}{2}, c_2a_2^2 + c_3a_3^3 = \frac{1}{3}, c_3a_2b_{32} = \frac{1}{6}, b_{21} - a_2 = 0, b_{31} - a_3 + b_{32} = 0$ \\
+Mögliche Lösungen sind z.B.:
+\begin{itemize}
+\item das Heun'sche Verfahren dritter Ordnung: $c_1 = \frac{1}{4}, c_2 = 0, c_3 = \frac{3}{4}, a_2 = \frac{1}{3}, a_3 = \frac{2}{3}, b_{21} = \frac{1}{3}, b_{31} = 0, b_{32} = \frac{2}{3}$ \\
+$y_n = y_{n-1} + \frac{1}{4} h_n (b_1 + 3 k_3)$, wobei $k_1 = f(t_{n-1}, y_{n-1}), k_2 = f(t_{n-\frac{2}{3}}, y_{n-1} + \frac{1}{3} h_n k_1), k_3 = f(t_{n-\frac{1}{3}}, y_{n-1} + \frac{2}{3} h_n k_2)$ ist.
+\item das Kutta'sche Verfahren dritter Ordnung: $c_1 = \frac{1}{6}, c_2=\frac{2}{3}, c_3 = \frac{1}{6}, a_2 = \frac{1}{2}, a_3 = 1, b_{21} = \frac{1}{2}, b_{31} = -1, b_{32 = 2}$ \\
+$y_n = y_{n-1} + \frac{1}{6} (k_1 + 4 k_2 + k_3)$, wobei $k_1 = f(t_{n-1}, y_{n-1}), k_2 = f(t_{n - \frac{1}{2}}, y_{n-1} + \frac{1}{2} h_n b_1), k_3 = f(t_n, y_{n-1}-h_nb_1 + 2k_nb_2)$ ist.
+\end{itemize}
+
+\item R=4: 13 freie Parameter, 11 Gleichungen. \underline{Eine} der Lösungen von mehreren ist das "klassische Runge-Kutta-Verfahren vierter Ordnung": \\
+$y_n = y_{n-1} + \frac{1}{6}h_n (k_1+2k_2+2k_3+k_4)$, wobei \\
+$k_1 = f(t_{n-1}, y_{n-1}), k_2 = f(t_{n-\frac{1}{2}}, y_{n-1} + \frac{1}{2} h_n k_1), k_3 = f(t_{n-\frac{1}{2}}, y_{n-1} + 12 h_n k_2), k_4 = f(t_n, y_{n-1} + h_n k_3)$ sind.
+
+\end{itemize}
 
 
 
