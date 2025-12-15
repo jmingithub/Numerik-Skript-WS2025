@@ -1268,12 +1268,33 @@ $y_n = y_{n-1} + \frac{1}{6} (k_1 + 4 k_2 + k_3)$, wobei $k_1 = f(t_{n-1}, y_{n-
 \item R=4: 13 freie Parameter, 11 Gleichungen. \underline{Eine} der Lösungen von mehreren ist das "klassische Runge-Kutta-Verfahren vierter Ordnung": \\
 $y_n = y_{n-1} + \frac{1}{6}h_n (k_1+2k_2+2k_3+k_4)$, wobei \\
 $k_1 = f(t_{n-1}, y_{n-1}), k_2 = f(t_{n-\frac{1}{2}}, y_{n-1} + \frac{1}{2} h_n k_1), k_3 = f(t_{n-\frac{1}{2}}, y_{n-1} + 12 h_n k_2), k_4 = f(t_n, y_{n-1} + h_n k_3)$ sind.
-
 \end{itemize}
+15.12.15: \\
+Donnerstag, 18.12.25 über Zoom. Wird per E-Mail + Learnweb angesagt.\\
+\\
+\textbf{Lokale Konvergenz und Fehlerabschätzung:}
+\subsection{Definition: Lipschitz-Stetigkeit}
+Eine Einschrittformel heißt Lipschitz-stetig(L-stetig), falls ihre Verfahrensfunktion einer (gleichmäßigen) Lipschitzbedingung $(\star) ||F(h,t,x,y) - F(h,t,\tilde{x}, \tilde{y})|| \leq L (||x-\tilde{x}|| + ||y - \tilde{y}||)$ für beliebige Argumente $(t,x), (t,\tilde{x}), (t,y), (t,\tilde{y}) \in I \times \mathbb{R}^d$ genügt.
 
+\subsection{Theorem: Diskrete Stabilität}
+Eine Lipschitz-stetige Differenzenformel $(L_hy^h) = h_n^{-1} (y_n-y_{n-1}) - F(h_n, t_{n-1}, y_n, y_{n-1}) = 0 (\star\star)$ ist (diskret) stabil, d.h. für beliebige Gitterfunktionen $y^h = \{ y_n \}_{n \geq 0}, z^h = \{ z_n \}_{n \geq 0}$ gilt für genügend kleine Schrittweite $h < \frac{1}{2}L^{-1}$ die Abschätzung \\
+$||y_n - z_n|| \leq e^{\kappa L (t_n - t_0)} [||y_0- z_0|| + \sum_{\nu = 1}^n h_\nu || (L_hy^h - L_hz^h)_\nu ||]$ mit Lipschitzkonstante L der Verfahrensfunktion $F(h,t,x,y)$ und der Konstanten $\kappa=4$ für allgemeine implizite Methoden. Für explizite Methoden ist $\kappa = 1$ und die Schrittweitenbedingung kann entfallen.
 
-
-
+\subsection{Theorem: Konvergenzsatz}
+Sei die Differenzenformel $(\star \star)$ in 13.12 L-stetig und konsistent mit dem Anfangswertproblem. \\
+Falls $||y_0-u_0|| \to 0$ konvergiert, dann gilt $\underset{t_n \in I}{\max} ||y_n - u(t_n)||$ für $h \to 0$ und für genügend kleines $h < \frac{1}{2}L^{-1}$ gilt die Fehlerabschätzung $||y_n-u(t_n)|| \leq e^{4L(t_n-t_0)} (||y_0-u_0|| + \sum_{\nu=1}^n h_\nu ||\tau_\nu||), 0 \leq n \leq N$. Für eine explizite Methode kann die Schrittweitenbedingung entfallen. \\
+\textbf{Beweis:} \\
+Da $L_hy^h = 0$ und $L_hu^h = \tau^h$ folgt die Behauptung unmittelbar aus dem diskreten Stabilitätssatz. \\
+\\
+\\
+\textbf{Beweis 13.12:} \\
+Habe ich keine Lust drauf: \\ \\
+\includegraphics[scale=0.115]{lib/Beweis_13.12_1.png} \\
+\includegraphics[scale=0.12]{lib/Beweis_13.12_2.png}
+\\
+\underline{Bemerkung:} Der Konvergenzsatz besagt, dass für L-stetige Einschrittverfahren die globale Konvergenzordnung (mindestens) gleich der lokalen Konsistenzordnung ist. Dies gilt damit z.B. für die Taylor-Verfahren, die Runge-Kutta-Verfahren. Diese genügen für L-stetiges $f(t,x)$ automatisch der Bedingung $(\star)$ in 13.11. Und man \underline{kann} zeigen, dass sie unter der Bedingung $\sum_{r=1}^R c_r = 1$ auch konsistent sind (eventuell in der Übung nochmal). Dasselbe gilt für das implizite Eulerverfahren, die Trapezregel und die sogenannte Einschritt-Mittelpunktsregel. \\
+\underline{Bemerkung:} Bisher haben wir eine globale Lipschitzbedingung angenommen, d.h. z.B. $f(t,x) = x^2$ und $f(t,x) = \sqrt{x}$ sind ausgeschlossen. Es genügt jedoch \underline{folgende Bedingung:} Habe das Anfangswertproblem eine eindeutige Lösung auf dem Intervall $I=[t_0, t_0+T]$ und genügen $f(t,x)$ und $F(t,x,y)$ einer Lipschitz-Bedingung auf dem Streifen $U_\rho = \{ (t,x) \ in I \times \mathbb{R}^d | \text{ } ||x-u(t)|| \leq \rho \}$ um die Lösung $u(t)$ herum. \\
+\underline{Globale Konvergenz:} Die a priori Fehlerabschätzung im Konvergenzsatz 13.13 liefert eine realistische Fehlerschranke \underline{nur}, wenn für relativ kleine Intervalle $I$. Der Term $exp(LT)$ wächst schnell für $T \to \infty$. Zudem kann man die Lipschitz-Konstante $L$ meist nur sehr grob schätzen. \\
 
 
 
