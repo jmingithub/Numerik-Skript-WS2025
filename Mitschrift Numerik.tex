@@ -1321,6 +1321,33 @@ $n=1: ||e_1|| \leq \frac{h_1}{1+\lambda h_1} ||\tau_1|| \leq \frac{1}{\lambda} |
 Gute, vernünftige Verfahren sollten jede (exponentiell) stabile Lösung global approximieren, egal ob das Problem selbst monoton ist oder nicht. \underline{Frage:} Lassen sich globale Fehlerabschätzungen der Art $(\cdot)$ herleiten \underline{allein} mit Hilfe der angenommenen (exponentiellen) Stabilität der Lösung $u(t)$ und ohne weitere Vorausssetzungen? Antwort gibt das folgende Theorem:
 
 \subsection{Theorem: Globale Konvergenz}
+Das L-stetige AWP habe eine (globale) exponentiell stabile Lösung mit Stabilitätsparametern $\delta, A, \alpha$.
+
+[Eine globale Lösung $u$ eines AWPs heißt exponentiell stabil, wenn es Konstanten $\delta, \alpha, A$ gibt, sodass zu jedem Zeitpunkt $t_\star \geq t_0$ und jedem $w_\star \in \mathbb{R}^d$ mit $||w_\star|| < \delta$ jede (globale) Lösung $v$ des gestörten AWPs $v'(t)=f(t,v(t)), t \geq t_\star, v(T_\star)=u(t_\star) + w_\star$ \underline{global ist} und $||(v-u)(t)|| \leq A e^{-\alpha(t-t_\star)} ||w_\star||$. \underline{Bemerkungen:} 1) Asymptotische Stabilität ist eine schwächere Stabilitätsdefinition. 2) \underline{Alle} Lösungen eines (lokal) L-stetigen und (stark) monotonen AWPs sind global und exponentiell stabil mit $\delta$ beliebig und $\alpha = A = 1$. Falls $\underset{t \geq t_0}{\sup} ||f(t,0)|| < \infty \Rightarrow$ alle Lösungen sind gleichmäßig beschränkt.]
+
+Für jedes Einschrittverfahren, welches mit dem AWP konsistent ist und einer Lipschitzbedingung genügt, gibt es dann positive Konstanten $h_0$ und $K$ (unabhängigg von $T$), sodass für $h := \underset{I}{\sup} h_n \leq h_0$ gilt: $\underset{t_n \in I}{\max} ||y_n - u(t_n)|| \leq K \underset{t_n \in I}{\max} ||\overline{\tau_n}||$, wobei $\overline{\tau_n}$ das Maximum des Abschneidefehlers für alle möglichen Lösungen der \DGL bezeichnet, die in der Umgebung $U_{\delta A} = \{ (t,x) \in Ix\mathbb{R}^d |$ $||x-u(t)|| < \delta A \}$ des Graphen von u verlaufen. (Beweis evtl. später, eher nicht)
+
+\textbf{Schrittweitenkontrolle:} Wie kann man während einer Simulation die Schrittweite $h_n$ so wählen, dass zu einer vorgegebenen Fehlertoleranz $TOL>0$ auf dem Intervall $I$ die Schranke $\underset{t_n \in I}{\max} ||e_n|| \leq TOL$ erreicht wird? Hier soll $TOL$ deutlich größer als die Maschinengenauigkeit $eps$ gewählt sein, z.B. $TOL > \underset{t_n}{\max} \{ h_n^{-1} ||y_{n-1}eps \}$.
+
+Wir starten mit der a priori Fehlerabschätzung $\underset{t_n \in I}{\max} ||e_n|| \leq K \sum_{t_n \in I} h_n ||\tau_n|| \leq KT \underset{t_n \in I}{\max} ||\tau_n||$. Wir \underline{nehmen an}, dass Schätzungen für die lokalen Abschneidefehler $\tau_n$ bekannt sind bzw. für die "Hauptabschneidefehlerfunktion" $\tau_n^{(m)} = \tau^{(n)} (t_n)$. Auf dem Intervall $[t_{n-1}, t_n]$ zur Schrittweite $h_n$ ist $\tau_n = \tau^{(m)}(t_n) h_n^m + O(h_n^{m+1})$.
+
+Für das Taylor-Verfahren ist zum Beispiel $\tau^{(m)}(t_n) = \frac{1}{(m+1)!} u^{(m+1)}(t_{n-1})$. Obige Schätzungen \underline{kann} man berechnen. (Ab hier nicht in der Klausur glaube ich)
+\begin{enumerate}
+\item Strategie: Wähle die Schrittweite $h_n$ wie folgt: $Kh_n^m ||\tau_n^{(m)}|| \approx \frac{TOL}{T}$ bzw. $h_n \approx (\frac{TOL}{KT||\tau_n^{(m)}||})^{1/m}$. Dann folgt wie gewünscht, dass $\underset{t_n \in I}{\max} ||e_n|| \approx K \sum_{t_n \in I} h_n \{ h_n^m || \tau_n^{(m)}|| \} \approx \frac{TOL}{T} \sum_{t_n \in I} h_n$. Die Anzahl der durchzuführenden Zeitschritte ergibt sich aus:
+
+$N=\sum_{t_n \in I} h_n h_n^{^1} \approx \sum_{t_n \in I} h_n (\frac{KT ||\tau_n^{(m)}||}{TOL})^{1/m} = (\frac{KT}{TOL})^{1/m} \sum_{t_n \in I} h_n ||\tau_n^{(m)}||^{1/m}$. \\Da $\tau_n^{(m)} \approx u^{(m+1)}(t_{n-1})$ folgt, dass $N \approx (\frac{KT}{TOL})^{1/m} \int_I ||u^{(m+1)}||^{1/m} dt$.
+\item Strategie: Wähle $h_n$ so, dass $K h_n^{m+1} ||\tau_n^{(m)}|| \approx \frac{TOL}{N}$ bzw. $h_n \approx (\frac{TOL}{KN||\tau_n^{(m)}||})^{\frac{1}{m+1}}$. Hier ist N (Anzahl der Zeitschritte) noch unbekannt \\$\Rightarrow \underset{t_n \in I}{\max} ||e_n|| \approx K \sum_{t_n \in I} \{ h_n^{m+1} ||\tau_n^{(m)}|| \} \approx \frac{TOL}{N} \sum_{t_n \in I} 1$ und \\$N \approx \sum_{t_n \in I} h_n (\frac{KN||\tau_n^{(m)}||}{TOL})^{\frac{1}{(m+1)}} = (\frac{KN}{TOL})^{\frac{1}{m+1}} \sum_{t_n \in I} h_n ||\tau_n^{(m+1)}||^{\frac{1}{(m+1)}}$. \\Da $\tau_n^{(m)} \approx u^{(m+1)}(t_{n-1}) \Rightarrow N^{\frac{m}{m+1}} = N^{1-\frac{1}{m+1}} \approx (\frac{K}{TOL})^{\frac{1}{m+1}} \int_I ||u^{(m+1)}||^{\frac{1}{m+1}} dt \\ \Rightarrow N \approx (\frac{K}{TOL})^{\frac{1}{m}} (\int_I ||u^{(m+1)}||^{\frac{1}{m+1}} dt)^{\frac{m+1}{m}}$. Da N a priori nicht bekannt ist, muss N geschätzt werden und im Verlauf mehrerer Simulationen angepasst werden. Das erscheint aufwändiger als Strategie 1.
+\end{enumerate}
+
+Beide Strategien zur Schrittweitenwahl sind asymptotisch gleich effizient. Die globale Fehlertoleranz $TOL$ wird mit $N \approx TOL^{-\frac{1}{m}}$ Zeitschritten erreicht, allerdings mit kleinen Unterschieden bei den Konstanten. \underline{Was bedeutet dies?}
+
+\underline{Beispiel:} $m=1$, Eulersche Polygonzugmethode. \\
+1. Strategie: $N \approx \frac{KT}{TOL} \int_I ||u''|| dt$, \\
+2. Strategie: $N \approx \frac{K}{TOL}(\int_I ||u''||^{\frac{1}{2}}dt)^2$. Wie geht die Regularität der exakten Lösung in die Schrittzahl ein? Die 2. Strategie ist dann ökonomischer im Vergleich zur 1. Strategie, wenn $(\int_I ||u''||^{\frac{1}{2}} dt)^2 << T \int_I ||u''|| dt$ ist.
+
+\underline{Beispiel:} singuläre Lösungen, deren zweite Ableitung nicht integrabel ist, z.B. $u(t) = (1-t)^{\frac{1}{2}}$.
+
+\underline{\textbf{Numerische Stabilität}} Ein Lipschitz-stetiges und (strikt) monotones Anfangswertproblem $u'(t) = f(t,u(t)), t \geq t_0, u(t_0) = u_0$ hat im Fall, dass $\underset{t > 0}{\sup} ||f(t,0)|| < 0$ ist, eine globale, gleichmäßig beschränkte Lösung. Falls $f(t,0) \equiv 0$ ist, dann fällt die Lösung exponentiell gegen $0$ ab. Sei nun $L(t)$ die Lipschitz-Konstante und $\lambda(t)$ die Monotonie-Konstante von $f(t,\cdot)$. Man kann zeigen, dass das Polygonzugverfahren eine analoge Eigenschaft besitzt,  \underline{wenn die strikte Schrittweitenbedingung} $\underset{n \geq 0}{\inf} \{ \frac{2 \lambda_{n-1}}{h_n L_{n-1}^2} \} > 0$ erfüllt ist. Das heißt für solche Schrittweiten ist das Verfahren "numerisch stabil".
 
 
 
@@ -1337,6 +1364,7 @@ Random Stuff:
 \item Aus Feld 13 eine Aufgabe in der Klausur
 \item Was besonders zu lernen ist, wird in einer VL bekannt gegeben
 \item Maximal eine Numerik-Aufgabe in der Klausur
+\item Am 19.01.2026 mehr Infos zur Klausur
 \end{itemize}
 
 
