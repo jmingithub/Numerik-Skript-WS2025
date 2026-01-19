@@ -1392,7 +1392,23 @@ Es gilt: $SI = [-2, 0]$ für $R=1$, $[-2, 0]$ für $R=2$, $[-2.51..., 0]$ für $
 
 Sei nun $F(h;t,x,)$ die Verfahrensfunktion eines R-stufigen Runge-Kutta-Verfahren der Ordnung $m=R\leq4$. Nach der Konstruktion gilt, dass $F(h;t,u) = \sum_{r=1}^R \frac{h^{r-1}}{r!} f^{(r-1)} (t,u) + O(h^R)$. Für unser Testproblem ist $F(h;t,u) = \sum_{r=1}^R c_r k_r (h;t,u)$ ein Polynom in h der Ordnung $R-1$ $\Rightarrow F(h;t,u) = \sum_{r=1}^R \frac{h^{r-1}}{r!} f^{(r-1)}(t,u) + 0$. Damit ist der Verstärkungsfaktor $w$ der Runge-Kutta Formeln der Ordnung $m=R\leq4$ derselbe wie der der entsprechenden Taylorformeln. Aus unserer Stabilitätsanalyse folgt, dass für $Re \lambda << -1$ die Stabilität der durch die Runge-Kutta-Verfahren erzeugten Lösungen eine entsprechend kleine Schrittweite $h$ erfordert. Dann wäre eine Formel, mit einem in der komplexen Ebene möglichst weit nach links reichenden Stabilitätsgebiet optimal.
 
+\subsection{Definition: A-stabil}
+Eine Differenzenmethode heißt A-stabil, wenn für das Stabilitätsgebiet $\{ z \in \mathbb{C} | Re z \leq 0 \} \subset SG$ gilt. Man \underline{kann} zeigen, dass explizite Methoden \underline{nicht} A-stabil sein können. Man \underline{kann} zeigen, dass die implizite Eulermethode und die Trapezregel A-stabil sind.
 
+$y_n = y_{n-1} + h f(t_n, y_n); y_n = y_{n-1} + \frac{1}{2} h (f(t_n, y_n) + f(t_n, y_{n-1}))$
+
+\underline{Nutzung der linearen Stabilitätsanalyse}: Betrachte das AWP $u'(t) = f(t,u(t)), t \geq t_0, u(t_0) = u_0$ (nicht notwendig monoton). Dieses sei mit einem Einschrittverfahren diskretisiert
+
+$y_n = y_{n-1} + h_n F(h_n; t_n, y_n, y_{n-1}, n \geq 0, y_0 = u_0$. Hier sei die Verfahrensfunktion L-stetig. Eine (globale) Lösung $(y_n)_{n \geq 0}$ heißt (numerisch) stabil, wenn für jede Lösung $(z_n)_{n \geq n^\star}$ von $z_n = z_{n-1} + h_n F(h_n; t_n, z_n, z_{n-1}), n \geq n^\star$, $z_{n^\star} = y_{n^\star} + w_\star$ zu einem Zeitpunkt $t_{n^\star} \geq t_0$ mit hinreichend kleiner Störung $||w_\star|| \leq \delta$ gilt, dass $||z_n - y_n|| \to 0$ für $n \to \infty$.
+
+\underline{Bemerkung} Analog zum kontinuierlichen Fall nennen wir die Lösung $(y_n)_{n \geq 0}$ einer Differenzenapproximation \underline{exponentiell stabil}, wenn für jede Lösung der gestörten Differenzengleichung $||z_n - y_n|| \leq A e^{- \alpha (t_n - t_\star)} ||w_\star||, n \geq n_\star$ gilt.
+
+\underline{Hypothese}: Die (globale) Lösung $u$ des allgemeinen AWP ist asymptotisch stabil.
+
+..............
+
+\subsection{Discontinued}
+Klausurinfos am 22.01.26 werden noch ergänzt.
 
 \newpage
 \section{Nützlicher Stuff, z.B. Infos zur Klausur}
@@ -1416,9 +1432,16 @@ in der Musterlösung $\leq$, $\geq$
 
 in der VL: (strikte, damals nicht strikt genannt) Ober- und Unterlösungen: $<$, $>$
 
+Was wir uns für die Klausur nochmal anschauen sollten(kommt nicht garantiert genau so dran, nur sehr wahrscheinlich: "Bitte noch einmal gut üben")(ein erster Teil, Donnerstag der Rest):
 
+\begin{itemize}
+\item Phasenraumanalyse (leichter als auf dem Beispielblatt für Weihnachten)
+\item Linearisieren, Stabilität etc.
+\item Existenz und Eindeutigkeit für konkrete Probleme
+\item Lipschitz $\neq$ Differenzierbar; diffbar ist stärker; (global, lokal)
+\end{itemize}
 
-
+180 Minuten wird geschrieben, 120 Minuten werden planmäßig benötigt
  
 
 
