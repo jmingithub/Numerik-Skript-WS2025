@@ -1445,8 +1445,38 @@ Was wir uns für die Klausur nochmal anschauen sollten(kommt nicht garantiert ge
 \end{itemize}
 
 180 Minuten wird geschrieben, 120 Minuten werden planmäßig benötigt
- 
+ \\
 
+Nochmalige Betonung(29.01.2026):
+\begin{itemize}
+\item 2-dimensionale autonome lineare DGL-Systeme
+\begin{itemize}
+\item Gleichgewichtsbestimmmung
+\item Typen der Gleichgewichte
+\item und deren Stabilität(stabil, instabil, asymptotisch stabil)
+\end{itemize}
+
+\item Phasenraumanalysen - in allen Details, mit klaren mathematischen Begründungen (nichtlineare Systeme)
+\begin{itemize}
+\item wenn in der Klausur, dann wird genannt, in welchen Quadranten gearbeitet werden soll
+\end{itemize}
+
+\item Existenz und Eindeutigkeit, oder nicht (lokal) $\leadsto$ Lipschitz, diffbar, Picard-Lindelöf, Blow-Up, Ober-/Unterlösungen (könnte lang werden)
+
+\item Nichtlineare Systeme (Lyapunov-Funktionen(nicht raten) $\leadsto$ Stabilität der Gleichgewichte); Bendixson-Kriterium (!kein Poincaré-Bendixson!)
+
+\item "Numerische Analysis"
+\begin{itemize}
+\item Verfahren $y_n = y_{n-1} + h_n F(h_n; t_{n-1}, y_n, y_{n-1}$
+\item lokaler Diskretisierungsfehler/Abschneidefehler $\tau_n$ (darum geht es auch maximal) $\leadsto$ $\tau_n = \frac{u(t_n) - u(t_{n-1})}{h_n} - F(h_n; t_{n-1}, u(t_n), u(t_{n-1}))$
+\item Konsistenz: $\underset{t_n \in I}{\max} ||\tau_n|| \to 0$ für $h \to 0$
+\item Konsistenzordnung: $\underset{t_n \in I}{\max} ||\tau_n|| = O(h^m) \leq C \cdot h^m$ für $h \to 0$ (m ist Konsistenzordnung)
+\end{itemize}
+
+\item 4 Aufgaben, aber Themen können übergreifend sein
+
+\item eher sinnlos Definitionen abzufragen
+\end{itemize}
 
 
 
